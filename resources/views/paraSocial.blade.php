@@ -36,11 +36,11 @@
                    <ion-icon name="person-outline"></ion-icon>
                     <span>CLUBE</span>
                 </a>
-                <a href="../configuracoes/configuracoes.html" class="nav-item">
+                <a href="confi" class="nav-item">
                     <ion-icon name="settings-outline"></ion-icon>
                     <span>CONFIGURAÇÕES</span>
                 </a>
-                <a href="#" class="nav-item" id="new-post-btn">
+                <a href="paraSocial?action=open_modal" class="nav-item" id="new-post-btn">
                     <ion-icon name="add-circle-outline"></ion-icon>
                     <span>NOVO POST</span>
                 </a>
@@ -98,7 +98,7 @@
                     <span class="post-hashtags">#VitoriaDoTime #GolMarcado #FocoNoObjetivo #VamosPraCima</span>
                 </p>
                 <div class="post-image-container">
-                    <img src="https://i.postimg.cc/xT7Y2G1Q/futebol-post-1.jpg" alt="Jogadores de futebol em campo" class="post-image">
+                    <img src="../img/vitoria.png" alt="Jogadores de futebol em campo" class="post-image">
                 </div>
                 <div class="post-actions-footer">
                      <button class="action-btn"><ion-icon name="chatbubble-outline"></ion-icon></button>
@@ -139,7 +139,7 @@
                     </div>
                     <div class="suggestion-item">
                          <div class="item-details">
-                            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/2/22/US_Citt%C3%A0_di_Palermo_logo.svg/1200px-US_Citt%C3%A0_di_Palermo_logo.svg.png" alt="Logo Palermo">
+                            <img src="../img/palerama.png" alt="Logo Palermo">
                             <span>Palermo</span>
                         </div>
                         <button class="btn-follow">Seguir +</button>
@@ -255,6 +255,7 @@
         const closeModal = () => {
             modalOverlay.classList.add('hidden');
             document.body.style.overflow = 'auto';
+            window
         };
 
         const switchView = (targetId) => {

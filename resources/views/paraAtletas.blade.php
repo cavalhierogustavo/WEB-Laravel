@@ -36,11 +36,11 @@
                    <ion-icon name="person-outline"></ion-icon>
                     <span>CLUBE</span>
                 </a>
-                <a href="../configuracoes/configuracoes.html" class="nav-item">
+                <a href="confi" class="nav-item">
                     <ion-icon name="settings-outline"></ion-icon>
                     <span>CONFIGURAÇÕES</span>
                 </a>
-                <a href="../ParavoceSocial/social.html?action=open_modal" class="nav-item">
+                <a href="paraSocial?action=open_modal" class="nav-item">
                     <ion-icon name="add-circle-outline"></ion-icon>
                     <span>NOVO POST</span>
                 </a>
@@ -129,7 +129,7 @@
                     </div>
                     <div class="suggestion-item">
                         <div class="item-details">
-                            <img src="https://upload.wikimedia.org/wikipedia/pt/thumb/a/a2/Associa%C3%A7%C3%A3o_Ferrovi%C3%A1ria_de_Esportes_logo.png/1200px-Associa%C3%A7%C3%A3o_Ferrovi%C3%A1ria_de_Esportes_logo.png" alt="Logo Ferroviária">
+                            <img src="../img/palerama.png" alt="Logo Ferroviária">
                             <span>Ferroviária</span>
                         </div>
                         <button class="btn-follow">Seguir +</button>

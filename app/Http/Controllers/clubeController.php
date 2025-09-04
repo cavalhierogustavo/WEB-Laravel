@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Clube;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class ClubeController extends Controller
 {
@@ -60,16 +62,27 @@ class ClubeController extends Controller
     }
 
 
-    public function update(Request $request, $id)
+    public function updateInfo(Request $request)
     {
-        $clube = Clube::find($id);
-        if(!$clube){
-            return response()->json(['message' => 'Clube não encontrado'], 404);
-        }
+        // 1. Pega o clube que está logado
+        $clube = Auth::user();
 
-        $clube->update($request->all());
-        return response()->json($clube, 200);
+        // 2. Valida os dados que vieram do formulário
+        $validatedData = $request->validate([
+            // Garante que o nome seja único, IGNORANDO o nome do próprio clube
+            'nomeClube' => ['required', 'string', 'max:255', Rule::unique('clubes')->ignore($clube->id)],
+            'esporte' => ['required', 'string', 'max:255'],
+            'estadoClube' => ['required', 'string', 'max:255'],
+            'cidadeClube' => ['required', 'string', 'max:255'],
+        ]);
+
+        // 3. Atualiza os dados do clube com os dados validados
+        $clube->update($validatedData);
+
+        // 4. Redireciona o usuário de volta para a página anterior com uma mensagem de sucesso
+        return back()->with('success', 'Informações atualizadas com sucesso!');
     }
+
 
     public function destroy($id)
     {

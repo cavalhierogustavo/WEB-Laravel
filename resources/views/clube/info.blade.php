@@ -37,11 +37,11 @@
                     <ion-icon name="person-outline"></ion-icon>
                     <span>CLUBE</span>
                 </a>
-                <a href="../configuracoes/configuracoes.html" class="nav-item">
+                <a href="confi" class="nav-item">
                     <ion-icon name="settings-outline"></ion-icon>
                     <span>CONFIGURAÇÕES</span>
                 </a>
-                <a href="../ParavoceSocial/social.html?action=open_modal" class="nav-item">
+                <a href="paraSocial?action=open_modal" class="nav-item">
                     <ion-icon name="add-circle-outline"></ion-icon>
                     <span>NOVO POST</span>
                 </a>
@@ -54,13 +54,13 @@
                 <div class="profile-details-wrapper">
                     <div class="profile-info-container">
                         <div class="profile-main-info">
-                            <img src="../img/bruno.jpeg" alt="Foto de perfil" class="profile-avatar">
+                            <img src="../img/vasco.png" alt="Foto de perfil" class="profile-avatar">
                             <div class="profile-name-handle">
                                 <h2 class="profile-name">
-                                    {{ Auth::user()->nomeClube}}
+                                    {{ obterPrimeiroNome(Auth::user()->nomeClube) }}
                                     <ion-icon name="checkmark-circle" class="verified-badge"></ion-icon>
                                 </h2>
-                                <p class="profile-handle">@ {{Auth::user()->nomeClube}} </p>
+                                <p class="profile-handle"> @ {{obterPrimeiroNome(Auth::user()->nomeClube)}} </p>
                                 
                             </div>
                             <button class="btn-edit-profile">
@@ -116,17 +116,17 @@
 
                 <a href="#" class="info-button-large">
                     <span>Histórico</span>
-                    <img src="editar.png" alt="Configurações">
+                    <img src="../img/engre.png" alt="Configurações">
                 </a>
 
                 <div class="info-buttons-small-wrapper">
                      <a href="#" class="info-button-small">
                         <span>Habilidades</span>
-                        <img src="editar.png" alt="Configurações">
+                        <img src="../img/engre.png" alt="Configurações">
                     </a>
                      <a href="#" class="info-button-small">
                         <span>Estatísticas</span>
-                        <img src="editar.png" alt="Configurações">
+                        <img src="../img/engre.png" alt="Configurações">
                     </a>
                 </div>
             </section>
@@ -193,5 +193,31 @@
         </aside>
     </div>
 
+    <?php
+
+function criarUsername($nomeCompleto) {
+  // 1. Converte a string inteira para letras minúsculas
+  $nomeMinusculo = strtolower($nomeCompleto);
+
+  // 2. Substitui TODOS os espaços por pontos
+  $username = str_replace(' ', '.', $nomeMinusculo);
+
+  return $username;
+}
+
+function obterPrimeiroNome($nomeCompleto) {
+    if (!$nomeCompleto) {
+        return '';
+    }
+
+    $posicaoEspaco = strpos($nomeCompleto, ' ');
+
+    if ($posicaoEspaco === false) {
+        return $nomeCompleto;
+    }
+
+    return substr($nomeCompleto, 0, $posicaoEspaco);
+}
+?>
 </body>
 </html>

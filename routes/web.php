@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CadastroClubeController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ClubeController;
+use App\Http\Controllers\ProfileController;
 
 
 // Rota para MOSTRAR o formulário do passo 1
@@ -74,6 +76,10 @@ Route::get('/feed', function () {
     return view('clube.feed'); 
 })->name('feed');
 
+Route::get('/confi', function () {
+    return view('confi'); 
+})->name('confi');
+
 
 Route::get('/mensagens', function () {
     return '<h1>Página de Mensagens</h1>'; // Placeholder
@@ -98,3 +104,12 @@ Route::get('/clube', function () {
 
 // Nova rota para processar a atualização do perfil do clube via modal
 Route::put('/clube', [SeuClubeController::class, 'update'])->middleware('auth')->name('clube.update');
+
+Route::put('/clube/update-info', [ClubeController::class, 'updateInfo'])
+    ->middleware('auth') // Garante que apenas usuários logados possam acessar
+    ->name('clube.updateInfo');
+
+    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+// NOVA ROTA PARA EXCLUIR A CONTA
+Route::delete('/perfil', [ProfileController::class, 'destroy'])->name('profile.destroy');

@@ -37,11 +37,11 @@
                     <ion-icon name="person-outline"></ion-icon>
                     <span>CLUBE</span>
                 </a>
-                <a href="../configuracoes/configuracoes.html" class="nav-item">
+                <a href="confi" class="nav-item">
                     <ion-icon name="settings-outline"></ion-icon>
                     <span>CONFIGURAÇÕES</span>
                 </a>
-                <a href="../ParavoceSocial/social.html?action=open_modal" class="nav-item">
+                <a href="paraSocial?action=open_modal" class="nav-item">
                     <ion-icon name="add-circle-outline"></ion-icon>
                     <span>NOVO POST</span>
                 </a>
@@ -50,20 +50,21 @@
 
         <main class="main-content">
             <section class="profile-header">
-                <div class="profile-banner" style="background-image: url('campo2.png')"></div>
+                <div class="profile-banner" style="background-image: url('../img/fundo1.png')"></div>
                 <div class="profile-details-wrapper">
                     <div class="profile-info-container">
                         <div class="profile-main-info">
-                            <img src="../img/bruno.jpeg" alt="Foto de perfil" class="profile-avatar">
+                            <img src="../img/vasco.png" alt="Foto de perfil" class="profile-avatar">
                             <div class="profile-name-handle">
                                 <h2 class="profile-name">
-                                    Bruno
+                                    {{ obterPrimeiroNome(Auth::user()->nomeClube) }}
                                     <ion-icon name="checkmark-circle" class="verified-badge"></ion-icon>
                                 </h2>
-                                <p class="profile-handle">@Bruno.Fernandes</p>
+                                <p class="profile-handle"> @ {{obterPrimeiroNome(Auth::user()->nomeClube)}} </p>
+                                
                             </div>
-                            <button class="btn btn-edit-profile" id="edit-profile-btn">
-                            <img src="editar.png" alt="Editar">
+                            <button class="btn-edit-profile" id="edit-profile-btn">
+                            <img  src="../img/engre.png" alt="Editar">
                         </button>
                         </div>
                         
@@ -179,7 +180,7 @@
                     </div>
                     <span>Editar foto de banner</span>
                 </a>
-                <a href="#" class="edit-option-item">
+                <a href="#" class="edit-option-item" id="open-edit-info-modal-btn">
                     <div class="edit-option-icon-wrapper">
                         <ion-icon name="document-text-outline"></ion-icon>
                     </div>
@@ -189,58 +190,138 @@
         </div>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // --- LÓGICA GERAL PARA MODAIS ---
-            const setupModal = (openBtnId, closeBtnId, overlayId) => {
-                const openBtn = document.getElementById(openBtnId);
-                const closeBtn = document.getElementById(closeBtnId);
-                const overlay = document.getElementById(overlayId);
+<div id="edit-info-modal-overlay" class="modal-overlay hidden">
+    <div class="modal-content">
+        <button class="modal-close-btn" id="edit-info-close-btn">&times;</button>
+        <h2 class="modal-title">Editar Informações</h2>
 
-                // Verifica se todos os elementos do modal existem antes de adicionar listeners
-                if (!openBtn || !closeBtn || !overlay) {
-                    // console.warn(`Elementos do modal não encontrados para: ${openBtnId}`);
-                    return;
-                }
+        {{-- Formulário de Edição --}}
+        <form method="POST" action="{{ route('clube.updateInfo') }}" class="edit-info-form">
+            @csrf
+            @method('PUT') {{-- Informa ao Laravel que é uma requisição de atualização --}}
 
-                const openModal = (e) => {
-                    if(e) e.preventDefault();
-                    overlay.classList.remove('hidden');
-                    document.body.style.overflow = 'hidden';
-                };
+            <div class="form-group">
+                <label for="nomeClube">Nome do Clube</label>
+                <input type="text" id="nomeClube" name="nomeClube" value="{{ Auth::user()->nomeClube }}" required>
+            </div>
 
-                const closeModal = () => {
-                    overlay.classList.add('hidden');
-                    // Só restaura o scroll se nenhum outro modal estiver aberto
-                    if (!document.querySelector('.modal-overlay:not(.hidden)')) {
-                        document.body.style.overflow = 'auto';
-                    }
-                };
+            <div class="form-group">
+                <label for="esporte">Esporte Principal</label>
+                <select id="esporte" name="esporte" required>
+                    {{-- O 'selected' garante que a opção atual já venha marcada --}}
+                    <option value="Futebol" @if(Auth::user()->esporte == 'Futebol') selected @endif>Futebol</option>
+                    <option value="Vôlei" @if(Auth::user()->esporte == 'Vôlei') selected @endif>Vôlei</option>
+                    <option value="Basquete" @if(Auth::user()->esporte == 'Basquete') selected @endif>Basquete</option>
+                    {{-- Adicione outras opções se necessário --}}
+                </select>
+            </div>
 
-                openBtn.addEventListener('click', openModal);
-                closeBtn.addEventListener('click', closeModal);
-                overlay.addEventListener('click', (event) => {
-                    if (event.target === overlay) {
-                        closeModal();
-                    }
-                });
-            };
-            
-            // Inicializa os dois modais
-            setupModal('new-post-btn', 'post-modal-close-btn', 'post-modal-overlay');
-            setupModal('edit-profile-btn', 'edit-profile-close-btn', 'edit-profile-modal-overlay');
+            <div class="form-group">
+                <label for="estadoClube">Estado</label>
+                <input type="text" id="estadoClube" name="estadoClube" value="{{ Auth::user()->estadoClube }}" required>
+            </div>
 
-            // Lógica para abrir modal de post via URL (se vindo de outra página)
-            const params = new URLSearchParams(window.location.search);
-            if (params.get('action') === 'open_modal') {
-                const postModalOverlay = document.getElementById('post-modal-overlay');
-                if (postModalOverlay) {
-                    postModalOverlay.classList.remove('hidden');
-                    document.body.style.overflow = 'hidden';
-                }
+            <div class="form-group">
+                <label for="cidadeClube">Cidade</label>
+                <input type="text" id="cidadeClube" name="cidadeClube" value="{{ Auth::user()->cidadeClube }}" required>
+            </div>
+
+            <div class="modal-footer">
+                <button type="submit" class="btn-save-changes">Salvar Alterações</button>
+            </div>
+        </form>
+    </div>
+</div>
+    
+    
+
+   <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        // 1. PRIMEIRO, DEFINIMOS A FUNÇÃO
+        const setupModal = (openBtnId, closeBtnId, overlayId) => {
+            const openBtn = document.getElementById(openBtnId);
+            const closeBtn = document.getElementById(closeBtnId);
+            const overlay = document.getElementById(overlayId);
+
+            if (!openBtn || !closeBtn || !overlay) {
+                // console.warn(`Elementos do modal não encontrados para: ${openBtnId}`);
+                return;
             }
-        });
-    </script>
+
+            const openModal = (e) => {
+                if (e) e.preventDefault();
+                overlay.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            };
+
+            const closeModal = () => {
+                overlay.classList.add('hidden');
+                if (!document.querySelector('.modal-overlay:not(.hidden)')) {
+                    document.body.style.overflow = 'auto';
+                    
+                }
+            };
+
+            openBtn.addEventListener('click', openModal);
+            closeBtn.addEventListener('click', closeModal);
+            overlay.addEventListener('click', (event) => {
+                if (event.target === overlay) {
+                    closeModal();
+                }
+            });
+        };
+
+        // 2. DEPOIS, CHAMAMOS A FUNÇÃO PARA CADA MODAL QUE QUEREMOS ATIVAR
+        
+        // Ativa o primeiro modal (o de opções)
+        setupModal('edit-profile-btn', 'edit-profile-close-btn', 'edit-profile-modal-overlay');
+
+        // Ativa o segundo modal (o de formulário de edição)
+        setupModal('open-edit-info-modal-btn', 'edit-info-close-btn', 'edit-info-modal-overlay');
+
+        
+        // Lógica para abrir modal de "Novo Post" (caso você tenha um botão com id="new-post-btn")
+        // setupModal('new-post-btn', 'post-modal-close-btn', 'post-modal-overlay');
+
+        
+        // Lógica para abrir modal de post via URL (se vindo de outra página)
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('action') === 'open_modal') {
+            const postModalOverlay = document.getElementById('post-modal-overlay');
+            if (postModalOverlay) {
+                postModalOverlay.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+    });
+</script>
+ <?php
+
+function criarUsername($nomeCompleto) {
+  // 1. Converte a string inteira para letras minúsculas
+  $nomeMinusculo = strtolower($nomeCompleto);
+
+  // 2. Substitui TODOS os espaços por pontos
+  $username = str_replace(' ', '.', $nomeMinusculo);
+
+  return $username;
+}
+
+function obterPrimeiroNome($nomeCompleto) {
+    if (!$nomeCompleto) {
+        return '';
+    }
+
+    $posicaoEspaco = strpos($nomeCompleto, ' ');
+
+    if ($posicaoEspaco === false) {
+        return $nomeCompleto;
+    }
+
+    return substr($nomeCompleto, 0, $posicaoEspaco);
+}
+?>
 
 </body>
 </html>

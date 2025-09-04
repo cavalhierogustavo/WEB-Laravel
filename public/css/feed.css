@@ -181,18 +181,14 @@ body {
 
 /* Estilos para o botão de editar perfil */
 .btn-edit-profile {
-    display: flex; /* Permite alinhar a imagem e texto se houver */
-    align-items: center;
-    justify-content: center; /* Centraliza o conteúdo (imagem) */
-    background-color: var(--white);
-    border: 1px solid var(--gray-border); /* Adiciona uma borda sutil */
-    border-radius: 9999px; /* Botão circular ou oval */
-    padding: 8px 16px; /* Ajusta o padding para um tamanho bom */
+    border: none;
+    padding: 10px 16px;
     cursor: pointer;
-    margin-left: auto; /* Empurra para a direita */
-    margin-top: 10px; /* Adiciona um pouco de espaço do topo */
-    box-shadow: 0 1px 3px rgba(0,0,0,0.08); /* Sombra suave */
-    transition: all 0.2s ease-in-out;
+    margin-left: 250px;
+    background-color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn-edit-profile:hover {
@@ -202,8 +198,8 @@ body {
 }
 
 .btn-edit-profile img {
-    height: 20px; /* Tamanho da imagem do ícone */
-    width: 20px;
+    height: 35px; /* Tamanho da imagem do ícone */
+    width: 35px;
     /* Remove any margin-right if you only have an icon */
     /* margin-right: 8px; */ /* Adicione isso se tiver texto ao lado da imagem */
 }
@@ -637,4 +633,45 @@ body.dark-theme .edit-option-item {
 }
 body.dark-theme .edit-option-item:hover {
     background-color: #2c2c2c;
+}
+.edit-info-form .form-group {
+    margin-bottom: 16px;
+}
+
+.edit-info-form label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: var(--gray-text);
+}
+
+.edit-info-form input,
+.edit-info-form select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--gray-border);
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+}
+
+.edit-info-form .modal-footer {
+    margin-top: 24px;
+    text-align: right;
+}
+
+.edit-info-form .btn-save-changes {
+    background-color: var(--brand-green);
+    color: var(--white);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 9999px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background-color 0.2s;
+}
+
+.edit-info-form .btn-save-changes:hover {
+    background-color: var(--brand-green-dark);
 }
