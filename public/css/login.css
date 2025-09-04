@@ -1,0 +1,201 @@
+/* Reset Básico e Fonte */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', sans-serif;
+  overflow: hidden;
+}
+
+/* Container Principal */
+.login-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1.5rem; /* px-6 */
+}
+
+.background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.8;
+}
+
+/* Wrapper do Conteúdo do Formulário */
+.content-wrapper {
+  position: relative; /* Para ficar sobre a imagem */
+  color: #ffffff;
+  width: 100%;
+  max-width: 32rem; /* max-w-lg */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Textos */
+.main-heading {
+  font-size: 2.25rem; /* text-4xl */
+  font-weight: 800; /* font-extrabold */
+  margin-bottom: 1rem; /* mb-4 */
+  line-height: 1.1; /* leading-tight */
+  text-align: center;
+}
+
+.sub-heading {
+  font-size: 1.25rem; /* text-xl */
+  margin-bottom: 3rem; /* mb-12 */
+  text-align: center;
+}
+
+.highlight-blue {
+  color: #3b82f6; /* text-blue-500 */
+  font-weight: 600; /* font-semibold */
+}
+
+/* Formulário */
+.login-form {
+  width: 100%;
+}
+/* space-y-8: Adiciona margem entre os filhos diretos do form */
+.login-form > * + * {
+  margin-top: 2rem;
+}
+
+.form-label {
+  display: block;
+  font-size: 1.125rem; /* text-lg */
+  font-weight: 600;
+  color: #3b82f6;
+  margin-bottom: 0.5rem; /* mb-2 */
+}
+
+.form-input {
+  width: 100%;
+  padding: 1rem 1.5rem; /* py-4 px-6 */
+  border-radius: 0.5rem; /* rounded-lg */
+  background-color: rgba(255, 255, 255, 0.1); /* bg-white/10 */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px); /* Para compatibilidade com Safari */
+  border: 1px solid #ffffff;
+  color: #ffffff;
+  font-size: 1.125rem; /* text-lg */
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.form-input::placeholder {
+  color: #d1d5db; /* placeholder-gray-300 */
+}
+
+.form-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #3b82f6; /* focus:ring-2 focus:ring-blue-500 */
+}
+
+.forgot-password {
+  font-size: 0.875rem; /* text-sm */
+  color: #60a5fa; /* text-blue-400 */
+  margin-top: 0.75rem; /* mt-3 */
+  cursor: pointer;
+  text-align: right;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+}
+
+/* Botão */
+.button-container {
+  margin-top: 2rem;
+  margin-left: 1rem;
+}
+
+.submit-button {
+  width: 33.3333%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #2563eb; /* bg-blue-600 */
+  color: #ffffff;
+  font-weight: 600;
+  padding: 0.75rem 0; /* py-3 */
+  border: none;
+  border-radius: 9999px; /* rounded-full */
+  transition: background-color 0.2s ease-in-out;
+  font-size: 1.125rem; /* text-lg */
+  cursor: pointer;
+}
+
+.submit-button:hover {
+  background-color: #1d4ed8; /* hover:bg-blue-700 */
+}
+
+.submit-arrow {
+  margin-left: 0.5rem; /* ml-2 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem; /* w-5 */
+  height: 1.25rem; /* h-5 */
+  background-color: #ffffff;
+  border-radius: 9999px;
+  color: #2563eb; /* text-blue-600 */
+  font-weight: bold;
+}
+
+/* Link de Cadastro */
+.signup-prompt {
+  font-size: 1rem; /* text-base */
+  color: #d1d5db; /* text-gray-300 */
+  margin-top: 2.5rem; /* mt-10 */
+  text-align: center;
+}
+
+.signup-link {
+  color: #3b82f6; /* text-blue-500 */
+  text-decoration: none;
+}
+
+.signup-link:hover {
+  text-decoration: underline;
+}
+
+/* Estilos Responsivos */
+@media (min-width: 768px) {
+  .login-container {
+    justify-content: flex-start;
+    padding: 0 5rem; /* md:px-20 */
+  }
+  .content-wrapper {
+    align-items: flex-start;
+  }
+  .main-heading, .sub-heading, .signup-prompt, .forgot-password {
+    text-align: left;
+  }
+}
+
+@media (min-width: 640px) {
+  .login-container {
+    padding: 0 3rem; /* sm:px-12 */
+  }
+  .main-heading {
+    font-size: 3rem; /* sm:text-5xl */
+  }
+  .sub-heading {
+    font-size: 1.5rem; /* sm:text-2xl */
+  }
+}

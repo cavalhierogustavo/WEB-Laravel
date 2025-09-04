@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro - Passo 2</title>
+    <link rel="stylesheet" href="{{ asset('css/23.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap">
+</head>
+<body>
+    <div class="site-container">
+        <div class="main-content-wrapper">
+            
+            <div class="progress-section">
+                <div class="progress-bar-container">
+                    <div class="progress-bar-fill" style="width: 50%;">
+                        <div class="runner-icon"><i class="fas fa-person-running"></i></div>
+                    </div>
+                    <span class="progress-percentage">50%</span>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <div class="header-button">
+                    <button class="clube-btn">Clube</button>
+                </div>
+
+                <form method="POST" action="{{ route('clubes.post.step2') }}">
+                    @csrf
+
+                    <div class="form-group">
+                        <label for="categoria">Categoria</label>
+                        <div class="input-icon-wrapper">
+                            <i class="fas fa-trophy icon"></i>
+                            <select id="categoria" name="categoria" required>
+                                <option value="Amador">Amador</option>
+                                <option value="Profissional">Profissional</option>
+                                <option value="Semi-profissional">Semi-profissional</option>
+                            </select>
+                            <i class="fas fa-chevron-down select-arrow"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cnpj">CNPJ</label>
+                        <div class="input-icon-wrapper">
+                            <i class="far fa-id-card icon"></i>
+                            <input type="text" id="cnpj" name="cnpjClube" placeholder="00.000.000/0001-00" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="endereco">Endereço (sede)</label>
+                        <div class="input-icon-wrapper">
+                            <i class="fas fa-map-marker-alt icon"></i>
+                            <input type="text" id="endereco" name="enderecoClube" placeholder="Rua, Número, Bairro..." required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descricao">Descrição do clube</label>
+                        <div class="input-icon-wrapper">
+                            <i class="far fa-file-alt icon"></i>
+                            <textarea id="descricao" name="bioClube" rows="3" placeholder="Descreva brevemente seu clube..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="navigation-buttons">
+                        <a href="{{ route('clubes.create.step1') }}" class="nav-arrow">
+                            <i class="fas fa-chevron-left"></i>
+                        </a>
+                        <button type="submit" class="next-btn">
+                            Próximo
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="marketing-section">
+            MOSTRE SEU <span class="highlight-blue">CLUBE</span> PARA O BRASIL
+        </div>
+    </div>
+</body>
+</html>
