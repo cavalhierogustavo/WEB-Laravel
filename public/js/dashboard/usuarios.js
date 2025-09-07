@@ -1,5 +1,3 @@
-// Arquivo: script.js
-
 document.addEventListener('DOMContentLoaded', () => {
     
     // --- LÓGICA PARA SUBMENUS DROPDOWN (SIDEBAR) ---
@@ -77,10 +75,11 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentRowEditing = null;
 
     if (editModal) {
-        // Abrir modal e preencher dados
         editTriggers.forEach(button => {
             button.addEventListener('click', () => {
                 currentRowEditing = button.closest('.list-row');
+
+                /* 
 
                 // Pega os dados da linha clicada
                 const name = currentRowEditing.querySelector('.user-name').textContent;
@@ -93,6 +92,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 editUserUsername.value = username;
                 editUserType.value = type;
                 editUserStatus.value = status;
+
+                */
                 
                 openModal(editModal);
             });
@@ -135,6 +136,14 @@ document.addEventListener('DOMContentLoaded', () => {
         // Ação de Cancelar
         if(cancelEditBtn) cancelEditBtn.addEventListener('click', () => { currentRowEditing = null; closeModal(editModal); });
     }
+
+    const closeAllDropdowns = (exceptThisOne = null) => {
+        document.querySelectorAll('.settings-dropdown.active').forEach(dropdown => {
+            if (dropdown !== exceptThisOne) {
+                dropdown.classList.remove('active');
+            }
+        });
+    };
 
 
     // Fecha qualquer modal ao clicar fora
