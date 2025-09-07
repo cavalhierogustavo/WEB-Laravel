@@ -38,11 +38,17 @@ Route::post('/login', [LoginController::class, 'login'])->name('login.post');
 // Rota para fazer o LOGOUT
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-// Rota protegida para onde o usuário vai depois de logar
 Route::get('/dashboard', function () {
-    // Apenas usuários logados podem ver isso
     return "<h1>Bem-vindo ao Dashboard!</h1> <form action='/logout' method='post'> @csrf <button type='submit'>Sair</button></form>";
 })->middleware('auth'); // <-- O middleware 'auth' protege a rota
+
+Route::get('/dashboard/index', function () {
+    return view('dashboard.index');
+});
+
+Route::get('/dashboard/usuarios', function () {
+    return view('dashboard.usuarios');
+})->name('dashboard.usuarios');
 
 Route::get('/paraAtletas', function () {
     return view('paraAtletas');
@@ -80,7 +86,6 @@ Route::get('/confi', function () {
     return view('confi'); 
 })->name('confi');
 
-
 Route::get('/mensagens', function () {
     return '<h1>Página de Mensagens</h1>'; // Placeholder
 })->middleware('auth')->name('mensagens');
@@ -103,7 +108,7 @@ Route::get('/clube', function () {
 })->middleware('auth')->name('clube'); // Protegida e com o nome 'clube'
 
 // Nova rota para processar a atualização do perfil do clube via modal
-Route::put('/clube', [SeuClubeController::class, 'update'])->middleware('auth')->name('clube.update');
+Route::put('/clube', [ClubeController::class, 'update'])->middleware('auth')->name('clube.update');
 
 Route::put('/clube/update-info', [ClubeController::class, 'updateInfo'])
     ->middleware('auth') // Garante que apenas usuários logados possam acessar
