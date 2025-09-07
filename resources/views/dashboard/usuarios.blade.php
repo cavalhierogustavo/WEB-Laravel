@@ -97,14 +97,22 @@
             <section class="toolbar">
                 <div class="search-bar">
                     <ion-icon name="search-outline"></ion-icon>
-                    <input type="text" placeholder="Pesquisar">
+                    <input type="text" placeholder="Pesquisar" id="search-input">
                 </div>
                 <div class="action-buttons">
-                    <button class="btn btn-secondary">
-                        <ion-icon name="funnel-outline"></ion-icon>
-                        <span>Ordenar por</span>
-                        <ion-icon name="chevron-down-outline"></ion-icon>
-                    </button>
+                    <div class="dropdown order-by">
+                        <div class="btn btn-secondary dropdown-trigger">
+                            <ion-icon name="funnel-outline"></ion-icon>
+                            <span>Ordenar por</span>
+                            <ion-icon name="chevron-down-outline"></ion-icon>
+                        </div>
+                        <ul class="dropdown-menu hidden">
+                            <li class="active" data-value="todos">Todos</li>
+                            <li data-value="nomeCompletoUsuario">Nome completo</li>
+                            <li data-value="nomeUsuario">Nome de usuário</li>
+                            <li data-value="dataCadastroUsuario">Data de cadastro</li>
+                        </ul>
+                    </div>
                     <button class="btn btn-primary">Adicionar</button>
                 </div>
             </section>
@@ -217,6 +225,13 @@
                     <label for="edit-user-signup">Cadastro</label>
                     <input type="type" name="" id="edit-user-signup">
                 </div>
+            </div>
+
+            <div class="form-group">
+                <select name="" id="edit-user-status">
+                    <option value="Atleta">Ativo</option>
+                    <option value="Clube">Bloqueado</option>
+                </select>
             </div>
 
             <div class="form-group">

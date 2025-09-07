@@ -319,13 +319,13 @@ body {
     }
 }
 
-
 .widget-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
 }
+
 .widget-header h3 {
     font-size: 16px;
     font-weight: 600;
@@ -333,15 +333,22 @@ body {
     align-items: center;
     gap: 8px;
 }
+
 .dropdown {
+    height: 45px;
     border: 1px solid var(--border-gray);
-    padding: 6px 12px;
     border-radius: 8px;
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
     position: relative; /* Para o posicionamento do dropdown */
 }
+
+.dropdown-trigger {
+    width: 100%;
+    height: 45px;
+}
+
 .dropdown ion-icon {
     vertical-align: middle;
 }
@@ -349,31 +356,35 @@ body {
 /* Dropdown customizado para "Ordenar por" */
 .dropdown-menu {
     position: absolute;
-    top: 100%;
+    top: calc(100% + 8px);
     right: 0;
     background-color: var(--white);
     border: 1px solid var(--border-gray);
     border-radius: 8px;
     box-shadow: var(--shadow);
     list-style: none;
-    padding: 5px 0;
+    padding: 8px;
+    width: 100%;
     min-width: 120px;
     z-index: 10;
     display: none; /* Escondido por padrão */
 }
+
 .dropdown-menu.active {
     display: block; /* Visível quando ativo */
 }
+
 .dropdown-menu li {
     padding: 8px 15px;
     cursor: pointer;
     font-size: 14px;
+    transition: all 0.2s ease;
 }
-.dropdown-menu li:hover {
+
+.dropdown-menu li:hover, .dropdown-menu li.active {
     background-color: var(--light-blue);
     color: var(--primary-blue);
 }
-
 
 .chart-placeholder {
     height: 150px; /* Altura reduzida para o gráfico */
@@ -389,6 +400,7 @@ body {
 .item-list {
     list-style: none;
 }
+
 .item-list li {
     display: flex;
     align-items: center;
@@ -396,24 +408,29 @@ body {
     padding: 10px 0;
     border-bottom: 1px solid var(--border-gray);
 }
+
 .item-list li:last-child {
     border-bottom: none;
 }
+
 .item-list li img {
     width: 32px;
     height: 32px;
     border-radius: 50%;
     object-fit: contain;
 }
+
 .item-list li .small-avatar {
     width: 32px;
     height: 32px;
     font-size: 18px;
 }
+
 .item-list li span {
     flex: 1;
     font-size: 14px;
 }
+
 .item-list li button {
     margin-left: auto;
 }
@@ -608,6 +625,7 @@ td img {
     background-color: var(--text-dark);
     color: var(--white);
 }
+
 .btn-primary:hover {
     opacity: 0.8;
 }
@@ -617,6 +635,7 @@ td img {
     color: var(--text-dark);
     border: 1px solid var(--border-gray);
 }
+
 .btn-secondary:hover {
     background-color: var(--background-gray);
 }

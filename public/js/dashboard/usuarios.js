@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     };
+
     setupSubmenu('users-menu');
     setupSubmenu('content-menu');
 
@@ -145,12 +146,170 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
+    // Dropdown de ordenar por
+    const dropdownOrderBy = document.querySelector('.dropdown.order-by');
 
-    // Fecha qualquer modal ao clicar fora
+    // Lógicas de abrir ou fechar
+    const openOrderByDropdown = () => {
+        dropdownOrderBy.querySelector('.dropdown-menu').classList.add('active');
+    }
+
+    const closeOrderByDropdown = () => {
+        dropdownOrderBy.querySelector('.dropdown-menu').classList.remove('active');
+    }
+
+    // Lógica para abrir ou fechar o menu
+    dropdownOrderBy.addEventListener('click', () => {
+        if (dropdownOrderBy.querySelector('.dropdown-menu').classList.contains('active')){
+            closeOrderByDropdown();
+        } else {
+            openOrderByDropdown();
+        }
+    })
+
+    // Opções do dropdown
+    const dropdownOrderByOptions = dropdownOrderBy.querySelectorAll('.dropdown-menu li');
+
+    // A opção atual
+    let currentOrderByOption = 'todos';
+
+    const searchInput = document.getElementById('search-input');
+
+    // Texto da barra de pesquisa
+    let searchText = null;
+
+    const clearUsers = () => {
+        document.querySelector('.user-list.widget').innerHTML = `
+            <div class="list-header">
+                <span>Foto/avatar</span>
+                <span>Nome de usuário</span>
+                <span>Email</span>
+                <span>Tipo</span>
+                <span>Status</span>
+                <span>Data de cadastro</span>
+                <span>Ações rápidas</span>
+            </div>
+        `;
+    }
+
+    // Pesquisa de usuário na API
+    const pesquisa = async () => {
+        clearUsers();
+
+        const url = `http://127.0.0.1:8001/api/usuario?pesquisa=${encodeURIComponent(searchText)}&ordenarpor=${encodeURIComponent(currentOrderByOption)}`;
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                for(row of data){
+                    document.querySelector('.user-list.widget').appendChild(createListRow(row));
+                }
+            })
+            .catch(error => console.error('Erro:', error));
+    }
+
+    // Pega texto da barra de pesquisa (com tempo de espera para evitar erros)
+    let debounceTimer;
+
+    searchInput.addEventListener('keyup', (e) => {
+        searchText = e.target.value;
+
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+            pesquisa();
+        }, 500);
+    });
+
+    // Lógica para trocar a forma de ordenar
+    dropdownOrderByOptions.forEach((opt, index) => {
+        opt.addEventListener('click', () => {
+            if (opt.classList.contains('active')) {
+                opt.classList.remove('active');
+                currentOrderByOption = null;
+            } else {
+                if (currentOrderByOption) {
+                    document.querySelector(`li[data-value=${currentOrderByOption}]`).classList.remove('active');
+                }
+
+                opt.classList.add('active');
+            }
+
+            currentOrderByOption = opt.dataset.value;
+
+            pesquisa();
+        });
+    });
+
+    // Fecha qualquer modal ou dropdown de ordenação ao clicar fora
     window.addEventListener('click', (event) => {
         closeAllDropdowns();
+
+        if (!dropdownOrderBy.contains(event.target)) {
+            closeOrderByDropdown();
+        }
+
         if (event.target.classList.contains('modal-overlay')) {
             closeModal(event.target);
         }
     });
+
+    function createListRow(user) {
+        const row = document.createElement('div');
+        row.classList.add('list-row');
+
+        // Avatar
+        const avatarDiv = document.createElement('div');
+        avatarDiv.classList.add('user-avatar');
+        avatarDiv.innerHTML = `
+            <div class="avatar small-avatar">
+                <ion-icon name="person-outline"></ion-icon>
+            </div>
+        `;
+        row.appendChild(avatarDiv);
+
+        // Info
+        const infoDiv = document.createElement('div');
+        infoDiv.classList.add('user-info');
+        infoDiv.innerHTML = `
+            <strong class="user-name">${user.nomeCompletoUsuario}</strong>
+            <p class="user-username">@${user.nomeUsuario}</p>
+        `;
+        row.appendChild(infoDiv);
+
+        // Email
+        const emailDiv = document.createElement('div');
+        emailDiv.classList.add('user-email');
+        emailDiv.innerHTML = `<span>${user.emailUsuario}</span>`;
+        row.appendChild(emailDiv);
+
+        // Tipo
+        const typeDiv = document.createElement('div');
+        typeDiv.classList.add('user-type');
+        typeDiv.innerHTML = `<span class="tag tag-atleta">Atleta</span>`;
+        row.appendChild(typeDiv);
+
+        // Status
+        const statusDiv = document.createElement('div');
+        statusDiv.classList.add('user-status');
+        statusDiv.innerHTML = `<span class="tag tag-ativo">Ativo</span>`;
+        row.appendChild(statusDiv);
+
+        // Data de cadastro
+        const dateSpan = document.createElement('span');
+        dateSpan.classList.add('user-date');
+        dateSpan.textContent = user.dataCadastro;
+        row.appendChild(dateSpan);
+
+        // Ações
+        const actionsDiv = document.createElement('div');
+        actionsDiv.classList.add('action-icons');
+        actionsDiv.innerHTML = `
+            <button class="icon-btn"><ion-icon name="eye-outline"></ion-icon></button>
+            <button class="icon-btn js-edit-btn"><ion-icon name="create-outline"></ion-icon></button>
+            <button class="icon-btn danger js-delete-btn"><ion-icon name="trash-outline"></ion-icon></button>
+        `;
+        row.appendChild(actionsDiv);
+
+        return row;
+    }
 });
