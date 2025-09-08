@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     
     // --- LÓGICA PARA SUBMENUS DROPDOWN (SIDEBAR) ---
     const setupSubmenu = (menuId) => {
@@ -26,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.style.overflow = 'hidden';
         }
     };
+
     const closeModal = (modal) => {
         if (modal) {
             modal.classList.add('hidden');
@@ -49,6 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 openModal(deleteModal);
             });
         });
+
         if (cancelDeleteBtn) cancelDeleteBtn.addEventListener('click', () => { rowToDelete = null; closeModal(deleteModal); });
         if (confirmDeleteBtn) {
             confirmDeleteBtn.addEventListener('click', () => {
@@ -61,6 +64,24 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    const fetchInfoFromUser = async (userId) => {
+        const url = `http://localhost:8001/api/usuario/show/${userId}`;
+
+        try {
+            const response = await fetch(url);
+            
+            if (!response.ok) {
+                throw new Error(`Erro na API: ${response.status} ${response.statusText}`);
+            }
+
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('Erro ao buscar dados do usuário:', error);
+            return null;
+        }
+    }
+
     // --- (NOVO) LÓGICA PARA O MODAL DE EDIÇÃO DE USUÁRIO ---
     const editModal = document.getElementById('edit-user-modal');
     const editTriggers = document.querySelectorAll('.js-edit-btn');
@@ -68,74 +89,69 @@ document.addEventListener('DOMContentLoaded', () => {
     const saveEditBtn = document.getElementById('save-edit-btn');
 
     // Campos do formulário do modal
-    const editUserName = document.getElementById('edit-user-name');
-    const editUserUsername = document.getElementById('edit-user-username');
-    const editUserType = document.getElementById('edit-user-type');
     const editUserStatus = document.getElementById('edit-user-status');
+    const editUserName = document.getElementById('edit-user-name');
+    const editUserUserName = document.getElementById('edit-user-username');
+    const editUserEmail = document.getElementById('edit-user-email');
+    const editUserNationality = document.getElementById('edit-user-nationality');
     
     let currentRowEditing = null;
 
+    const updateUserInfo = async (userId) => {
+        const dados = {
+            nomeCompletoUsuario: editUserName.value,
+            nomeUsuario: editUserName.value, 
+            emailUsuario: editUserEmail.value,
+            nacionalidadeUsuario: editUserNationality.value
+        }
+
+        const url = `http://localhost:8001/api/usuario/update/${userId}`;
+
+        fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrfToken
+            },
+            body: JSON.stringify(dados),
+        })
+        .then(response => {
+            return response.json();
+        })
+        .then(data => {
+            console.log('Dados atualizados com sucesso! ', data);
+        })
+        .catch(e => {
+            console.error('Erro: ', e);
+        })
+    }
+
+    const clearEditModal = () => {
+        editUserName.value = '';
+        editUserUserName.value = '';
+        editUserEmail.value = '';
+        editUserNationality.value = '';
+    }
+
     if (editModal) {
-        editTriggers.forEach(button => {
-            button.addEventListener('click', () => {
-                currentRowEditing = button.closest('.list-row');
-
-                /* 
-
-                // Pega os dados da linha clicada
-                const name = currentRowEditing.querySelector('.user-name').textContent;
-                const username = currentRowEditing.querySelector('.user-username').textContent;
-                const type = currentRowEditing.querySelector('.user-type .tag').textContent;
-                const status = currentRowEditing.querySelector('.user-status .tag').textContent;
-
-                // Preenche o formulário do modal com os dados
-                editUserName.value = name;
-                editUserUsername.value = username;
-                editUserType.value = type;
-                editUserStatus.value = status;
-
-                */
-                
-                openModal(editModal);
-            });
-        });
-
         // Ação de Salvar
         if(saveEditBtn) {
             saveEditBtn.addEventListener('click', () => {
                 if (currentRowEditing) {
-                    // Pega os novos valores do formulário
-                    const newName = editUserName.value;
-                    const newUsername = editUserUsername.value;
-                    const newType = editUserType.value;
-                    const newStatus = editUserStatus.value;
-                    
-                    // Atualiza os valores na linha original da tabela
-                    currentRowEditing.querySelector('.user-name').textContent = newName;
-                    currentRowEditing.querySelector('.user-username').textContent = newUsername;
-
-                    // Atualiza a tag de Tipo
-                    const typeTag = currentRowEditing.querySelector('.user-type .tag');
-                    typeTag.textContent = newType;
-                    typeTag.className = 'tag'; // Reseta as classes
-                    if(newType === 'Atleta') typeTag.classList.add('tag-atleta');
-                    if(newType === 'Clube') typeTag.classList.add('entity-club');
-
-                     // Atualiza a tag de Status
-                    const statusTag = currentRowEditing.querySelector('.user-status .tag');
-                    statusTag.textContent = newStatus;
-                    statusTag.className = 'tag'; // Reseta as classes
-                    if(newStatus === 'Ativo') statusTag.classList.add('tag-ativo');
-                    if(newStatus === 'Inativo') statusTag.classList.add('tag-inativo');
-
+                    updateUserInfo(parseInt(currentRowEditing.dataset.userId));
                     closeModal(editModal);
+                    clearEditModal();
                     currentRowEditing = null;
                 }
             });
         }
         
         // Ação de Cancelar
-        if(cancelEditBtn) cancelEditBtn.addEventListener('click', () => { currentRowEditing = null; closeModal(editModal); });
+        if(cancelEditBtn) cancelEditBtn.addEventListener('click', () => { 
+            currentRowEditing = null;
+            closeModal(editModal); 
+            clearEditModal();
+        });
     }
 
     const closeAllDropdowns = (exceptThisOne = null) => {
@@ -256,6 +272,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function createListRow(user) {
         const row = document.createElement('div');
         row.classList.add('list-row');
+        row.dataset.userId = parseInt(user.id);
 
         // Avatar
         const avatarDiv = document.createElement('div');
@@ -308,7 +325,39 @@ document.addEventListener('DOMContentLoaded', () => {
             <button class="icon-btn js-edit-btn"><ion-icon name="create-outline"></ion-icon></button>
             <button class="icon-btn danger js-delete-btn"><ion-icon name="trash-outline"></ion-icon></button>
         `;
+
+
         row.appendChild(actionsDiv);
+
+        const editButton = actionsDiv.querySelector('.js-edit-btn');
+
+        if (editButton) {
+            editButton.addEventListener('click', async () => {
+                currentRowEditing = row;
+
+                if (!currentRowEditing || !currentRowEditing.dataset.userId) {
+                    console.error('ID do usuário não encontrado na linha.');
+                    return;
+                }
+
+                clearEditModal();
+                const userId = parseInt(currentRowEditing.dataset.userId);
+
+                const data = await fetchInfoFromUser(userId);
+
+                if (data) {
+                    editUserStatus.value = 'Ativo';
+                    editUserName.value = data.nomeCompletoUsuario;
+                    editUserUserName.value = data.nomeUsuario;
+                    editUserEmail.value = data.emailUsuario;
+                    editUserNationality.value = data.nacionalidadeUsuario;
+                    
+                    openModal(editModal);
+                } else {
+                    console.error('Não foi possível carregar os dados do usuário.');
+                }
+            });
+        }
 
         return row;
     }

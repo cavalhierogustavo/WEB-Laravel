@@ -34,8 +34,7 @@
                             <ion-icon class="arrow" name="chevron-down-outline"></ion-icon>
                         </a>
                         <ul class="submenu">
-                            <li><a href="{{ route('dashboard.usuarios') }}">Todos</a></li>
-                            <li><a href="#">Atletas</a></li>
+                            <li><a href="{{ route('dashboard.usuarios') }}">Atletas</a></li>
                             <li><a href="#">Clubes</a></li>
                         </ul>
                     </li>

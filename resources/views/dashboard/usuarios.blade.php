@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Dashboard - Lista de Usuários</title>
     <link rel="stylesheet" href="{{ url('css/dashboard/usuarios.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,13 +26,13 @@
                             <span>Dashboard</span>
                         </a>
                     </li>
-                    <li class="has-submenu active" id="users-menu"> <a href="#">
+                    <li class="has-submenu active" id="users-menu"> <a href="#" class="active">
                             <ion-icon name="people-outline"></ion-icon>
                             <span>Usuários</span>
                             <ion-icon class="arrow" name="chevron-down-outline"></ion-icon>
                         </a>
                         <ul class="submenu">
-                            <li><a href="#" class="submenu-active">Todos</a></li> <li><a href="#">Atletas</a></li>
+                            <li><a href="#" class="submenu-active">Atletas</a></li>
                             <li><a href="#">Clubes</a></li>
                         </ul>
                     </li>
@@ -214,10 +215,10 @@
 
             <div class="form-row">
                 <div class="form-group">
-                    <label for="edit-user-type">Tipo de conta</label>
-                    <select name="" id="edit-user-type">
-                        <option value="Atleta">Atleta</option>
-                        <option value="Clube">Clube</option>
+                    <label for="edit-user-status">Status</label>
+                    <select name="" id="edit-user-status">
+                        <option value="Ativo">Ativo</option>
+                        <option value="Bloqueado">Bloqueado</option>
                     </select>
                 </div>
 
@@ -225,13 +226,6 @@
                     <label for="edit-user-signup">Cadastro</label>
                     <input type="type" name="" id="edit-user-signup">
                 </div>
-            </div>
-
-            <div class="form-group">
-                <select name="" id="edit-user-status">
-                    <option value="Atleta">Ativo</option>
-                    <option value="Clube">Bloqueado</option>
-                </select>
             </div>
 
             <div class="form-group">
