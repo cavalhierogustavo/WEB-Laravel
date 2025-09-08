@@ -39,29 +39,29 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // --- LÓGICA PARA O MODAL DE CONFIRMAÇÃO DE EXCLUSÃO ---
     const deleteModal = document.getElementById('delete-confirmation-modal');
-    const deleteTriggers = document.querySelectorAll('.js-delete-btn');
     const cancelDeleteBtn = document.getElementById('cancel-delete-btn');
     const confirmDeleteBtn = document.getElementById('confirm-delete-btn');
     let rowToDelete = null;
 
-    if (deleteModal) {
-        deleteTriggers.forEach(button => {
-            button.addEventListener('click', () => {
-                rowToDelete = button.closest('.list-row');
-                openModal(deleteModal);
-            });
-        });
+    const deleteUser = async (userId) => {
+        const url = `http://localhost:8001/api/usuario/delete/${userId}`;
 
-        if (cancelDeleteBtn) cancelDeleteBtn.addEventListener('click', () => { rowToDelete = null; closeModal(deleteModal); });
-        if (confirmDeleteBtn) {
-            confirmDeleteBtn.addEventListener('click', () => {
-                if (rowToDelete) {
-                    rowToDelete.classList.add('hidden');
-                }
-                closeModal(deleteModal);
-                rowToDelete = null;
-            });
-        }
+        fetch(url, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrfToken
+            },
+        })
+        .then(response => {
+            return response.json();
+        })
+        .then(data => {
+            console.log('Usuário deletado com sucesso! ', data);
+        })
+        .catch(e => {
+            console.error('Erro: ', e);
+        })
     }
 
     const fetchInfoFromUser = async (userId) => {
@@ -82,9 +82,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    const seeModal = document.getElementById('see-user-modal');
+    const seeUserStatus = document.getElementById('see-user-status');
+    const seeUserName = document.getElementById('see-user-name');
+    const seeUserUserName = document.getElementById('see-user-username');
+    const seeUserEmail = document.getElementById('see-user-email');
+    const seeUserNationality = document.getElementById('edit-user-nationality');
+
+    let currentRowSeeing = null;
+
     // --- (NOVO) LÓGICA PARA O MODAL DE EDIÇÃO DE USUÁRIO ---
     const editModal = document.getElementById('edit-user-modal');
-    const editTriggers = document.querySelectorAll('.js-edit-btn');
     const cancelEditBtn = document.getElementById('cancel-edit-btn');
     const saveEditBtn = document.getElementById('save-edit-btn');
 
@@ -321,15 +329,38 @@ document.addEventListener('DOMContentLoaded', () => {
         const actionsDiv = document.createElement('div');
         actionsDiv.classList.add('action-icons');
         actionsDiv.innerHTML = `
-            <button class="icon-btn"><ion-icon name="eye-outline"></ion-icon></button>
+            <button class="icon-btn js-see-btn"><ion-icon name="eye-outline"></ion-icon></button>
             <button class="icon-btn js-edit-btn"><ion-icon name="create-outline"></ion-icon></button>
             <button class="icon-btn danger js-delete-btn"><ion-icon name="trash-outline"></ion-icon></button>
         `;
 
-
         row.appendChild(actionsDiv);
 
+        const seeButton = actionsDiv.querySelector('.js-see-btn');
         const editButton = actionsDiv.querySelector('.js-edit-btn');
+        const deleteButton = actionsDiv.querySelector('.js-delete-btn');
+
+        if (seeButton) {
+            seeButton.addEventListener('click', async () => {
+                currentRowSeeing = row;
+
+                const userId = parseInt(currentRowSeeing.dataset.userId);
+
+                const data = await fetchInfoFromUser(userId);
+
+                if (data) {
+                    seeUserStatus.value = 'Ativo';
+                    seeUserName.value = data.nomeCompletoUsuario;
+                    seeUserUserName.value = data.nomeUsuario;
+                    seeUserEmail.value = data.emailUsuario;
+                    seeUserNationality.value = data.nacionalidadeUsuario;
+                    
+                    openModal(seeModal);
+                } else {
+                    console.error('Não foi possível carregar os dados do usuário.');
+                }
+            })
+        }
 
         if (editButton) {
             editButton.addEventListener('click', async () => {
@@ -357,6 +388,33 @@ document.addEventListener('DOMContentLoaded', () => {
                     console.error('Não foi possível carregar os dados do usuário.');
                 }
             });
+        }
+
+        if (deleteButton) {
+            deleteButton.addEventListener('click', () => {
+                rowToDelete = row;
+
+                deleteModal.dataset.userId = rowToDelete.dataset.userId;
+
+                openModal(deleteModal);
+            });
+
+            if (cancelDeleteBtn) {
+                cancelDeleteBtn.addEventListener('click', () => {
+                    rowToDelete = null; 
+                    closeModal(deleteModal); 
+                });
+            }
+
+            if (confirmDeleteBtn) {
+                confirmDeleteBtn.addEventListener('click', () => {
+                    if (rowToDelete) {
+                        deleteUser(parseInt(deleteModal.dataset.userId));
+                    }
+                    closeModal(deleteModal);
+                    rowToDelete = null;
+                });
+            }
         }
 
         return row;

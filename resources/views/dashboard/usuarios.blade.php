@@ -150,7 +150,7 @@
                     <span class="user-date">23 de Outubro de 2024</span>
 
                     <div class="action-icons">
-                        <button class="icon-btn"><ion-icon name="eye-outline"></ion-icon></button>
+                        <button class="icon-btn js-see-btn"><ion-icon name="eye-outline"></ion-icon></button>
                         <button class="icon-btn js-edit-btn"><ion-icon name="create-outline"></ion-icon></button>
                         <button class="icon-btn danger js-delete-btn"><ion-icon name="trash-outline"></ion-icon></button>
                     </div>
@@ -265,6 +265,67 @@
             <div class="dialog-actions">
                 <button class="btn btn-secondary" id="cancel-edit-btn">Cancelar</button>
                 <button class="btn btn-primary-blue" id="save-edit-btn">Salvar Alterações</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="see-user-modal" class="modal-overlay hidden">
+        <div class="see-modal-container">
+            <div class="see-modal-header">
+                <span class="see-modal-icon">
+                    <ion-icon name="person-circle-outline" class="see-user-icon"></ion-icon>
+                </span>
+
+                <h2 class="see-modal-title">Detalhes de usuário</h2>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="see-user-status">Status</label>
+                    <select name="" id="see-user-status" disabled>
+                        <option value="Ativo">Ativo</option>
+                        <option value="Bloqueado">Bloqueado</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="see-user-signup">Cadastro</label>
+                    <input type="type" name="" id="see-user-signup" disabled>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="see-user-name">Nome completo</label>
+                <input type="text" name="" id="see-user-name" disabled>
+            </div>
+
+            <div class="form-group">
+                <label for="see-user-username">Nome de usuário</label>
+                <input type="text" name="" id="see-user-username" disabled>
+            </div>
+            
+            <div class="form-group">
+                <label for="see-user-profile-img">Foto de perfil</label>
+                <div class="user-profile-img"></div>
+                <input type="file" name="" id="see-user-profile-img" disabled>
+                <label for="see-user-profile-img" class="see-img-btn">Ver mais</label>
+            </div>
+
+            <div class="form-group">
+                <label for="see-user-banner-img">Banner</label>
+                <div class="user-banner-img"></div>
+                <input type="file" name="" id="see-user-banner-img" disabled>
+                <label for="see-user-banner-img" class="see-img-btn">Ver mais</label>
+            </div>
+
+            <div class="form-group">
+                <label for="see-user-email">Email</label>
+                <input type="text" name="" id="see-user-email" disabled>
+            </div>
+
+            <div class="form-group">
+                <label for="see-user-nationality">Nacionalidade</label>
+                <input type="text" name="" id="see-user-nationality" disabled>
             </div>
         </div>
     </div>
