@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+
+// A linha 'use database\seeder\AdminSeeder;' foi removida daqui, pois não é necessária.
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,11 +14,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        // Remova ou comente qualquer chamada a seeders que não existem, como 'EsporteSeeder'.
+        // $this->call(EsporteSeeder::class);
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        // Adicione a chamada para o seu AdminSeeder aqui:
+        $this->call(AdminSeeder::class);
     }
 }
+

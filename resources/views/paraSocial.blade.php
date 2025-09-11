@@ -167,7 +167,7 @@
         <div class="modal-view active" id="modal-main-view">
             <button class="modal-close-btn" id="modal-close-btn">&times;</button>
             <div class="modal-header">
-                <img src="https://i.postimg.cc/dQw5bV0N/vinicius-jr.webp" alt="Avatar" class="author-avatar">
+                <img src="img/vasco.png" alt="Avatar" class="author-avatar">
                 <textarea placeholder="Escreva sua publicação aqui..."></textarea>
             </div>
             <div class="modal-suggested-tags">
@@ -203,7 +203,7 @@
                 <ion-icon name="search-outline"></ion-icon>
                 <input type="text" placeholder="Pesquisar...">
             </div>
-            <img src="https://i.imgur.com/5l2A0Wf.png" alt="Mapa de localização" class="modal-map-image">
+            <img src="img/navi.png" alt="Mapa de localização" class="modal-map-image">
         </div>
 
         <div class="modal-view" id="modal-hashtag-view">

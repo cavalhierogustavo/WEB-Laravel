@@ -1,14 +1,14 @@
 :root {
     --primary-blue: #0039aa;
-    --dark-blue: #054d96;    
+    --dark-blue: #054d96; 
     --light-blue-text: #004aa5; 
-    --gradient-start: #4A5A9E;  
-    --gradient-end: #5a6cb2;   
+    --gradient-start: #4A5A9E; 
+    --gradient-end: #5a6cb2; 
     --button-blue: #013ecb; /* Azulzão pro botão principal */
     --background-form: #ffffffc5; /* Fundo do form meio transparente */
     --background-progress-bar: #e4e6eb76; /* O fundo da barrinha, chave mlk */
     --text-white: #ffffff; /* O branco */
-    --text-gray: #888;  /* Cinza pra detalhes , chora nao mlk */
+    --text-gray: #888; /* Cinza pra detalhes , chora nao mlk */
     --input-background: #f8f9fa; /* Um fundo bem clarinho pros campos*/
 }
 /* Reset básico pra garantir que nenhum navegador estrague */
@@ -21,7 +21,7 @@
 html, body {
     width: 100%;
     min-height: 100vh;
-    font-family: 'Poppins', sans-serif; /* A fonte mais descolada do pedaço */
+    font-family: 'Poppins', sans-serif; 
     color: #333;
     overflow-x: hidden; /* a merda da barra de rolagem horizontal! */
 }
@@ -36,7 +36,6 @@ body {
     background-repeat: no-repeat;
 }
 /*TODOS OS CONTAINERS*/
-/* Gu, Respeita seu pai! */
 .site-container {
     display: flex;
     flex-direction: column; 
@@ -46,7 +45,7 @@ body {
     max-width: 500px; 
 }
 
-/* --- ONDE O FORMULÁRIO BRILHA --- */
+/*ONDE O FORMULÁRIO BRILHA*/
 .main-content-wrapper {
     display: flex;
     flex-direction: column;
@@ -74,7 +73,7 @@ body {
 .progress-bar-fill {
     position: relative;
     height: 100%;
-    width: 50%;
+    width: 75%;
     border-radius: 25px;
     background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
     transition: width 0.4s ease-in-out; 
@@ -105,7 +104,7 @@ body {
 .form-section {
     background-color: var(--background-form);
     padding: 30px 40px;
-    border-radius: 25px; /* Cantinhos redondos são mais amigáveis */
+    border-radius: 25px; /* Cantinhos redondos são mais navarro*/
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
     width: 100%;
 }
@@ -141,7 +140,6 @@ body {
 .form-group textarea 
 { resize: vertical; min-height: 80px; padding-top: 14px; padding-bottom: 14px; }
 
-/* Gustavinho, essa merda aqui sobe o ícone do 'textarea'. Top, né? */
 .input-icon-wrapper:has(textarea) .icon {
     top: 18px; 
     transform: translateY(0); 
@@ -168,17 +166,16 @@ body {
     text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
 }
 .marketing-section .highlight-blue {
-    color: #5D9CEC; /* Um azulzinho pra palavra "CLUBE" brilhar! */
+    color: #5D9CEC; 
 }
 /*RESPONSIVIDADE --- */
-/* Fica de olho, Gu. É aqui que a mágica da adaptação acontece! */
-/* Para telas grandonas, tipo a do seu PC gamer ASS: adriel e chatgpt */
 @media (min-width: 992px) {
     .site-container {
-        flex-direction: row; /* Bota o form e a frase lado a lado */
+        flex-direction: row; 
         justify-content: space-around;
         max-width: 1200px;
         gap: 40px;
+        align-items: center;
     }
     .main-content-wrapper {
         flex: 0 1 500px;
@@ -186,11 +183,11 @@ body {
     .marketing-section {
         flex: 1 1 450px;
         max-width: 450px;
-        text-align: right; /* Joga o texto pra direita*/
+        text-align: center; 
         font-size: 2.5rem;
     }
 }
-/* Para telas de celular, pra não quebrar nada no zap */
+
 @media (max-width: 480px) {
     body {
         padding: 20px 15px;

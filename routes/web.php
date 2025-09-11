@@ -113,3 +113,20 @@ Route::put('/clube/update-info', [ClubeController::class, 'updateInfo'])
 
 // NOVA ROTA PARA EXCLUIR A CONTA
 Route::delete('/perfil', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+Route::get('adm', function () {
+    return view('adm/loginAdmin'); 
+})->name('loginAdmin');
+
+
+Route::get('dashHome', function () {
+    return view('adm/dashHome'); 
+})->name('loginAdmin');
+
+Route::get('dashlist', function () {
+    return view('adm/dashlist'); 
+})->name('loginAdmin');
+
+Route::get('dashconfig', function () {
+    return view('adm/dashconfig'); 
+})->name('loginAdmin');

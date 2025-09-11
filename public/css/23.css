@@ -153,20 +153,18 @@ body {
 
 .input-icon-wrapper .icon { 
     position: absolute; 
-    left: 18px; 
+    left: 16px; /* AJUSTE: Centralizado no padding */
     top: 50%; 
     transform: translateY(-50%); 
     color: var(--dark-blue); 
     font-size: 1.1rem; 
-    /* CORREÇÃO AQUI: Permite que o clique "atravesse" o ícone */
-    pointer-events: none;
-    margin-left: -14px;
+    pointer-events: none; /* Permite que o clique "atravesse" o ícone */
 }
 
 .form-group input, 
 .form-group select { 
     width: 100%; 
-    padding: 14px 20px 14px 50px; 
+    padding: 14px 20px 14px 40px; /* Padding para dar espaço ao ícone, ajustado */
     border: 3px solid var(--primary-blue); 
     border-radius: 12px; 
     background-color: var(--input-background); 
@@ -177,11 +175,8 @@ body {
     -webkit-appearance: none; 
     transition: border-color 0.3s ease, box-shadow 0.3s ease; 
 }
-/* Adicionado padding para o select de interesse que não tem ícone */
-.form-group #interesse {
-    padding-left: 20px;
-}
 
+/* REMOVIDO: Bloco que causava problema de padding no select 'interesse' */
 
 .form-group input:focus,
 .form-group select:focus { 
@@ -205,7 +200,7 @@ body {
 
 .navigation-buttons { 
     display: flex; 
-    justify-content: space-between; 
+    justify-content: flex-end; /* Alinhado à direita */
     align-items: center; 
     margin-top: 30px; 
 }
@@ -309,3 +304,4 @@ body {
         gap: 18px;
     }
 }
+

@@ -25,11 +25,11 @@
             </div>
 
             <nav class="main-nav">
-                <a href="../paravoceAtletas/atletas.html" class="nav-item">
+                <a href="/paraAtletas" class="nav-item">
                     <ion-icon name="home-outline"></ion-icon>
                     <span>PARA VOCÊ</span>
                 </a>
-                <a href="../mensagens/mensagens.html" class="nav-item">
+                <a href="mensagem" class="nav-item">
                     <ion-icon name="chatbubbles-outline"></ion-icon>
                     <span>MENSAGENS</span>
                 </a>

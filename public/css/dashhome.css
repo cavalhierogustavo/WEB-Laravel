@@ -1,0 +1,506 @@
+/* ======================================= */
+/* ========= VARIÁVEIS E GLOBAIS ========= */
+/* ======================================= */
+:root {
+    --primary-blue: #4A72FF;
+    --light-blue: #F0F4FF;
+    --background-gray: #F7F8FC;
+    --white: #FFFFFF;
+    --text-dark: #1A1A1A;
+    --text-gray: #8A8A8A;
+    --border-gray: #E8E8E8;
+    --green: #23C552;
+    --red: #F84F4F;
+    --shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-gray);
+    color: var(--text-dark);
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ======================================= */
+/* ============ LAYOUT PRINCIPAL ========= */
+/* ======================================= */
+.dashboard-container {
+    display: flex;
+}
+
+.main-content {
+    flex: 1;
+    padding: 30px;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+/* ======================================= */
+/* ======= BARRA LATERAL (ESQUERDA) ====== */
+/* ======================================= */
+.sidebar {
+    width: 260px;
+    background-color: var(--white);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    flex-shrink: 0;
+    transition: width 0.3s ease-in-out;
+    position: sticky;
+    top: 0;
+}
+
+.sidebar-header {
+    margin-bottom: 30px;
+}
+.sidebar-header img {
+    max-width: 80px;
+    height: auto;
+}
+
+.menu-title {
+    font-size: 12px;
+    color: var(--text-gray);
+    text-transform: uppercase;
+    margin: 20px 0 10px;
+    padding: 0 15px;
+    white-space: nowrap;
+}
+
+.sidebar-nav ul {
+    list-style: none;
+}
+
+.sidebar-nav ul li a {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--text-gray);
+    font-weight: 500;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.sidebar-nav ul li a ion-icon {
+    font-size: 22px;
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+
+.sidebar-nav ul li a:hover, .sidebar-footer a:hover {
+    background-color: var(--light-blue);
+    color: var(--primary-blue);
+}
+
+.sidebar-nav ul li a.active {
+    background-color: var(--primary-blue);
+    color: var(--white);
+}
+
+.has-submenu .arrow {
+    margin-left: auto;
+    transition: transform 0.3s ease;
+}
+
+.has-submenu.active .arrow {
+    transform: rotate(180deg);
+}
+
+.submenu {
+    list-style: none;
+    padding-left: 20px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out;
+}
+.submenu li a {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.sidebar-footer {
+    margin-top: auto;
+    white-space: nowrap;
+}
+
+.sidebar-footer a {
+     display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--text-gray);
+    font-weight: 500;
+}
+.sidebar-footer a ion-icon {
+    font-size: 22px;
+    margin-right: 15px;
+}
+
+
+/* ======================================= */
+/* ========= CONTEÚDO PRINCIPAL ========== */
+/* ======================================= */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; 
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.main-header h1 {
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: var(--text-gray);
+    cursor: pointer;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--primary-blue);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--white);
+    font-size: 20px;
+}
+
+.stats-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.card {
+    background-color: var(--white);
+    padding: 20px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    box-shadow: var(--shadow);
+}
+.card-info h3 {
+    font-size: 28px;
+    margin: 5px 0;
+}
+.card-info p {
+    color: var(--text-gray);
+    font-size: 14px;
+}
+.change {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+}
+.change.positive { background-color: #E9F9EF; color: var(--green); }
+.change.negative { background-color: #FFF0F0; color: var(--red); }
+.change.neutral { background-color: var(--light-blue); color: var(--primary-blue); }
+
+.card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+}
+.user-icon { background-color: #E9F9EF; color: var(--green); }
+.club-icon { background-color: #FFF0F0; color: var(--red); }
+.op-icon { background-color: var(--light-blue); color: var(--primary-blue); }
+.report-icon { background-color: #F8F0FF; color: #A362EA; }
+
+.main-widgets {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.widget-group-small {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.widget {
+    background-color: var(--white);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+}
+
+.widget-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.widget-header h3 {
+    font-size: 16px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.dropdown {
+    border: 1px solid var(--border-gray);
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.chart-container {
+    position: relative;
+    height: 290px;
+}
+
+.item-list { list-style: none; }
+.item-list li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-gray);
+}
+.item-list li:last-child { border-bottom: none; }
+.item-list li img { width: 32px; height: 32px; border-radius: 50%; object-fit: contain; }
+.item-list li .avatar { width: 32px; height: 32px; font-size: 18px; }
+.item-list li span { flex: 1; font-size: 14px; }
+.item-list li button { margin-left: auto; }
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 800px;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    font-size: 14px;
+    border-bottom: 1px solid var(--border-gray);
+    white-space: nowrap;
+}
+thead th { font-weight: 600; color: var(--text-gray); }
+tbody td a { color: var(--primary-blue); font-weight: 600; text-decoration: none; }
+tbody td img { width: 15px; height: 15px; vertical-align: middle; margin-right: 5px;}
+tbody tr:hover { background-color: var(--light-blue); }
+.tag { padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; }
+.action-create { background-color: #E9F9EF; color: var(--green); }
+.entity-club { background-color: var(--light-blue); color: var(--primary-blue); }
+.status-concluido { background-color: #E9F9EF; color: var(--green); }
+
+
+/* ======================================= */
+/* =========== RESPONSIVIDADE ============ */
+/* ======================================= */
+
+@media (max-width: 1024px) {
+    .sidebar {
+        width: 80px;
+        padding: 20px 10px;
+    }
+    .sidebar-header img {
+        margin: 0 auto;
+    }
+    .sidebar-nav span, .sidebar-footer span, .menu-title, .has-submenu .arrow {
+        display: none;
+    }
+    .sidebar-nav ul li a, .sidebar-footer a {
+        justify-content: center;
+    }
+    .sidebar-nav ul li a ion-icon {
+        margin-right: 0;
+    }
+    .submenu {
+        display: none !important; 
+    }
+    .stats-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+     .main-widgets {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-container {
+        flex-direction: column;
+    }
+    .sidebar {
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 15px;
+        position: static;
+    }
+    .sidebar-header {
+        margin-bottom: 0;
+    }
+    .sidebar-nav, .sidebar-footer, .menu-title {
+        display: none;
+    }
+    .main-content {
+        padding: 15px;
+        height: auto;
+    }
+    .main-header h1 {
+        font-size: 24px;
+    }
+    .stats-cards {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ======================================= */
+/* ============== MODAL ================== */
+/* ======================================= */
+
+/* A camada escura que cobre a tela inteira */
+.modal-overlay {
+    position: fixed; /* ESSENCIAL: Fixa o modal na tela */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo preto semi-transparente */
+    
+    /* Para centralizar a caixa do modal */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 1000; /* Garante que o modal fique na frente de tudo */
+
+    /* Efeito de transição suave */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Estilo para quando o modal está ativo/visível */
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* A caixa branca do modal */
+.modal {
+    background-color: var(--white);
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 450px;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.active .modal {
+    transform: scale(1);
+}
+
+/* Adicione também estes estilos para o conteúdo do modal de logout, caso precise */
+.modal-body.confirm-logout {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.modal-body.confirm-logout .icon-wrapper {
+    width: 60px;
+    height: 60px;
+    min-width: 60px;
+    border-radius: 50%;
+    background-color: var(--light-blue);
+    color: var(--primary-blue);
+    display: grid;
+    place-items: center;
+    font-size: 30px;
+}
+.modal-body.confirm-logout h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+.modal-body.confirm-logout p {
+    color: var(--text-gray);
+    font-size: 14px;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 30px;
+}
+.btn {
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--border-gray);
+    background-color: #fff;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+.btn-primary {
+    background-color: var(--primary-blue);
+    color: var(--white);
+    border-color: var(--primary-blue);
+}
+.btn-outline {
+    background-color: var(--white);
+    color: var(--primary-blue);
+    border: 1px solid var(--primary-blue);
+}
+.btn-outline:hover {
+    background-color: var(--light-blue);
+}
