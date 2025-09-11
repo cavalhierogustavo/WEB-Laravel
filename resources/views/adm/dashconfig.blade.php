@@ -25,7 +25,7 @@
                 <p class="menu-title">Menu</p>
                 <ul>
                     <li>
-                        <a href="dashHome">
+                        <a href="{{url('dashHome')}}">
                             <ion-icon name="grid-outline"></ion-icon>
                             <span>Dashboard</span>
                         </a>
@@ -37,7 +37,7 @@
                             <ion-icon class="arrow" name="chevron-down-outline"></ion-icon>
                         </a>
                         <ul class="submenu">
-                            <li><a href="dashlist">Todos</a></li>
+                            <li><a href="{{url('dashlist')}}">Todos</a></li>
                             <li><a href="#">Atletas</a></li>
                             <li><a href="#">Clubes</a></li>
                         </ul>

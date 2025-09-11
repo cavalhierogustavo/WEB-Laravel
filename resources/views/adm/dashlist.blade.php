@@ -24,7 +24,7 @@
                 <p class="menu-title">Menu</p>
                 <ul>
                     <li>
-                        <a href="dashHome"> <ion-icon name="grid-outline"></ion-icon>
+                        <a href="{{url('dashHome')}}"> <ion-icon name="grid-outline"></ion-icon>
                             <span>Dashboard</span>
                         </a>
                     </li>
@@ -71,7 +71,7 @@
                 </ul>
             </nav>
             <div class="sidebar-footer">
-                <a href="dashconfig">
+                <a href="{{url('dashconfig')}}">
                     <ion-icon name="settings-outline"></ion-icon>
                     <span>Configurações</span>
                 </a>

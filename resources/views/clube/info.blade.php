@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil de Atleta</title>
+    <title>Perfil de Clube</title>
     
     <link rel="stylesheet" href="../css/info.css">
     
@@ -21,7 +21,7 @@
         <aside class="sidebar-left">
             <div class="logo-header">
                 <img src="../img/vasco.png" alt="Logo do Clube" class="logo-img">
-                <h1 class="logo-title">{{ Auth::user()->nomeClube }}</h1>
+                <h1 class="logo-title">Vasco</h1>
             </div>
 
             <nav class="main-nav">
@@ -63,11 +63,10 @@
                                 <p class="profile-handle"> @ {{obterPrimeiroNome(Auth::user()->nomeClube)}} </p>
                                 
                             </div>
-                            <button class="btn-edit-profile">
-                            <img src="../img/engre.png" alt="Editar">
-                        </button>
+                            <button class="btn-edit-profile" id="open-edit-modal-btn">
+                                <img src="../img/engre.png" alt="Editar">
+                            </button>
                         </div>
-                         
                     </div>
                 </div>
             </section>
@@ -85,31 +84,31 @@
             <section class="info-section">
                 <div class="info-grid">
                     <div class="info-card">
-                        <img src="../img/bola.png" alt="Gênero" style="width: 40px; height: 40px;"> 
+                        <img src="../img/bola.png" alt="Esporte" style="width: 40px; height: 40px;"> 
                         <div>
                             <p class="info-label">ESPORTE</p>
-                            <p class="info-value">{{ Auth::user()->esporte}}</p>
+                            <p class="info-value" id="info-esporte">Futebol</p>
                         </div>
                     </div>
-                     <div class="info-card">
-                        <img src="../img/medalha.png" alt="Idade" style="width: 40px; height: 40px;">
+                    <div class="info-card">
+                        <img src="../img/medalha.png" alt="Troféus" style="width: 40px; height: 40px;">
                         <div>
                             <p class="info-label">TROFÉUS</p>
-                            <p class="info-value">1</p>
+                            <p class="info-value" id="info-trofeus">0</p>
                         </div>
                     </div>
-                     <div class="info-card">
-                        <img src="../img/calendario.png" alt="Altura" style="width: 40px; height: 40px;">
+                    <div class="info-card">
+                        <img src="../img/calendario.png" alt="Criado em" style="width: 40px; height: 40px;">
                         <div>
                             <p class="info-label">CRIADO EM</p>
-                            <p class="info-value">{{ Auth::user()->anoCriacaoClube}}</p>
+                            <p class="info-value">1898</p>
                         </div>
                     </div>
-                     <div class="info-card">
-                        <img src="../img/pessoa.png" alt="Peso" style="width: 40px; height: 40px;">
+                    <div class="info-card">
+                        <img src="../img/pessoa.png" alt="Membros" style="width: 40px; height: 40px;">
                         <div>
                             <p class="info-label">MEMBROS</p>
-                            <p class="info-value">20</p>
+                            <p class="info-value" id="info-membros">1</p>
                         </div>
                     </div>
                 </div>
@@ -130,7 +129,6 @@
                     </a>
                 </div>
             </section>
-
         </main>
 
         <aside class="sidebar-right">
@@ -158,9 +156,7 @@
                             <span>Ferroviária</span>
                         </div>
                         <button class="btn-follow">Seguir +</button>
-                    
-                  
-                     
+                    </div>
                 </div>
             </div>
 
@@ -193,7 +189,40 @@
         </aside>
     </div>
 
-    <?php
+    <div class="modal-overlay hidden" id="edit-info-modal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2>Editar Informações</h2>
+                <button class="close-btn" id="close-edit-modal-btn">&times;</button>
+            </div>
+            <form id="edit-info-form" class="modal-body">
+                <div class="form-group">
+                    <label for="edit-esporte">Esporte</label>
+                    <select id="edit-esporte" class="form-input">
+                        <option value="Futebol">Futebol</option>
+                        <option value="Volei">Vôlei</option>
+                        <option value="Basquete">Basquete</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="edit-trofeus">Troféus</label>
+                    <input type="text" id="edit-trofeus" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label for="edit-membros">Membros</label>
+                    <input type="text" id="edit-membros" class="form-input">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" id="cancel-edit-btn">Cancelar</button>
+                    <button type="submit" class="btn-primary">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script src="../js/info.js"></script>
+
+     <?php
 
 function criarUsername($nomeCompleto) {
   // 1. Converte a string inteira para letras minúsculas
@@ -219,5 +248,6 @@ function obterPrimeiroNome($nomeCompleto) {
     return substr($nomeCompleto, 0, $posicaoEspaco);
 }
 ?>
+
 </body>
 </html>

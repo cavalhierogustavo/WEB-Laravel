@@ -37,7 +37,7 @@
                             <ion-icon class="arrow" name="chevron-down-outline"></ion-icon>
                         </a>
                         <ul class="submenu">
-                            <li><a href="dashlist">Todos</a></li>
+                            <li><a href="{{url('dashlist')}}">Todos</a></li>
                             <li><a href="#">Atletas</a></li>
                             <li><a href="#">Clubes</a></li>
                         </ul>
@@ -74,7 +74,7 @@
                 </ul>
             </nav>
             <div class="sidebar-footer">
-                <a href="dashconfig">
+                <a href="{{url('dashconfig')}}">
                     <ion-icon name="settings-outline"></ion-icon>
                     <span>Configurações</span>
                 </a>
