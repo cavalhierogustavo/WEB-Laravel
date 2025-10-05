@@ -1,0 +1,437 @@
+/* =============================================== */
+/* ESTILOS DA SIDEBAR (COPIADO DOS SEUS EXEMPLOS)  */
+/* =============================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #ffffff;
+    border-right: 1px solid #e9ecef;
+    padding: 20px 0;
+    position: fixed;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.logo-section {
+    padding: 0 20px 30px;
+    border-bottom: 1px solid #e9ecef;
+    margin-bottom: 20px;
+}
+
+.logo-placeholder {
+    font-size: 16px;
+    font-weight: 600;
+    color: #666;
+    text-align: center;
+    padding: 20px;
+    border: 2px dashed #ddd;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+}
+
+.nav-menu ul {
+    list-style: none;
+}
+
+.nav-item {
+    margin-bottom: 4px;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    text-decoration: none;
+    color: #666;
+    transition: all 0.2s ease;
+    border-radius: 0 25px 25px 0;
+    margin-right: 20px;
+}
+
+.nav-link:hover {
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.nav-item.active .nav-link {
+    background-color: #74d477;
+    color: white;
+}
+
+.nav-icon {
+    margin-right: 12px;
+    font-size: 18px;
+    width: 20px;
+    text-align: center;
+}
+
+.nav-text {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.nav-link img.nav-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 12px;
+    object-fit: contain;
+    filter: brightness(0) saturate(100%) invert(50%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(102%) contrast(102%);
+    transition: filter 0.2s ease;
+}
+
+.nav-item.active .nav-link img.nav-icon {
+    filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
+}
+
+.nav-link:hover img.nav-icon {
+    filter: brightness(0) saturate(100%) invert(20%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(80%) contrast(102%);
+}
+
+.nav-item.active .nav-link:hover img.nav-icon {
+    filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
+}
+
+/* =============================================== */
+/* ESTILOS DA PÁGINA DE OPORTUNIDADES              */
+/* =============================================== */
+
+.main-content {
+    margin-left: 250px;
+    flex: 1;
+    padding: 30px;
+}
+
+
+.page-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #000000; /* Título em preto, como solicitado */
+    margin-bottom: 24px;
+}
+
+.opportunities-container {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.opportunities-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.opportunities-header h2 {
+    font-size: 18px;
+    font-weight: 500;
+    color: #333;
+}
+
+.header-controls {
+    display: flex;
+    gap: 12px;
+}
+
+.header-controls button {
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    background-color: #93ec58;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.filter-btn{
+    color: #137333;
+}
+
+.header-controls .new-btn {
+    background-color: #ffffff;
+    border-color: #f0f0f0;
+}
+
+.count-badge {
+
+    color: #137333;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+}
+
+.opportunities-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.opportunity-item {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+}
+
+.item-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #f0f2f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    margin-right: 16px;
+}
+
+.item-tags {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.tag {
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    border: 1px solid;
+}
+
+.tag-position {
+    border-color: #8ab4f8;
+    color: #1967d2;
+    background-color: #e8f0fe;
+}
+
+.tag-modality, .tag-category {
+    border-color: #81c995;
+    color: #1e8e3e;
+    background-color: #e6f4ea;
+}
+
+.tag-interested {
+    border-color: #a1eac5;
+    color: #137333;
+    background-color: #d7f3e3;
+}
+
+.interest-count {
+    font-weight: 700;
+    margin-left: 6px;
+}
+
+.item-actions {
+    position: relative;
+}
+
+.options-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    font-weight: bold;
+    color: #666;
+    cursor: pointer;
+    padding: 0 12px;
+    letter-spacing: 1px;
+}
+
+.options-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    padding: 8px 0;
+    width: 120px;
+    z-index: 10;
+}
+
+.options-menu a {
+    display: block;
+    padding: 10px 16px;
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+}
+
+.options-menu a:hover {
+    background-color: #f5f5f5;
+}
+
+.options-menu a.danger {
+    color: #d93025;
+}
+/* =============================================== */
+/* ESTILOS DO TEMA ESCURO (DARK MODE)              */
+/* =============================================== */
+
+/* 1. Define as variáveis de cor para o tema escuro */
+body.dark-theme {
+    --color-bg: #121212;
+    --color-bg-secondary: #1e1e1e;
+    --color-bg-tertiary: #2a2a2a;
+    --color-border: #333333;
+    --color-text-primary: #e0e0e0;
+    --color-text-secondary: #a0a0a0;
+    --color-primary: #74d477;
+    --color-danger: #ff8a80;
+}
+
+/* 2. Aplica as variáveis aos elementos da página */
+
+/* --- Fundo e Texto Geral --- */
+body.dark-theme {
+    background-color: var(--color-bg);
+    color: var(--color-text-primary);
+}
+
+/* --- Sidebar (Estilos consistentes com os outros) --- */
+body.dark-theme .sidebar {
+    background-color: var(--color-bg-secondary);
+    border-right-color: var(--color-border);
+}
+body.dark-theme .logo-placeholder {
+    color: var(--color-text-secondary);
+    border-color: var(--color-border);
+    background-color: var(--color-bg);
+}
+body.dark-theme .nav-link {
+    color: var(--color-text-secondary);
+}
+body.dark-theme .nav-link:hover {
+    background-color: var(--color-bg-tertiary);
+    color: var(--color-text-primary);
+}
+body.dark-theme .nav-item.active .nav-link {
+    background-color: var(--color-primary);
+    color: #ffffff;
+}
+body.dark-theme .nav-link img.nav-icon,
+body.dark-theme .nav-icon { /* Adicionado .nav-icon para emojis */
+    filter: brightness(0) saturate(100%) invert(75%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(102%) contrast(102%);
+}
+body.dark-theme .nav-link:hover img.nav-icon,
+body.dark-theme .nav-link:hover .nav-icon {
+    filter: brightness(0) saturate(100%) invert(95%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(102%) contrast(102%);
+}
+body.dark-theme .nav-item.active .nav-link img.nav-icon,
+body.dark-theme .nav-item.active .nav-link .nav-icon {
+    filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
+}
+
+
+/* --- Conteúdo Principal da Página de Oportunidades --- */
+body.dark-theme .main-content {
+    background-color: var(--color-bg);
+}
+
+body.dark-theme .page-title {
+    color: var(--color-text-primary);
+}
+
+body.dark-theme .opportunities-container {
+    background-color: var(--color-bg-secondary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-theme .opportunities-header h2 {
+    color: var(--color-text-primary);
+}
+
+/* --- Controles do Cabeçalho --- */
+body.dark-theme .header-controls button {
+    border-color: var(--color-border);
+}
+
+body.dark-theme .filter-btn {
+    background-color: rgba(147, 236, 88, 0.1);
+    color: #93ec58;
+}
+
+body.dark-theme .count-badge {
+    color: #93ec58;
+}
+
+body.dark-theme .header-controls .new-btn {
+    background-color: var(--color-bg-tertiary);
+    border-color: var(--color-border);
+    color: var(--color-text-primary);
+}
+
+/* --- Lista de Oportunidades --- */
+body.dark-theme .opportunity-item {
+    border-color: var(--color-border);
+}
+
+body.dark-theme .item-icon {
+    background-color: var(--color-bg-tertiary);
+}
+
+/* --- Tags --- */
+body.dark-theme .tag-position {
+    border-color: #8ab4f8;
+    color: #8ab4f8;
+    background-color: rgba(138, 180, 248, 0.1);
+}
+
+body.dark-theme .tag-modality,
+body.dark-theme .tag-category {
+    border-color: #81c995;
+    color: #81c995;
+    background-color: rgba(129, 201, 149, 0.1);
+}
+
+body.dark-theme .tag-interested {
+    border-color: #a1eac5;
+    color: #a1eac5;
+    background-color: rgba(161, 234, 197, 0.1);
+}
+
+/* --- Menu de Opções --- */
+body.dark-theme .options-btn {
+    color: var(--color-text-secondary);
+}
+
+body.dark-theme .options-menu {
+    background-color: var(--color-bg-tertiary);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-theme .options-menu a {
+    color: var(--color-text-primary);
+}
+
+body.dark-theme .options-menu a:hover {
+    background-color: var(--color-bg-secondary);
+}
+
+body.dark-theme .options-menu a.danger {
+    color: var(--color-danger);
+}

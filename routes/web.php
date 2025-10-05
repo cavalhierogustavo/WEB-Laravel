@@ -50,17 +50,12 @@ Route::get('/dashboard/usuarios', function () {
     return view('dashboard.usuarios');
 })->name('dashboard.usuarios');
 
-Route::get('/paraAtletas', function () {
-    return view('paraAtletas');
-})->name('paraAtletas');
 
-Route::get('/paraSocial', function () {
-    return view('paraSocial');
-})->name('paraSocial');
 
-Route::get('/amigo', function () {
-    return view('mensagem.amigo');
-})->name('amigo');
+
+Route::get('/perfi', function () {
+    return view('dashClub/perfilClub');
+})->name('perfil');
 
 Route::get('/clube', function () {
     return view('mensagem.clube');
@@ -87,16 +82,37 @@ Route::get('/confi', function () {
 })->name('confi');
 
 Route::get('/mensagens', function () {
-    return '<h1>Página de Mensagens</h1>'; // Placeholder
-})->middleware('auth')->name('mensagens');
+    return view('dashClub/mensagemClub'); 
+})->middleware('auth')->name('Mensagens');
 
 Route::get('/perfil', function () {
-    return '<h1>Página de Perfil</h1>'; // Placeholder
-})->middleware('auth')->name('perfil');
+    return view('dashClub/perfilClub');
+})->middleware('auth')->name('Perfil');
 
-Route::get('/configuracoes', function () {
-    return '<h1>Página de Configurações</h1>'; // Placeholder
-})->middleware('auth')->name('configuracoes');
+Route::get('/pesquisa', function () {
+    return view('dashClub/pesquisaClub');
+})->middleware('auth')->name('Pesquisa');
+
+Route::get('/dashClub', function () {
+    return view('dashClub/dashClub');
+})->middleware('auth')->name('DashClub');
+
+Route::get('/oportunidades', function () {
+    return view('dashClub/oportunidadesClub');
+})->middleware('auth')->name('Oportunidades');
+
+Route::get('/notificaçao', function () {
+    return view('dashClub/notificaçaoClub');
+})->middleware('auth')->name('notificações');
+
+Route::get('/lista', function () {
+    return view('dashClub/listaClub');
+})->middleware('auth')->name('lista');
+
+Route::get('/configuracao', function () {
+    return view('dashClub/configuraçoesClub');
+})->middleware('auth')->name('Configurações');
+
 
 // Rota para a aba "Social"
 Route::get('/social', function () {

@@ -1,0 +1,310 @@
+/* =============================================== */
+/* ESTILOS DA SIDEBAR E PÁGINA PRINCIPAL           */
+/* =============================================== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; background-color: #f8f9fa; color: #333; line-height: 1.6; }
+.container { display: flex; min-height: 100vh; }
+.sidebar { width: 250px; background-color: #ffffff; border-right: 1px solid #e9ecef; padding: 20px 0; position: fixed; height: 100vh; overflow-y: auto; z-index: 10; }
+.logo-section { padding: 0 20px 30px; border-bottom: 1px solid #e9ecef; margin-bottom: 20px; }
+.logo-placeholder { font-size: 16px; font-weight: 600; color: #666; text-align: center; padding: 20px; border: 2px dashed #ddd; border-radius: 8px; background-color: #f8f9fa; }
+.nav-menu ul { list-style: none; }
+.nav-item { margin-bottom: 4px; }
+.nav-link { display: flex; align-items: center; padding: 12px 20px; text-decoration: none; color: #666; transition: all 0.2s ease; border-radius: 0 25px 25px 0; margin-right: 20px; }
+.nav-link:hover { background-color: #f8f9fa; color: #333; }
+.nav-item.active .nav-link { background-color: #74d477; color: white; }
+.nav-icon { margin-right: 12px; font-size: 18px; width: 20px; text-align: center; }
+.nav-text { font-size: 14px; font-weight: 500; }
+.nav-link img.nav-icon { width: 20px; height: 20px; margin-right: 12px; object-fit: contain; filter: brightness(0) saturate(100%) invert(50%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(102%) contrast(102%); transition: filter 0.2s ease; }
+.nav-item.active .nav-link img.nav-icon, .nav-item.active .nav-link:hover img.nav-icon { filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%); }
+.nav-link:hover img.nav-icon { filter: brightness(0) saturate(100%) invert(20%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(80%) contrast(102%); }
+
+.main-content { margin-left: 250px; flex: 1; padding: 30px; }
+.page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+.page-title { font-size: 32px; font-weight: 700; color: #000000; }
+.header-actions { display: flex; align-items: center; gap: 16px; }
+.notification-bell { cursor: pointer; font-size: 22px; }
+.user-profile { display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 6px 12px; border-radius: 20px; border: 1px solid #e0e0e0; }
+.user-avatar { width: 28px; height: 28px; border-radius: 50%; background-color: #4CAF50; }
+.user-name { font-weight: 600; }
+
+.page-controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+.search-wrapper { position: relative; flex-grow: 1; max-width: 400px; }
+.search-input { width: 100%; padding: 12px 16px 12px 48px; border: none; border-radius: 24px; font-size: 16px; background-color: #f0f2f5; }
+.search-icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); font-size: 20px; color: #666; }
+.sort-btn { display: flex; align-items: center; gap: 8px; padding: 10px 16px; background-color: #fff; border: 1px solid #e0e0e0; border-radius: 20px; font-size: 14px; font-weight: 500; cursor: pointer; }
+.sort-icon { font-size: 16px; }
+.sort-arrow { font-size: 12px; }
+
+.lists-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+.list-card { background-color: #fff; border-radius: 12px; padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border: 1px solid #e9ecef; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.list-card:hover { transform: translateY(-4px); box-shadow: 0 6px 16px rgba(0,0,0,0.1); }
+.card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.update-time { font-size: 12px; color: #999; }
+.options-btn { background: none; border: none; font-size: 20px; font-weight: bold; color: #999; cursor: pointer; }
+.card-content { text-align: center; }
+.card-icon-placeholder { width: 100%; height: 100px; background-color: #e9ecef; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 40px; color: #adb5bd; margin-bottom: 12px; }
+.card-title { font-size: 16px; font-weight: 600; margin: 0 0 8px 0; }
+.card-stats { display: flex; align-items: center; justify-content: center; gap: 6px; color: #666; }
+.stats-icon { font-size: 16px; }
+.stats-count { font-size: 14px; font-weight: 500; }
+
+/* =============================================== */
+/* ESTILOS DO MODAL                                */
+/* =============================================== */
+
+.modal-overlay {
+    display: none; /* Escondido por padrão */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo escurecido */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Garante que o modal fique na frente de tudo */
+}
+
+.modal-content {
+    position: relative;
+    background-color: #f8f9fa; /* Cor de fundo do modal */
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 900px; /* Largura máxima do modal */
+    max-height: 90vh; /* Altura máxima */
+    overflow-y: auto; /* Adiciona scroll se o conteúdo for maior */
+}
+
+.close-modal-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: #999;
+    cursor: pointer;
+}
+
+/* Estilos para o conteúdo dentro do modal */
+.list-details-container { background-color: #fff; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+.list-info-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+.list-info-main { display: flex; align-items: center; gap: 16px; }
+.list-icon-placeholder { width: 60px; height: 60px; background-color: #e9ecef; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 32px; color: #adb5bd; }
+.list-info-text h2 { font-size: 24px; margin: 0; display: flex; align-items: center; gap: 8px; }
+.list-info-text p { font-size: 14px; color: #666; margin: 0; }
+.list-count { font-size: 14px; color: #666; font-weight: 400; }
+.list-description { font-size: 16px; color: #333; margin-bottom: 24px; }
+
+.list-controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; padding-top: 24px; border-top: 1px solid #e9ecef; }
+.list-controls .search-wrapper { max-width: 300px; }
+.list-controls .search-input { font-size: 14px; padding: 10px 16px 10px 40px; }
+.list-controls .search-icon { font-size: 18px; }
+.list-controls .sort-btn { border-color: #74d477; color: #74d477; }
+
+.athletes-list { display: flex; flex-direction: column; }
+.athlete-item { display: grid; grid-template-columns: 2fr 1.5fr 1.5fr 1fr 1.5fr; align-items: center; padding: 16px 8px; border-bottom: 1px solid #e9ecef; font-size: 14px; color: #333; }
+.athlete-item.header-row { display: none; } /* Oculta o cabeçalho da tabela no modal, se preferir */
+.athlete-profile { display: flex; align-items: center; gap: 12px; }
+.athlete-avatar { width: 40px; height: 40px; border-radius: 50%; background-color: #ccc; }
+.athlete-name { display: flex; flex-direction: column; }
+.athlete-name strong { font-size: 16px; }
+.athlete-name span { font-size: 12px; color: #999; }
+.athlete-info { display: flex; align-items: center; gap: 8px; }
+.athlete-actions { display: flex; gap: 8px; justify-content: flex-end; }
+.athlete-actions button { padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; }
+.btn-view { background-color: transparent; border: 1px solid #74d477; color: #74d477; }
+.btn-remove { background-color: transparent; border: 1px solid #d93025; color: #d93025; }
+
+
+/* =============================================== */
+/* ESTILOS DO TEMA ESCURO (DARK MODE)              */
+/* =============================================== */
+
+/* 1. Define as variáveis de cor para o tema escuro */
+body.dark-theme {
+    --color-bg: #121212;
+    --color-bg-secondary: #1e1e1e;
+    --color-bg-tertiary: #2a2a2a;
+    --color-border: #333333;
+    --color-text-primary: #e0e0e0;
+    --color-text-secondary: #a0a0a0;
+    --color-primary: #74d477;
+    --color-danger: #ff8a80;
+}
+
+/* 2. Aplica as variáveis aos elementos da página */
+
+/* --- Fundo e Texto Geral --- */
+body.dark-theme {
+    background-color: var(--color-bg);
+    color: var(--color-text-primary);
+}
+
+/* --- Sidebar (Estilos já definidos em outros arquivos, mas incluídos para completude) --- */
+body.dark-theme .sidebar {
+    background-color: var(--color-bg-secondary);
+    border-right-color: var(--color-border);
+}
+body.dark-theme .logo-placeholder {
+    color: var(--color-text-secondary);
+    border-color: var(--color-border);
+    background-color: var(--color-bg);
+}
+body.dark-theme .nav-link {
+    color: var(--color-text-secondary);
+}
+body.dark-theme .nav-link:hover {
+    background-color: var(--color-bg-tertiary);
+    color: var(--color-text-primary);
+}
+body.dark-theme .nav-item.active .nav-link {
+    background-color: var(--color-primary);
+    color: #ffffff;
+}
+body.dark-theme .nav-link img.nav-icon {
+    filter: brightness(0) saturate(100%) invert(75%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(102%) contrast(102%);
+}
+body.dark-theme .nav-link:hover img.nav-icon {
+    filter: brightness(0) saturate(100%) invert(95%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(102%) contrast(102%);
+}
+body.dark-theme .nav-item.active .nav-link img.nav-icon {
+    filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
+}
+
+/* --- Conteúdo Principal da Página de Listas --- */
+body.dark-theme .main-content {
+    background-color: var(--color-bg);
+}
+
+body.dark-theme .page-title {
+    color: var(--color-text-primary); /* Título principal em branco no tema escuro */
+}
+
+body.dark-theme .header-actions .user-profile {
+    border-color: var(--color-border);
+}
+
+body.dark-theme .page-controls .search-input {
+    background-color: var(--color-bg-secondary);
+    color: var(--color-text-primary);
+}
+
+body.dark-theme .page-controls .search-icon {
+    color: var(--color-text-secondary);
+}
+
+body.dark-theme .page-controls .sort-btn {
+    background-color: var(--color-bg-secondary);
+    border-color: var(--color-border);
+    color: var(--color-text-secondary);
+}
+
+/* --- Card da Lista --- */
+body.dark-theme .list-card {
+    background-color: var(--color-bg-secondary);
+    border-color: var(--color-border);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-theme .list-card:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-theme .update-time,
+body.dark-theme .options-btn {
+    color: var(--color-text-secondary);
+}
+
+body.dark-theme .card-icon-placeholder {
+    background-color: var(--color-bg-tertiary);
+    color: var(--color-text-secondary);
+}
+
+body.dark-theme .card-title {
+    color: var(--color-text-primary);
+}
+
+body.dark-theme .card-stats {
+    color: var(--color-text-secondary);
+}
+
+/* =============================================== */
+/* ESTILOS DO MODAL NO TEMA ESCURO                 */
+/* =============================================== */
+
+body.dark-theme .modal-overlay {
+    background-color: rgba(0, 0, 0, 0.7); /* Fundo um pouco mais escuro */
+}
+
+body.dark-theme .modal-content {
+    background-color: var(--color-bg); /* Fundo do modal igual ao fundo principal */
+}
+
+body.dark-theme .close-modal-btn {
+    color: var(--color-text-secondary);
+}
+
+/* --- Conteúdo do Modal --- */
+body.dark-theme .list-details-container {
+    background-color: var(--color-bg-secondary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-theme .list-icon-placeholder {
+    background-color: var(--color-bg-tertiary);
+    color: var(--color-text-secondary);
+}
+
+body.dark-theme .list-info-text h2,
+body.dark-theme .list-description {
+    color: var(--color-text-primary);
+}
+
+body.dark-theme .list-info-text p,
+body.dark-theme .list-count {
+    color: var(--color-text-secondary);
+}
+
+body.dark-theme .list-controls {
+    border-top-color: var(--color-border);
+}
+
+body.dark-theme .list-controls .search-input {
+    background-color: var(--color-bg-tertiary);
+}
+
+body.dark-theme .list-controls .sort-btn {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    background-color: transparent;
+}
+
+/* --- Lista de Atletas no Modal --- */
+body.dark-theme .athlete-item {
+    border-bottom-color: var(--color-border);
+    color: var(--color-text-primary);
+}
+
+body.dark-theme .athlete-avatar {
+    background-color: #444;
+}
+
+body.dark-theme .athlete-name span {
+    color: var(--color-text-secondary);
+}
+
+body.dark-theme .athlete-info {
+    color: var(--color-text-secondary);
+}
+
+body.dark-theme .btn-view {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+body.dark-theme .btn-remove {
+    border-color: var(--color-danger);
+    color: var(--color-danger);
+}

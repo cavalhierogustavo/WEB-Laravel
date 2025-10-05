@@ -1,0 +1,386 @@
+/* =============================================== */
+/* ESTILOS DA SIDEBAR (COPIADO DOS SEUS EXEMPLOS)  */
+/* =============================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #ffffff;
+    border-right: 1px solid #e9ecef;
+    padding: 20px 0;
+    position: fixed;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.logo-section {
+    padding: 0 20px 30px;
+    border-bottom: 1px solid #e9ecef;
+    margin-bottom: 20px;
+}
+
+.logo-placeholder {
+    font-size: 16px;
+    font-weight: 600;
+    color: #666;
+    text-align: center;
+    padding: 20px;
+    border: 2px dashed #ddd;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+}
+
+.nav-menu ul {
+    list-style: none;
+}
+
+.nav-item {
+    margin-bottom: 4px;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    text-decoration: none;
+    color: #666;
+    transition: all 0.2s ease;
+    border-radius: 0 25px 25px 0;
+    margin-right: 20px;
+}
+
+.nav-link:hover {
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.nav-item.active .nav-link {
+    background-color: #74d477;
+    color: white;
+}
+
+.nav-icon {
+    margin-right: 12px;
+    font-size: 18px;
+    width: 20px;
+    text-align: center;
+}
+
+.nav-text {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.nav-link img.nav-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 12px;
+    object-fit: contain;
+    filter: brightness(0) saturate(100%) invert(50%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(102%) contrast(102%);
+    transition: filter 0.2s ease;
+}
+
+.nav-item.active .nav-link img.nav-icon {
+    filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
+}
+
+.nav-link:hover img.nav-icon {
+    filter: brightness(0) saturate(100%) invert(20%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(80%) contrast(102%);
+}
+
+.nav-item.active .nav-link:hover img.nav-icon {
+    filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
+}
+
+/* =============================================== */
+/* ESTILOS DA PÁGINA DE NOTIFICAÇÕES               */
+/* =============================================== */
+
+.main-content {
+    margin-left: 250px;
+    flex: 1;
+    padding: 30px;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.title-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.page-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #000000;
+}
+
+.mark-all-read-btn {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #4CAF50;
+    cursor: pointer;
+}
+.mark-all-read-btn:hover{
+    background-color: #f1f1f1;
+    color: #447e45;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.notification-bell {
+    cursor: pointer;
+    font-size: 22px;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 1px solid #e0e0e0;
+}
+
+.user-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: #4CAF50;
+}
+
+.user-name {
+    font-weight: 600;
+}
+
+.notifications-summary {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 24px;
+}
+
+.notifications-summary strong {
+    color: #333;
+}
+
+.date-separator {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.date-separator .line {
+    flex: 1;
+    height: 1px;
+    background-color: #e9ecef;
+}
+
+.date-separator .date-text {
+    font-size: 14px;
+    color: #666;
+    font-weight: 500;
+}
+
+.notification-item {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    padding: 16px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    border: 1px solid #e9ecef;
+}
+
+.notification-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #e6f4ea;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    margin-right: 16px;
+}
+
+.notification-content {
+    flex: 1;
+}
+
+.notification-title {
+    font-weight: 600;
+    margin: 0;
+}
+
+.notification-time {
+    font-size: 12px;
+    color: #999;
+    font-weight: 400;
+    margin-left: 8px;
+}
+
+.notification-description {
+    font-size: 14px;
+    color: #666;
+    margin: 4px 0 0 0;
+}
+
+.view-more-link {
+    font-size: 14px;
+    font-weight: 600;
+    color: #4CAF50;
+    text-decoration: none;
+    margin-left: 16px;
+}
+
+/* =============================================== */
+/* ESTILOS DO TEMA ESCURO (DARK MODE)              */
+/* =============================================== */
+
+/* 1. Define as variáveis de cor para o tema escuro */
+body.dark-theme {
+    --color-bg: #121212;
+    --color-bg-secondary: #1e1e1e;
+    --color-bg-tertiary: #2a2a2a;
+    --color-border: #333333;
+    --color-text-primary: #e0e0e0;
+    --color-text-secondary: #a0a0a0;
+    --color-primary: #74d477;
+}
+
+/* 2. Aplica as variáveis aos elementos da página */
+
+/* --- Fundo e Texto Geral --- */
+body.dark-theme {
+    background-color: var(--color-bg);
+    color: var(--color-text-primary);
+}
+
+/* --- Sidebar (Estilos consistentes com os outros) --- */
+body.dark-theme .sidebar {
+    background-color: var(--color-bg-secondary);
+    border-right-color: var(--color-border);
+}
+body.dark-theme .logo-placeholder {
+    color: var(--color-text-secondary);
+    border-color: var(--color-border);
+    background-color: var(--color-bg);
+}
+body.dark-theme .nav-link {
+    color: var(--color-text-secondary);
+}
+body.dark-theme .nav-link:hover {
+    background-color: var(--color-bg-tertiary);
+    color: var(--color-text-primary);
+}
+body.dark-theme .nav-item.active .nav-link {
+    background-color: var(--color-primary);
+    color: #ffffff;
+}
+body.dark-theme .nav-link img.nav-icon {
+    filter: brightness(0) saturate(100%) invert(75%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(102%) contrast(102%);
+}
+body.dark-theme .nav-link:hover img.nav-icon {
+    filter: brightness(0) saturate(100%) invert(95%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(102%) contrast(102%);
+}
+body.dark-theme .nav-item.active .nav-link img.nav-icon {
+    filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
+}
+
+/* --- Conteúdo Principal da Página de Notificações --- */
+body.dark-theme .main-content {
+    background-color: var(--color-bg);
+}
+
+body.dark-theme .page-title {
+    color: var(--color-text-primary);
+}
+
+body.dark-theme .mark-all-read-btn {
+    background-color: var(--color-bg-secondary);
+    border-color: var(--color-border);
+    color: var(--color-primary);
+}
+
+body.dark-theme .mark-all-read-btn:hover {
+    background-color: var(--color-bg-tertiary);
+}
+
+body.dark-theme .header-actions .user-profile {
+    border-color: var(--color-border);
+}
+
+body.dark-theme .notifications-summary {
+    color: var(--color-text-secondary);
+}
+
+body.dark-theme .notifications-summary strong {
+    color: var(--color-text-primary);
+}
+
+body.dark-theme .date-separator .line {
+    background-color: var(--color-border);
+}
+
+body.dark-theme .date-separator .date-text {
+    color: var(--color-text-secondary);
+}
+
+/* --- Item de Notificação --- */
+body.dark-theme .notification-item {
+    background-color: var(--color-bg-secondary);
+    border-color: var(--color-border);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-theme .notification-icon {
+    background-color: rgba(116, 212, 119, 0.1); /* Verde sutil */
+}
+
+body.dark-theme .notification-title {
+    color: var(--color-text-primary);
+}
+
+body.dark-theme .notification-time {
+    color: var(--color-text-secondary);
+}
+
+body.dark-theme .notification-description {
+    color: var(--color-text-secondary);
+}
+
+body.dark-theme .view-more-link {
+    color: var(--color-primary);
+}
