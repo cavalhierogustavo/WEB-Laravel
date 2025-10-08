@@ -11,11 +11,22 @@ use App\Http\Controllers\AuthUserController;
 class UserController extends Controller
 {
     // Listar todos os usuários
-    public function index()
-    {
-        $usuarios = Usuario::all();
-        return response()->json($usuarios);
-    }
+   public function index()
+{
+    $usuarios = \App\Models\Usuario::select(
+        'id',
+        'nomeCompletoUsuario',
+        'esporte',
+        'posicao',
+        'cidadeUsuario',
+        'estadoUsuario',
+        'dataNascimentoUsuario',
+        'fotoPerfilUsuario'
+    )->get();
+
+    // Retorna em JSON formatado
+    return response()->json($usuarios, 200);
+}
 
     // Criar novo usuário
     public function store(Request $request)

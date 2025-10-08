@@ -15,7 +15,7 @@ class Usuario extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    protected $table = 'usuarios';  
+    protected $table = 'atletas';  
 
 
     /**
@@ -24,39 +24,30 @@ class Usuario extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-
-            'nomeCompletoUsuario',
-            'nomeUsuario',
-            'emailUsuario',
-            'senhaUsuario',
-            'nacionalidadeUsuario',
-            'dataNascimentoUsuario',
-            'generoUsuario',
-            'estadoUsuario',
-            'cidadeUsuario',
-
-            'dataCadastroUsuario',
-            'bioUsuario',
-
-            'alturaCm',
-            'pesoKg',
-            'peDominante',
-            'maoDominante',
-            'temporadasUsuario',
-
-            //Fotos
-            'fotoPerfilUsuario',
-            'fotoBannerUsuario',
-    ];
-
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    protected $hidden = [
+        'nomeCompletoUsuario',
+        'nomeUsuario',
+        'emailUsuario',
         'senhaUsuario',
+        'nacionalidadeUsuario',
+        'dataNascimentoUsuario',
+        'fotoPerfilUsuario',
+        'fotoBannerUsuario',
+        'bioUsuario',
+        'alturaCm',
+        'pesoKg',
+        'peDominante',
+        'maoDominante',
+        'generoUsuario',
+        'esporte',
+        'posicao',
+        'estadoUsuario',
+        'cidadeUsuario',
+        'categoria',
+        'temporadasUsuario',
     ];
+
+    protected $hidden = ['senhaUsuario']; // Oculta senha do JSON
+
 
     /**
      * The attributes that should be cast.

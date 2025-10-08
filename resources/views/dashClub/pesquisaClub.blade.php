@@ -103,7 +103,7 @@
                     </button>
                 </div>
 
-                <!-- Search Filters -->
+<!--                 Search Filters
                 <div class="search-filters">
                     <div class="filter-tag">
                         <span>Gandula Messi</span>
@@ -120,14 +120,14 @@
                     <button class="add-filter">+</button>
                 </div>
 
-                <!-- Results Info -->
+
                 <div class="results-info">
                     <span class="results-count">128 perfis encontrados</span>
                     <div class="results-actions">
                         <button class="clear-filters-btn">Limpar filtros</button>
                         <button class="show-results-btn">Mostrar resultados</button>
                     </div>
-                </div>
+                </div> -->
             </section>
 
             <!-- Results Section -->
@@ -146,84 +146,9 @@
 
                 <!-- Profile Results -->
                 <div class="profile-results">
-                    <div class="profile-card">
-                        <div class="profile-avatar-large"></div>
-                        <div class="profile-details">
-                            <div class="profile-header">
-                                <h3 class="profile-name">Vinícius</h3>
-                                <div class="profile-badges">
-                                    <span class="badge athlete">⭐ Atleta</span>
-                                    <span class="badge position">⚽ Futebol - Atacante</span>
-                                    <span class="badge location">📍 São Paulo - SP</span>
-                                    <span class="badge age">👤 17 anos</span>
-                                </div>
-                            </div>
-                            <div class="profile-actions">
-                                <button class="profile-btn view-btn">Ver perfil</button>
-                                <button class="profile-btn contact-btn">Contato</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="profile-card">
-                        <div class="profile-avatar-large"></div>
-                        <div class="profile-details">
-                            <div class="profile-header">
-                                <h3 class="profile-name">Leonardo</h3>
-                                <div class="profile-badges">
-                                    <span class="badge athlete">⭐ Atleta</span>
-                                    <span class="badge position">⚽ Futebol - Meio-campo</span>
-                                    <span class="badge location">📍 Rio de Janeiro - RJ</span>
-                                    <span class="badge age">👤 19 anos</span>
-                                </div>
-                            </div>
-                            <div class="profile-actions">
-                                <button class="profile-btn view-btn">Ver perfil</button>
-                                <button class="profile-btn contact-btn">Contato</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="profile-card">
-                        <div class="profile-avatar-large"></div>
-                        <div class="profile-details">
-                            <div class="profile-header">
-                                <h3 class="profile-name">Gabriel</h3>
-                                <div class="profile-badges">
-                                    <span class="badge athlete">⭐ Atleta</span>
-                                    <span class="badge position">⚽ Futebol - Zagueiro</span>
-                                    <span class="badge location">📍 Belo Horizonte - MG</span>
-                                    <span class="badge age">👤 16 anos</span>
-                                </div>
-                            </div>
-                            <div class="profile-actions">
-                                <button class="profile-btn view-btn">Ver perfil</button>
-                                <button class="profile-btn contact-btn">Contato</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="profile-card">
-                        <div class="profile-avatar-large"></div>
-                        <div class="profile-details">
-                            <div class="profile-header">
-                                <h3 class="profile-name">Matheus</h3>
-                                <div class="profile-badges">
-                                    <span class="badge athlete">⭐ Atleta</span>
-                                    <span class="badge position">⚽ Futebol - Goleiro</span>
-                                    <span class="badge location">📍 Salvador - BA</span>
-                                    <span class="badge age">👤 18 anos</span>
-                                </div>
-                            </div>
-                            <div class="profile-actions">
-                                <button class="profile-btn view-btn">Ver perfil</button>
-                                <button class="profile-btn contact-btn">Contato</button>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
-                <!-- Load More -->
+              
                 <div class="load-more-section">
                     <button class="load-more-btn">Carregar mais resultados</button>
                 </div>
@@ -231,63 +156,89 @@
         </main>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Funcionalidade de pesquisa
-            const searchInput = document.querySelector('.search-input');
-            const advancedSearchBtn = document.querySelector('.advanced-search-btn');
-            const removeFilterBtns = document.querySelectorAll('.remove-filter');
-            const addFilterBtn = document.querySelector('.add-filter');
-            const clearFiltersBtn = document.querySelector('.clear-filters-btn');
-            const showResultsBtn = document.querySelector('.show-results-btn');
+   <script>
+    const searchInput = document.querySelector('.search-input');
+    const profileResults = document.querySelector('.profile-results');
 
-            // Event listeners para funcionalidades de pesquisa
-            searchInput.addEventListener('input', function(e) {
-                console.log('Pesquisando:', e.target.value);
-            });
+    let usuarios = [];
 
-            advancedSearchBtn.addEventListener('click', function() {
-                console.log('Abrir pesquisa avançada');
-            });
+    // Função para calcular idade a partir da data de nascimento
+    function calcularIdade(dataNascStr) {
+        const hoje = new Date();
+        const nasc = new Date(dataNascStr);
+        let idade = hoje.getFullYear() - nasc.getFullYear();
+        const m = hoje.getMonth() - nasc.getMonth();
+        if (m < 0 || (m === 0 && hoje.getDate() < nasc.getDate())) {
+            idade--;
+        }
+        return idade;
+    }
 
-            removeFilterBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    this.parentElement.remove();
-                    console.log('Filtro removido');
-                });
-            });
+    // Função para buscar usuários do banco
+    async function carregarUsuarios() {
+        try {
+            const resposta = await fetch('http://localhost:8000/api/usuarios'); // rota do Laravel
+            const data = await resposta.json();
+            usuarios = data;
+            renderizarUsuarios(usuarios);
+        } catch (error) {
+            console.error('Erro ao buscar usuários:', error);
+            profileResults.innerHTML = '<p style="text-align:center;">Erro ao carregar usuários 😔</p>';
+        }
+    }
 
-            addFilterBtn.addEventListener('click', function() {
-                console.log('Adicionar novo filtro');
-            });
+    // Função para renderizar os cards dos usuários
+    function renderizarUsuarios(lista) {
+        profileResults.innerHTML = ''; // limpa antes de renderizar
 
-            clearFiltersBtn.addEventListener('click', function() {
-                document.querySelectorAll('.filter-tag').forEach(tag => tag.remove());
-                console.log('Todos os filtros removidos');
-            });
+        if (lista.length === 0) {
+            profileResults.innerHTML = `
+                <div style="text-align:center; width:100%; padding:20px;">
+                    <p>Nenhum atleta encontrado 😔</p>
+                </div>
+            `;
+            return;
+        }
 
-            showResultsBtn.addEventListener('click', function() {
-                console.log('Mostrar resultados');
-            });
+        lista.forEach(usuario => {
+            const idade = calcularIdade(usuario.dataNascimentoUsuario);
 
-            // Event listeners para ações dos perfis
-            document.querySelectorAll('.view-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    console.log('Ver perfil');
-                });
-            });
-
-            document.querySelectorAll('.contact-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    console.log('Contatar');
-                });
-            });
-
-            document.querySelector('.load-more-btn').addEventListener('click', function() {
-                console.log('Carregar mais resultados');
-            });
+            const card = document.createElement('div');
+            card.classList.add('profile-card');
+            card.innerHTML = `
+                <div class="profile-avatar-large"></div>
+                <div class="profile-details">
+                    <div class="profile-header">
+                        <h3 class="profile-name">${usuario.nomeCompletoUsuario}</h3>
+                        <div class="profile-badges">
+                            <span class="badge athlete">⭐ Atleta</span>
+                            <span class="badge position">⚽ ${usuario.esporte ?? 'Esporte indefinido'} - ${usuario.posicao ?? 'Sem posição'}</span>
+                            <span class="badge location">📍 ${usuario.cidadeUsuario ?? ''} - ${usuario.estadoUsuario ?? ''}</span>
+                            <span class="badge age">👤 ${idade} anos</span>
+                        </div>
+                    </div>
+                    <div class="profile-actions">
+                        <button class="profile-btn view-btn">Ver perfil</button>
+                        <button class="profile-btn contact-btn">Contato</button>
+                    </div>
+                </div>
+            `;
+            profileResults.appendChild(card);
         });
-    </script>
+    }
+
+    // Filtro de busca (filtra pelo nome)
+    searchInput.addEventListener('input', () => {
+        const termo = searchInput.value.toLowerCase();
+        const filtrados = usuarios.filter(u =>
+            u.nomeCompletoUsuario.toLowerCase().includes(termo)
+        );
+        renderizarUsuarios(filtrados);
+    });
+
+    // Carrega tudo ao abrir a página
+    carregarUsuarios();
+</script>
 <script>
         // Seleciona os elementos do DOM
         const themeToggle = document.getElementById('theme-toggle');

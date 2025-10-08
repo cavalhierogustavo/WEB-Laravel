@@ -140,5 +140,7 @@ Route::put('/clube/update-info', [ClubeController::class, 'updateInfo'])
 
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
+Route::get('/usuarios', [UserController::class, 'index']);
+
 // NOVA ROTA PARA EXCLUIR A CONTA
 Route::delete('/perfil', [ProfileController::class, 'destroy'])->name('profile.destroy');
