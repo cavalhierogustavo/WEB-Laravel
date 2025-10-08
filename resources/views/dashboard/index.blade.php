@@ -7,87 +7,50 @@
     <link rel="stylesheet" href="{{ url('css/dashboard/home.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- SCRIPT DOS ÍCONES (IONICONS ) - ESSENCIAL -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </head>
 <body>
     <div class="dashboard-container">
+        <!-- ======================= -->
+        <!--      BARRA LATERAL      -->
+        <!-- ======================= -->
         <aside class="sidebar">
             <div class="sidebar-header">
-                <img src="../img/logoBranca.png" height="80px" width="80px" alt="">
+                <h1 class="logo">Logo aqui</h1>
             </div>
             <nav class="sidebar-nav">
-                <p class="menu-title">Menu</p>
+                <span class="menu-title">Menu</span>
                 <ul>
-                    <li>
-                        <a href="#" class="active">
-                            <ion-icon name="grid-outline"></ion-icon>
-                            <span>Dashboard</span>
-                            
-                        </a>
-                    </li>
-                    <li class="has-submenu" id="users-menu">
-                        <a href="#">
-                            <ion-icon name="people-outline"></ion-icon>
-                            <span>Usuários</span>
-                            <ion-icon class="arrow" name="chevron-down-outline"></ion-icon>
-                        </a>
-                        <ul class="submenu">
-                            <li><a href="{{ route('dashboard.usuarios') }}">Atletas</a></li>
-                            <li><a href="#">Clubes</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <ion-icon name="rocket-outline"></ion-icon>
-                            <span>Oportunidades</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <ion-icon name="shield-half-outline"></ion-icon>
-                            <span>Denúncias</span>
-                        </a>
-                    </li>
-                    <li class="has-submenu" id="content-menu">
-                        <a href="#">
-                            <ion-icon name="document-text-outline"></ion-icon>
-                            <span>Conteúdo</span>
-                            <ion-icon class="arrow" name="chevron-down-outline"></ion-icon>
-                        </a>
-                         <ul class="submenu">
-                            <li><a href="#">Artigos</a></li>
-                            <li><a href="#">Vídeos</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <ion-icon name="stats-chart-outline"></ion-icon>
-                            <span>Estatísticas</span>
-                        </a>
-                    </li>
+                    <li class="active"><a href="#"><ion-icon name="grid-outline"></ion-icon> Dashboard</a></li>
+                    <li><a href="#"><ion-icon name="people-outline"></ion-icon> Usuários <ion-icon class="chevron" name="chevron-down-outline"></ion-icon></a></li>
+                    <li><a href="#"><ion-icon name="football-outline"></ion-icon> Esportes</a></li>
+                    <li><a href="#"><ion-icon name="rocket-outline"></ion-icon> Oportunidades</a></li>
+                    <li><a href="#"><ion-icon name="list-outline"></ion-icon> Listas</a></li>
+                    <li><a href="#"><ion-icon name="alert-circle-outline"></ion-icon> Denúncias <ion-icon class="chevron" name="chevron-down-outline"></ion-icon></a></li>
+                    <li><a href="#"><ion-icon name="document-text-outline"></ion-icon> Conteúdo <ion-icon class="chevron" name="chevron-down-outline"></ion-icon></a></li>
+                    <li><a href="#"><ion-icon name="stats-chart-outline"></ion-icon> Estatísticas</a></li>
                 </ul>
             </nav>
             <div class="sidebar-footer">
-                <a href="#">
-                    <ion-icon name="settings-outline"></ion-icon>
-                    <span>Configurações</span>
-                </a>
-                <a href="#">
-                    <ion-icon name="log-out-outline"></ion-icon>
-                    <span>Sair</span>
-                </a>
+                <ul>
+                    <li><a href="#"><ion-icon name="settings-outline"></ion-icon> Configurações</a></li>
+                    <li><a href="#" class="logout"><ion-icon name="log-out-outline"></ion-icon> Sair</a></li>
+                </ul>
             </div>
         </aside>
 
+        <!-- ======================= -->
+        <!--    CONTEÚDO PRINCIPAL   -->
+        <!-- ======================= -->
         <main class="main-content">
             <header class="main-header">
-                <h1>Dashboard</h1>
-                <div class="header-actions">
-                    <button class="icon-btn">
-                        <ion-icon name="notifications-outline"></ion-icon>
-                    </button>
+                <h2 class="page-title">Dashboard</h2>
+                <div class="user-menu">
+                    <button class="icon-button"><ion-icon name="notifications-outline"></ion-icon></button>
                     <div class="user-profile">
                         <div class="avatar">
                             <ion-icon name="person-outline"></ion-icon>
@@ -97,169 +60,119 @@
                 </div>
             </header>
 
-            <section class="stats-cards">
-                <div class="card">
-                    <div class="card-info">
-                        <p>Usuários</p>
-                        <h3>120</h3>
-                        <span class="change positive"><ion-icon name="arrow-up-outline"></ion-icon> 23%</span>
+            <div class="dashboard-grid">
+                <!-- Stat Cards -->
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <p class="stat-title">Usuários <span class="stat-change positive"><ion-icon name="arrow-up-outline"></ion-icon> 2.5%</span></p>
+                        <p class="stat-number">120</p>
+                        <p class="stat-detail">Última visita: 12</p>
                     </div>
-                    <div class="card-icon user-icon">
-                        <ion-icon name="person-add-outline"></ion-icon>
-                    </div>
+                    <div class="stat-icon-bg"><ion-icon name="people-outline"></ion-icon></div>
                 </div>
-                <div class="card">
-                    <div class="card-info">
-                        <p>Clubes</p>
-                        <h3>71</h3>
-                        <span class="change negative"><ion-icon name="arrow-down-outline"></ion-icon> 4%</span>
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <p class="stat-title">Clubes <span class="stat-change negative"><ion-icon name="arrow-down-outline"></ion-icon> 1.5%</span></p>
+                        <p class="stat-number">71</p>
+                        <p class="stat-detail">Última visita: 72</p>
                     </div>
-                    <div class="card-icon club-icon">
-                        <ion-icon name="shield-outline"></ion-icon>
-                    </div>
+                    <div class="stat-icon-bg"><ion-icon name="shield-outline"></ion-icon></div>
                 </div>
-                <div class="card">
-                    <div class="card-info">
-                        <p>Oportunidades</p>
-                        <h3>27</h3>
-                        <span class="change neutral"><ion-icon name="arrow-forward-outline"></ion-icon> 1%</span>
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <p class="stat-title">Oportunidades <span class="stat-change positive"><ion-icon name="arrow-up-outline"></ion-icon> 0%</span></p>
+                        <p class="stat-number">27</p>
+                        <p class="stat-detail">Última visita: 27</p>
                     </div>
-                    <div class="card-icon op-icon">
-                        <ion-icon name="rocket-outline"></ion-icon>
-                    </div>
+                    <div class="stat-icon-bg"><ion-icon name="rocket-outline"></ion-icon></div>
                 </div>
-                <div class="card">
-                    <div class="card-info">
-                        <p>Denúncias</p>
-                        <h3>13</h3>
-                        <span class="change positive"><ion-icon name="arrow-up-outline"></ion-icon> 25%</span>
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <p class="stat-title">Denúncias <span class="stat-change positive"><ion-icon name="arrow-up-outline"></ion-icon> 2.5%</span></p>
+                        <p class="stat-number">13</p>
+                        <p class="stat-detail">Última visita: 12</p>
                     </div>
-                    <div class="card-icon report-icon">
-                        <ion-icon name="alert-circle-outline"></ion-icon>
-                    </div>
+                    <div class="stat-icon-bg"><ion-icon name="alert-circle-outline"></ion-icon></div>
                 </div>
-            </section>
 
-            <section class="main-widgets">
-                <div class="widget chart-widget">
-                    <div class="widget-header">
-                        <h3><ion-icon name="person-add-outline"></ion-icon> Cadastro de usuários</h3>
-                        <div class="dropdown">
-                            <span>6 meses</span>
-                            <ion-icon name="chevron-down-outline"></ion-icon>
-                        </div>
+                <!-- Main Panels -->
+                <div class="panel chart-panel">
+                    <div class="panel-header">
+                        <h3 class="panel-title"><ion-icon name="person-add-outline"></ion-icon> Cadastro de usuários</h3>
+                        <button class="filter-button">6 meses <ion-icon class="chevron" name="chevron-down-outline"></ion-icon></button>
                     </div>
-                    <div class="chart-placeholder">[Gráfico aqui]</div>
-                </div>
-                
-                <div class="widget-group-small">
-                    <div class="widget list-widget">
-                        <div class="widget-header">
-                            <h3><ion-icon name="rocket-outline"></ion-icon> Últimas oportunidades</h3>
+                    <div class="chart-content">
+                        <!-- O gráfico seria renderizado aqui por uma biblioteca JS -->
+                        <div class="chart-placeholder">[ Local para o Gráfico ]</div>
+                        <div class="chart-labels">
+                            <span>Jan</span><span>Fev</span><span>Mar</span><span>Mai</span><span>Jun</span><span>Jul</span>
                         </div>
-                        <ul class="item-list">
-                            <li>
-                                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/c/cc/Chelsea_FC.svg/1200px-Chelsea_FC.svg.png" alt="Chelsea">
-                                <span><strong>Chelsea</strong> Zagueiro</span>
-                                <button class="icon-btn"><ion-icon name="ellipsis-horizontal"></ion-icon></button>
-                            </li>
-                            </ul>
-                    </div>
-                    <div class="widget list-widget">
-                        <div class="widget-header">
-                            <h3><ion-icon name="shield-half-outline"></ion-icon> Últimas denúncias</h3>
-                        </div>
-                        <ul class="item-list">
-                            <li>
-                                <div class="avatar small-avatar">
-                                    <ion-icon name="person-outline"></ion-icon>
-                                </div>
-                                <span><strong>João Pedro</strong></span>
-                                <button class="icon-btn"><ion-icon name="document-text-outline"></ion-icon></button>
-                            </li>
-                            </ul>
                     </div>
                 </div>
-            </section>
+                <div class="panel list-panel">
+                    <div class="panel-header">
+                        <h3 class="panel-title"><ion-icon name="rocket-outline"></ion-icon> Últimas oportunidades</h3>
+                    </div>
+                    <ul class="item-list">
+                        <li>
+                            <div class="item-icon team-logo"></div>
+                            <span class="item-title">Chelsea</span>
+                            <span class="item-subtitle">Zagueiro</span>
+                            <div class="item-extra-icon ball-icon"><ion-icon name="football-outline"></ion-icon></div>
+                        </li>
+                        <!-- Adicione mais itens aqui -->
+                    </ul>
+                </div>
+                <div class="panel list-panel">
+                    <div class="panel-header">
+                        <h3 class="panel-title"><ion-icon name="shield-half-outline"></ion-icon> Últimas denúncias</h3>
+                    </div>
+                    <ul class="item-list">
+                        <li>
+                            <div class="item-icon user-avatar"><ion-icon name="person-circle-outline"></ion-icon></div>
+                            <span class="item-title">João Pedro</span>
+                            <div class="item-extra-icon"><ion-icon name="document-text-outline"></ion-icon></div>
+                        </li>
+                        <!-- Adicione mais itens aqui -->
+                    </ul>
+                </div>
 
-            <section class="recent-actions widget">
-                 <div class="widget-header">
-                    <h3>Ações recentes</h3>
-                    <div class="dropdown">
-                        <span>Ordenar por <ion-icon name="chevron-down-outline"></ion-icon></span>
+                <!-- Recent Actions Table -->
+                <div class="panel recent-actions-panel">
+                    <div class="panel-header">
+                        <h3 class="panel-title">Ações recentes</h3>
+                        <button class="filter-button">Ordenar por <ion-icon class="chevron" name="chevron-down-outline"></ion-icon></button>
                     </div>
-                </div>
-                <div class="table-wrapper">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Data</th>
-                                <th>Objeto</th>
-                                <th>Ação</th>
-                                <th>Entidade</th>
-                                <th>Tipo de Entidade</th>
-                                <th>Descrição</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>30 de agosto de 2025</td>
-                                <td style=" align-items: center; justify-content: center;"><a href="#">Oportunidade</a></td>
-                                <td style=" align-items: center; justify-content: center;"><span class="tag action-create">Criar</span></td>
-                                <td style="display: flex; align-items: center; justify-content: center;"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/c/cc/Chelsea_FC.svg/1200px-Chelsea_FC.svg.png" style="width: 15px; height: 15px; display: flex;" alt="Chelsea"> Chelsea</td>
-                                <td><span class="tag entity-club">Clube</span></td>
-                                <td>O clube criou uma oportunidade</td>
-                                <td><span class="tag status-concluido">Concluído</span></td>
-                            </tr>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Objeto</th>
+                                    <th>Ação</th>
+                                    <th>Entidade</th>
+                                    <th>Tipo de Entidade</th>
+                                    <th>Descrição</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>30 de agosto de 2025 às 13:04</td>
+                                    <td><span class="tag tag-object">Oportunidade</span></td>
+                                    <td><span class="tag tag-action">Criar</span></td>
+                                    <td><div class="entity-cell"><div class="item-icon team-logo small"></div> Chelsea</div></td>
+                                    <td><span class="tag tag-entity">Clube</span></td>
+                                    <td>O clube criou uma oportunidade.</td>
+                                    <td><span class="tag tag-status">Concluído</span></td>
+                                </tr>
+                                <!-- Adicione mais linhas aqui -->
                             </tbody>
-                    </table>
+                        </table>
+                    </div>
                 </div>
-            </section>
+            </div>
         </main>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Lógica para os submenus dropdown
-            const setupSubmenu = (menuId) => {
-                const menuItem = document.getElementById(menuId);
-                const submenu = menuItem.querySelector('.submenu');
-                const arrowIcon = menuItem.querySelector('.arrow');
-
-                if (menuItem && submenu && arrowIcon) {
-                    // Adiciona a classe 'active' para iniciar aberto, se desejar
-                    menuItem.classList.add('active'); // Mantenha Usuários e Conteúdo abertos por padrão
-
-                    menuItem.querySelector('a').addEventListener('click', (e) => {
-                        // Impedir navegação para o link pai se for um submenu
-                        e.preventDefault();
-                        
-                        // Alterna a classe 'active' no item do menu pai
-                        menuItem.classList.toggle('active');
-
-                        // Ajusta a altura do submenu para transição suave
-                        if (menuItem.classList.contains('active')) {
-                            submenu.style.maxHeight = submenu.scrollHeight + 'px';
-                            arrowIcon.style.transform = 'rotate(180deg)';
-                        } else {
-                            submenu.style.maxHeight = '0';
-                            arrowIcon.style.transform = 'rotate(0deg)';
-                        }
-                    });
-                     // Garante que a altura inicial seja definida se estiver ativo por padrão
-                    if (menuItem.classList.contains('active')) {
-                        submenu.style.maxHeight = submenu.scrollHeight + 'px';
-                        arrowIcon.style.transform = 'rotate(180deg)';
-                    } else {
-                        submenu.style.maxHeight = '0';
-                    }
-                }
-            };
-
-            setupSubmenu('users-menu');
-            setupSubmenu('content-menu');
-        });
-    </script>
 </body>
 </html>

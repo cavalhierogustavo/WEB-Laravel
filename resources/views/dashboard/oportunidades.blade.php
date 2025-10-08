@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Usuários</title>
-    {{-- Certifique-se de que o caminho para o CSS está correto --}}
-    <link rel="stylesheet" href="{{ url('css/dashboard/usuarios.css') }}">
+    <title>Lista de Listas</title>
+    {{-- Lembre-se de apontar para o seu novo arquivo CSS --}}
+    <link rel="stylesheet" href="{{ url('css/dashboard/oportunidades.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    {{-- Usando os mesmos ícones Ionicons --}}
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </head>
@@ -29,9 +28,9 @@
                     <li><a href="#"><ion-icon name="grid-outline"></ion-icon> Dashboard</a></li>
                     <li><a href="#"><ion-icon name="people-outline"></ion-icon> Usuários <ion-icon class="chevron" name="chevron-down-outline"></ion-icon></a></li>
                     <li><a href="#"><ion-icon name="football-outline"></ion-icon> Esportes</a></li>
-                    <li><a href="#"><ion-icon name="rocket-outline"></ion-icon> Oportunidades</a></li>
-                    {{-- "Listas" agora está com a classe "active" --}}
-                    <li class="active"><a href="#"><ion-icon name="list-outline"></ion-icon> Listas</a></li>
+                    {{-- "Oportunidades" agora está com a classe "active" --}}
+                    <li class="active"><a href="#"><ion-icon name="rocket-outline"></ion-icon> Oportunidades</a></li>
+                    <li><a href="#"><ion-icon name="list-outline"></ion-icon> Listas</a></li>
                     <li><a href="#"><ion-icon name="alert-circle-outline"></ion-icon> Denúncias <ion-icon class="chevron" name="chevron-down-outline"></ion-icon></a></li>
                     <li><a href="#"><ion-icon name="document-text-outline"></ion-icon> Conteúdo <ion-icon class="chevron" name="chevron-down-outline"></ion-icon></a></li>
                     <li><a href="#"><ion-icon name="stats-chart-outline"></ion-icon> Estatísticas</a></li>
@@ -50,7 +49,7 @@
         <!-- ======================= -->
         <main class="main-content">
             <header class="main-header">
-                <h2 class="page-title">Lista de usuários</h2>
+                <h2 class="page-title">Lista de listas</h2>
                 <div class="user-menu">
                     <button class="icon-button"><ion-icon name="notifications-outline"></ion-icon></button>
                     <div class="user-profile">
@@ -80,28 +79,26 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>Foto/Avatar</th>
-                                <th>Nome de usuário</th>
-                                <th>Email</th>
-                                <th>Tipo</th>
+                                <th>Clube</th>
+                                <th>Nome</th>
+                                <th>Descrição</th>
                                 <th>Status</th>
-                                <th>Data de cadastro</th>
+                                <th>Data de criação</th>
                                 <th>Ações rápidas</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>
-                                    <div class="item-icon user-avatar large">
-                                        <ion-icon name="person-circle-outline"></ion-icon>
+                                    <div class="entity-cell">
+                                        <div class="item-icon user-avatar large">
+                                            <ion-icon name="person-circle-outline"></ion-icon>
+                                        </div>
+                                        <span>Atlético X</span>
                                     </div>
                                 </td>
-                                <td class="user-name-cell">
-                                    <span class="main-name">João Pedro</span>
-                                    <span class="sub-name">@joaopedro</span>
-                                </td>
-                                <td>joaopedro@email.com</td>
-                                <td><span class="tag tag-type-atleta">Atleta</span></td>
+                                <td>Marcos rei das listagens</td>
+                                <td>Descrição genérica qualquer</td>
                                 <td><span class="tag tag-status-ativo">Ativo</span></td>
                                 <td>23 de Outubro de 2024</td>
                                 <td>
@@ -112,6 +109,7 @@
                                     </div>
                                 </td>
                             </tr>
+                            <!-- Repita a linha <tr> para mais listas -->
                         </tbody>
                     </table>
                 </div>

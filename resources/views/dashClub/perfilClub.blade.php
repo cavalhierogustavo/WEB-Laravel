@@ -7,6 +7,18 @@
     <link rel="stylesheet" href="./css/dashClub/perfilClub.css">
 </head>
 <body>
+ @if (session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <div class="container">
         <!-- Sidebar -->
         <aside class="sidebar">
@@ -84,7 +96,7 @@
                         <span class="notification-icon">🔔</span>
                         <div class="user-profile">
                             <span class="user-avatar">👤</span>
-                            <span class="user-name">João Pedro</span>
+                            <span class="user-name">{{ Auth::user()->nomeClube ?? 'Nome do Clube' }}</span>
                         </div>
                     </div>
                 </div>
@@ -100,7 +112,7 @@
                     <div class="profile-details">
                         <div class="profile-stats">
                             <span class="followers-count">125k seguidores</span>
-                            <button class="follow-btn">Seguir</button>
+                            <button id="edit-profile-btn" class="follow-btn">Editar Perfil</button>
                         </div>
                         <h2 class="profile-name">Norven FC</h2>
                         <p class="profile-description">A Norven Fc é um time fictício criado em 15 de Setembro de 2025.</p>
@@ -204,6 +216,100 @@
             </section>
         </main>
     </div>
+
+   <div id="edit-modal" class="modal-overlay hidden">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3 class="modal-title">Editar Perfil do Clube</h3>
+                <button id="close-modal-btn" class="modal-close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                {{-- Formulário aponta para a rota de atualização --}}
+                <form id="edit-club-form" action="{{ route('clube.updateInfo') }}" method="POST">
+                    @csrf  {{-- Token de segurança do Laravel --}}
+                    @method('PUT') {{-- Especifica o método HTTP para a rota --}}
+
+                    <div class="form-group">
+                        <label for="nomeClube">Nome do Clube</label>
+                        <div class="input-icon-wrapper">
+                            <svg class="input-icon" ...></svg>
+                            {{-- O valor do input é preenchido com os dados do clube --}}
+                            <input type="text" id="nomeClube" name="nomeClube" class="form-control" value="{{ old('nomeClube', Auth::user()->nomeClube) }}" required>
+                        </div>
+                    </div>
+
+                    {{-- NOVO CAMPO: ESPORTE --}}
+                    <div class="form-group">
+                        <label for="esporte">Esporte Principal</label>
+                        <div class="input-icon-wrapper">
+                             <svg class="input-icon" ...></svg>
+                            {{-- O controller espera o campo 'esporte' --}}
+                            <input type="text" id="esporte" name="esporte" class="form-control" value="{{ old('esporte', Auth::user()->esporte) }}" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="estadoClube">Estado</label>
+                            <div class="input-icon-wrapper">
+                                <svg class="input-icon" ...></svg>
+                                <input type="text" id="estadoClube" name="estadoClube" class="form-control" value="{{ old('estadoClube', Auth::user()->estadoClube) }}" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="cidadeClube">Cidade</label>
+                            <div class="input-icon-wrapper">
+                                <svg class="input-icon" ...></svg>
+                                <input type="text" id="cidadeClube" name="cidadeClube" class="form-control" value="{{ old('cidadeClube', Auth::user()->cidadeClube) }}" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- O controller não atualiza a bio, mas podemos manter o campo --}}
+                    {{-- Se quiser atualizar, adicione 'bioClube' à validação no controller --}}
+                    <div class="form-group">
+                        <label for="bioClube">Descrição (Bio)</label>
+                        <textarea id="bioClube" name="bioClube" class="form-control" rows="4">{{ old('bioClube', Auth::user()->bioClube) }}</textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="cancel-btn" class="btn btn-secondary">Cancelar</button>
+                <button id="save-btn" type="submit" form="edit-club-form" class="btn btn-primary">Salvar Alterações</button>
+            </div>
+        </div>
+    </div>
+
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const editProfileBtn = document.getElementById('edit-profile-btn');
+            const editModal = document.getElementById('edit-modal');
+            const closeModalBtn = document.getElementById('close-modal-btn');
+            const cancelBtn = document.getElementById('cancel-btn');
+
+            if(editProfileBtn) {
+                const openModal = () => editModal.classList.remove('hidden');
+                const closeModal = () => editModal.classList.add('hidden');
+
+                editProfileBtn.addEventListener('click', openModal);
+                closeModalBtn.addEventListener('click', closeModal);
+                cancelBtn.addEventListener('click', closeModal);
+
+                editModal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        closeModal();
+                    }
+                });
+            }
+        });
+    </script>
+    
+    {{-- Estilos para as mensagens de alerta (opcional, mas recomendado) --}}
+    <style>
+        .alert { padding: 15px; margin-bottom: 20px; border: 1px solid transparent; border-radius: 4px; position: fixed; top: 20px; right: 20px; z-index: 1050; }
+        .alert-success { color: #155724; background-color: #d4edda; border-color: #c3e6cb; }
+        .alert-danger { color: #721c24; background-color: #f8d7da; border-color: #f5c6cb; }
+    </style>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {

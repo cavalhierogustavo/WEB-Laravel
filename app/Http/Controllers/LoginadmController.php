@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class LoginController extends Controller
+class LoginadmController extends Controller
 {
     public function showLoginForm()
     {
@@ -16,7 +16,7 @@ class LoginController extends Controller
     {
         // 1. Pega APENAS o 'email' e a 'password' da requisição
         $credentials = $request->validate([
-            'email' => 'required|email',
+            'cnpj' => 'required',
             'password' => 'required', // O nome no formulário é 'password'
         ]);
 

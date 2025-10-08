@@ -46,6 +46,14 @@ Route::get('/dashboard/index', function () {
     return view('dashboard.index');
 });
 
+Route::get('/dashboard/oportunidades', function () {
+    return view('dashboard.oportunidades');
+});
+
+Route::get('/dashboard/esporte', function () {
+    return view('dashboard.esportes');
+});
+
 Route::get('/dashboard/usuarios', function () {
     return view('dashboard.usuarios');
 })->name('dashboard.usuarios');
@@ -130,7 +138,7 @@ Route::put('/clube/update-info', [ClubeController::class, 'updateInfo'])
     ->middleware('auth') // Garante que apenas usuários logados possam acessar
     ->name('clube.updateInfo');
 
-    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // NOVA ROTA PARA EXCLUIR A CONTA
 Route::delete('/perfil', [ProfileController::class, 'destroy'])->name('profile.destroy');
