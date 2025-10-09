@@ -13,7 +13,14 @@
     {{-- Usando os mesmos ícones Ionicons --}}
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <style>
+         #Logo{
+        width: 150px;
+        border-radius: 20px;
+    }
+    </style>
 </head>
+
 <body>
     <div class="dashboard-container">
         <!-- ======================= -->
@@ -21,17 +28,16 @@
         <!-- ======================= -->
         <aside class="sidebar">
             <div class="sidebar-header">
-                <h1 class="logo">Logo aqui</h1>
+                 <img id="Logo" src="{{ asset('img/logoPerfil.jpeg') }}" alt="Logo do Perfil">
             </div>
             <nav class="sidebar-nav">
                 <span class="menu-title">Menu</span>
                 <ul>
-                    <li><a href="#"><ion-icon name="grid-outline"></ion-icon> Dashboard</a></li>
-                    <li><a href="#"><ion-icon name="people-outline"></ion-icon> Usuários <ion-icon class="chevron" name="chevron-down-outline"></ion-icon></a></li>
-                    <li><a href="#"><ion-icon name="football-outline"></ion-icon> Esportes</a></li>
-                    <li><a href="#"><ion-icon name="rocket-outline"></ion-icon> Oportunidades</a></li>
-                    {{-- "Listas" agora está com a classe "active" --}}
-                    <li class="active"><a href="#"><ion-icon name="list-outline"></ion-icon> Listas</a></li>
+                    <li><a href="/dashboard/index"><ion-icon name="grid-outline"></ion-icon> Dashboard</a></li>
+                    <li class="active"><a href="#"><ion-icon name="people-outline"></ion-icon> Usuários <ion-icon class="chevron" name="chevron-down-outline"></ion-icon></a></li>
+                    <li><a href="/dashboard/esporte"><ion-icon name="football-outline"></ion-icon> Esportes</a></li>
+                    <li><a href="/dashboard/oportunidades"><ion-icon name="rocket-outline"></ion-icon> Oportunidades</a></li>
+                    <li ><a href="#"><ion-icon name="list-outline"></ion-icon> Listas</a></li>
                     <li><a href="#"><ion-icon name="alert-circle-outline"></ion-icon> Denúncias <ion-icon class="chevron" name="chevron-down-outline"></ion-icon></a></li>
                     <li><a href="#"><ion-icon name="document-text-outline"></ion-icon> Conteúdo <ion-icon class="chevron" name="chevron-down-outline"></ion-icon></a></li>
                     <li><a href="#"><ion-icon name="stats-chart-outline"></ion-icon> Estatísticas</a></li>
@@ -66,7 +72,7 @@
                 <div class="toolbar">
                     <div class="search-bar">
                         <ion-icon name="search-outline"></ion-icon>
-                        <input type="text" placeholder="Pesquisar">
+                        <input type="text" id="searchInput" placeholder="Pesquisar por nome ou email...">
                     </div>
                     <button class="filter-button">
                         <ion-icon name="filter-outline"></ion-icon>
@@ -81,15 +87,15 @@
                         <thead>
                             <tr>
                                 <th>Foto/Avatar</th>
-                                <th>Nome de usuário</th>
-                                <th>Email</th>
-                                <th>Tipo</th>
-                                <th>Status</th>
-                                <th>Data de cadastro</th>
-                                <th>Ações rápidas</th>
+                <th>Nome de usuário</th>
+                <th>Email</th>
+                <th>Tipo</th> 
+                <th>Status</th>
+                <th>Data de cadastro</th>
+                <th>Ações rápidas</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="usersTableBody">
                             <tr>
                                 <td>
                                     <div class="item-icon user-avatar large">
@@ -118,5 +124,96 @@
             </div>
         </main>
     </div>
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    const tableBody = document.getElementById('usersTableBody');
+    const searchInput = document.getElementById('searchInput');
+
+    // Função para formatar a data (ex: 2025-10-09 -> 09 de Outubro de 2025)
+    function formatDate(dateString) {
+        if (!dateString) return 'N/A';
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return new Date(dateString).toLocaleDateString('pt-BR', options);
+    }
+
+    // Função para criar o @username a partir do nome completo
+    function createUsername(fullName) {
+        if (!fullName) return '';
+        return '@' + fullName.toLowerCase().replace(/\s+/g, '');
+    }
+
+    // Função principal para buscar e renderizar os usuários
+    async function fetchAndRenderUsers(searchTerm = '') {
+        // O nome do parâmetro de busca no seu controller é 'pesquisa'
+        const url = `/api/search-usuarios?pesquisa=${encodeURIComponent(searchTerm)}`;
+        
+        tableBody.innerHTML = '<tr><td colspan="7">Carregando...</td></tr>';
+
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error('Falha ao buscar dados da API: ' + response.statusText);
+            }
+            const result = await response.json();
+            const users = result.data;
+
+            tableBody.innerHTML = ''; // Limpa a tabela
+
+            if (users.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="7">Nenhum usuário encontrado.</td></tr>';
+                return;
+            }
+
+            // Cria e insere uma linha <tr> para cada usuário
+            users.forEach(user => {
+                const row = `
+                    <tr>
+                        <td>
+                            <div class="item-icon user-avatar large">
+                                <ion-icon name="person-circle-outline"></ion-icon>
+                            </div>
+                        </td>
+                        <td class="user-name-cell">
+                            <span class="main-name">${user.nomeCompletoUsuario}</span>
+                            <span class="sub-name">${createUsername(user.nomeCompletoUsuario)}</span>
+                        </td>
+                        <td>${user.emailUsuario}</td>
+                        <td><span class="tag tag-type-atleta">Atleta</span></td>
+                        <td><span class="tag tag-status-ativo">Ativo</span></td>
+                        <td>${formatDate(user.created_at)}</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="action-btn view"><ion-icon name="eye-outline"></ion-icon></button>
+                                <button class="action-btn edit"><ion-icon name="pencil-outline"></ion-icon></button>
+                                <button class="action-btn delete"><ion-icon name="trash-outline"></ion-icon></button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                tableBody.insertAdjacentHTML('beforeend', row);
+            });
+
+        } catch (error) {
+            console.error('Erro ao buscar usuários:', error);
+            tableBody.innerHTML = '<tr><td colspan="7">Erro ao carregar os dados. Tente novamente.</td></tr>';
+        }
+    }
+
+    // --- EVENT LISTENERS ---
+
+    // 1. Busca inicial quando a página carrega
+    fetchAndRenderUsers();
+
+    // 2. Evento para buscar enquanto o usuário digita (com debounce)
+    let debounceTimer;
+    searchInput.addEventListener('keyup', () => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+            // Passa o valor do input para a função de busca
+            fetchAndRenderUsers(searchInput.value);
+        }, 300); // Atraso de 300ms para evitar muitas requisições
+    });
+});
+</script>
 </body>
 </html>

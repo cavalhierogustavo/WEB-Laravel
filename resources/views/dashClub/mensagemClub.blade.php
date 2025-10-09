@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mensagens</title>
     <!-- Use o mesmo arquivo CSS da sidebar e adicione os estilos de mensagens -->
+    
+    <style>#Logo{
+        width: 150px;
+        border-radius: 20px;
+    }</style>
     <link rel="stylesheet" href="./css/dashClub/mensagensClub.css">
 </head>
 <body>
@@ -12,7 +17,7 @@
         <!-- Sidebar (IDÊNTICA AOS SEUS EXEMPLOS) -->
         <aside class="sidebar">
             <div class="logo-section">
-                <div class="logo-placeholder">Logo aqui</div>
+                <img id="Logo" src="{{ asset('img/logoPerfil.jpeg') }}" alt="Logo do Perfil">
             </div>
             
             <nav class="nav-menu">
@@ -43,7 +48,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="notificaçao" class="nav-link">
+                        <a href="notificacao" class="nav-link">
                             <img class="nav-icon" src="./img/notificaçao.png" alt="Notificação">
                             <span class="nav-text">Notificações</span>
                         </a>
@@ -67,7 +72,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{route('logout')}}" class="nav-link">
                             <img class="nav-icon" src="./img/sair.png" alt="Sair">
                             <span class="nav-text">Sair</span>
                         </a>
@@ -84,8 +89,12 @@
                 <div class="header-actions">
                     <span class="notification-bell">🔔</span>
                     <div class="user-profile">
-                        <span class="user-avatar"></span>
-                        <span class="user-name">João Pedro</span>
+                        <span class="user-avatar">👤</span>
+                       @auth
+                                    {{ Auth::user()->nomeClube ?? 'Nome do Clube' }}
+                                @else
+                                    Nome do Clube
+                                @endauth
                     </div>
                 </div>
             </header>

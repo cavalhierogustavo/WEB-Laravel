@@ -23,9 +23,29 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxyge
 .page-title { font-size: 32px; font-weight: 700; color: #000000; }
 .header-actions { display: flex; align-items: center; gap: 16px; }
 .notification-bell { cursor: pointer; font-size: 22px; }
-.user-profile { display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 6px 12px; border-radius: 20px; border: 1px solid #e0e0e0; }
-.user-avatar { width: 28px; height: 28px; border-radius: 50%; background-color: #4CAF50; }
-.user-name { font-weight: 600; }
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 20px;
+
+    transition: background-color 0.2s ease;
+}
+
+
+
+.user-avatar {
+    border-radius: 50%;
+    display: inline-block;
+    font-size: 24px;
+}
+
+.user-name {
+    font-weight: 600;
+    color: #333;
+}
 
 .page-controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
 .search-wrapper { position: relative; flex-grow: 1; max-width: 400px; }

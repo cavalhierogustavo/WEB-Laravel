@@ -1,5 +1,5 @@
 /* =============================================== */
-/* ESTILOS DA SIDEBAR (COPIADO DOS SEUS EXEMPLOS)  */
+/* ESTILOS GERAIS E SIDEBAR                        */
 /* =============================================== */
 * {
     margin: 0;
@@ -146,6 +146,7 @@ body {
     font-weight: 500;
     color: #4CAF50;
     cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
 }
 .mark-all-read-btn:hover{
     background-color: #f1f1f1;
@@ -161,8 +162,10 @@ body {
 .notification-bell {
     cursor: pointer;
     font-size: 22px;
+    color: #333;
 }
 
+/* --- Estilo Consolidado do Perfil do Usuário --- */
 .user-profile {
     display: flex;
     align-items: center;
@@ -170,19 +173,23 @@ body {
     cursor: pointer;
     padding: 6px 12px;
     border-radius: 20px;
-    border: 1px solid #e0e0e0;
+
+    transition: background-color 0.2s ease;
 }
 
+
+
 .user-avatar {
-    width: 28px;
-    height: 28px;
     border-radius: 50%;
-    background-color: #4CAF50;
+    display: inline-block;
+    font-size: 24px;
 }
 
 .user-name {
     font-weight: 600;
+    color: #333;
 }
+/* --- Fim do Estilo Consolidado --- */
 
 .notifications-summary {
     font-size: 16px;
@@ -221,6 +228,7 @@ body {
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     border: 1px solid #e9ecef;
+    margin-bottom: 16px;
 }
 
 .notification-icon {
@@ -233,6 +241,7 @@ body {
     justify-content: center;
     font-size: 20px;
     margin-right: 16px;
+    color: #4CAF50;
 }
 
 .notification-content {
@@ -241,6 +250,7 @@ body {
 
 .notification-title {
     font-weight: 600;
+    color: #333;
     margin: 0;
 }
 
@@ -269,7 +279,6 @@ body {
 /* ESTILOS DO TEMA ESCURO (DARK MODE)              */
 /* =============================================== */
 
-/* 1. Define as variáveis de cor para o tema escuro */
 body.dark-theme {
     --color-bg: #121212;
     --color-bg-secondary: #1e1e1e;
@@ -280,15 +289,13 @@ body.dark-theme {
     --color-primary: #74d477;
 }
 
-/* 2. Aplica as variáveis aos elementos da página */
-
 /* --- Fundo e Texto Geral --- */
 body.dark-theme {
     background-color: var(--color-bg);
     color: var(--color-text-primary);
 }
 
-/* --- Sidebar (Estilos consistentes com os outros) --- */
+/* --- Sidebar --- */
 body.dark-theme .sidebar {
     background-color: var(--color-bg-secondary);
     border-right-color: var(--color-border);
@@ -319,7 +326,7 @@ body.dark-theme .nav-item.active .nav-link img.nav-icon {
     filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
 }
 
-/* --- Conteúdo Principal da Página de Notificações --- */
+/* --- Conteúdo Principal --- */
 body.dark-theme .main-content {
     background-color: var(--color-bg);
 }
@@ -338,9 +345,19 @@ body.dark-theme .mark-all-read-btn:hover {
     background-color: var(--color-bg-tertiary);
 }
 
-body.dark-theme .header-actions .user-profile {
-    border-color: var(--color-border);
+body.dark-theme .notification-bell {
+    color: var(--color-text-secondary);
 }
+
+/* --- Estilo Consolidado do Perfil do Usuário (Dark Mode) --- */
+body.dark-theme .user-profile:hover {
+    background-color: var(--color-bg-tertiary);
+}
+
+body.dark-theme .user-name {
+    color: var(--color-text-primary);
+}
+/* --- Fim do Estilo Consolidado --- */
 
 body.dark-theme .notifications-summary {
     color: var(--color-text-secondary);
@@ -366,7 +383,8 @@ body.dark-theme .notification-item {
 }
 
 body.dark-theme .notification-icon {
-    background-color: rgba(116, 212, 119, 0.1); /* Verde sutil */
+    background-color: rgba(116, 212, 119, 0.1);
+    color: var(--color-primary);
 }
 
 body.dark-theme .notification-title {

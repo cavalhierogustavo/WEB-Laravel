@@ -1,15 +1,16 @@
 :root {
-    --primary-blue: #0039aa;
-    --dark-blue: #054d96;    
-    --light-blue-text: #004aa5; 
-    --gradient-start: #4A5A9E;  
-    --gradient-end: #5a6cb2;   
-    --button-blue: #013ecb; /* Azulzão pro botão principal */
+    --primary-blue: #00aa00;
+    --dark-blue: #21ad2d;    
+    --light-blue-text: #0ea500; 
+    --gradient-start: #50b943;  
+    --gradient-end: #34cf41;   
+    --button-blue: #01cb0b; /* Azulzão pro botão principal */
     --background-form: #ffffffc5; /* Fundo do form meio transparente */
     --background-progress-bar: #e4e6eb76; /* O fundo da barrinha, chave mlk */
     --text-white: #ffffff; /* O branco */
-    --text-gray: #888;  /* Cinza pra detalhes , chora nao mlk */
-    --input-background: #f8f9fa; /* Um fundo bem clarinho pros campos*/
+    --text-gray: #000000;  /* Cinza pra detalhes , chora nao mlk */
+    --input-background: #f8f9fa;
+    --input-a: #0a6602;
 }
 
 /* Reset básico pra garantir que nenhum navegador estrague */
@@ -33,7 +34,7 @@ body {
     justify-content: center; /* Centraliza tudo */
     align-items: center; 
     padding: 40px 20px;
-    background-image: url('https://images.unsplash.com/photo-1575361204480-aadea25e6e68?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80');
+    background-image: url('./dashboard/basq (1).jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -87,7 +88,7 @@ body {
     right: 0;
     bottom: 25px; 
     transform: translateX(50%);
-    color: var(--text-white);
+    color: var(--gradient-end);
     font-size: 2.2rem;
     text-shadow: 0 2px 4px rgba(0,0,0,0.3); 
     z-index: 10;
@@ -121,19 +122,16 @@ body {
 
 .clube-btn { 
     background-color: var(--button-blue); 
-    color: var(--text-white); 
+    color: var(--input-a); 
     border: none; 
     border-radius: 20px; 
     padding: 12px 40px; 
     font-size: 1.1rem; 
-    font-weight: 700; 
+    font-weight: 1000; 
     cursor: pointer; 
     transition: background-color 0.3s ease; 
 }
 
-.clube-btn:hover { 
-    background-color: #00288d; 
-}
 
 .form-group { 
     margin-bottom: 20px; 
@@ -224,15 +222,9 @@ body {
     align-items: center; 
     justify-content: center; 
 }
-
-.nav-arrow:hover { 
-    background-color: #0148b3; 
-    transform: scale(1.05); 
-}
-
-.next-btn { 
+.prev-btn{ 
     background-color: var(--gradient-start); 
-    color: var(--text-white); 
+    color: var(--dark-blue); 
     border: none; 
     border-radius: 25px; 
     padding: 14px 40px; 
@@ -245,9 +237,22 @@ body {
     gap: 10px; 
 }
 
-.next-btn:hover { 
-    background-color: #3e4c8a; 
+.next-btn { 
+    background-color: var(--gradient-start); 
+    color: var(--input-a); 
+    border: none; 
+    border-radius: 25px; 
+    padding: 14px 40px; 
+    font-size: 1.1rem; 
+    font-weight: 800; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease; 
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
 }
+
+
 
 .marketing-section {
     width: 100%;
@@ -260,7 +265,7 @@ body {
 }
 
 .marketing-section .highlight-blue {
-    color: #5D9CEC; 
+    color: #14c404; 
 }
 
 .form-row {

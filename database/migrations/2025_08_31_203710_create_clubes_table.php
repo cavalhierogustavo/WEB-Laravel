@@ -13,18 +13,18 @@ return new class extends Migration
     {
         Schema::create('clubes', function (Blueprint $table) {
             $table->id();
-            $table->string('nomeClube');
-            $table->string('email')->unique();
+            $table->string('nomeClube')->unique();
+            $table->string('emailClube')->unique();
+            $table->string('esporteClube');
+            $table->string('interesseClube');
+            $table->string('categoriaClube');
             $table->string('cidadeClube');
             $table->string('estadoClube');
             $table->date('anoCriacaoClube');
-            $table->string('esporte');
-            $table->string('categoria');
-            $table->string('interesse'); // <-- ADICIONE ESTA LINHA AQUI
             $table->string('cnpjClube')->unique();
             $table->string('enderecoClube');
-            $table->text('bioClube')->nullable();
-            $table->string('senhaClube');
+            $table->string('bioClube');
+            $table->string('senhaClube', 255);
             $table->timestamps();
         });
     }

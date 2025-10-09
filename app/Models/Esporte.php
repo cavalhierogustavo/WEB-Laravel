@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Clube;
-use App\Models\Usuario;
 use App\Models\Posicao;
+
 
 
 class Esporte extends Model
@@ -20,16 +20,18 @@ class Esporte extends Model
         'descricaoEsporte',
     ];
 
-    public function clubes()
+    public function clubes() // tirar isso depois | só estou mexendo no usuario -- bruno
     {
         return $this->belongsToMany(Clube::class);
     }
-    public function usuarios()
-    {
-        return $this->belongsToMany(Usuario::class);
-    }
+
     public function posicoes()
     {
         return $this->hasMany(Posicao::class);
+    }
+
+    public function caracteristicas()
+    {
+        return $this->hasMany(Caracteristica::class, 'esporte_id');
     }
 }

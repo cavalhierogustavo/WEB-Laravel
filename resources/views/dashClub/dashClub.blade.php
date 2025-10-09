@@ -4,14 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <link rel="stylesheet" href="./css/dashClub/dashClub.css">
+    
+    <style>
+        #Logo{
+        width: 150px;
+        border-radius: 20px;
+    }
+    </style><link rel="stylesheet" href="./css/dashClub/dashClub.css">
 </head>
 <body>
     <div class="container">
         <!-- Sidebar -->
         <aside class="sidebar">
             <div class="logo-section">
-                <div class="logo-placeholder">Logo aqui</div>
+                <img id="Logo" src="{{ asset('img/logoPerfil.jpeg') }}" alt="Logo do Perfil">
             </div>
             
             <nav class="nav-menu">
@@ -41,7 +47,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="notificaçao" class="nav-link">
+                        <a href="notificacao" class="nav-link">
                             <img class="nav-icon" src="./img/notificaçao.png" alt="Notificação">
                             <span class="nav-text">Notificações</span>
                         </a>
@@ -65,7 +71,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{route('logout')}}" class="nav-link">
                             <img class="nav-icon" src="./img/sair.png" alt="Sair">
                             <span class="nav-text">Sair</span>
                         </a>
@@ -86,8 +92,8 @@
                     <div class="stat-card">
                         <div class="stat-content">
                             <h3 class="stat-title">Seguidores</h3>
-                            <div class="stat-value">10.000</div>
-                            <div class="stat-change positive">+5%</div>
+                            <div class="stat-value">0</div>
+                            <div class="stat-change positive">+0%</div>
                         </div>
                         <div class="stat-icon">
                             <div class="icon-followers"></div>
@@ -95,15 +101,17 @@
                     </div>
 
                     <div class="stat-card">
-                        <div class="stat-content">
-                            <h3 class="stat-title">Oportunidades</h3>
-                            <div class="stat-subtitle">Ativas</div>
-                            <div class="stat-value">3</div>
-                        </div>
-                        <div class="stat-icon">
-                            <div class="icon-opportunities"></div>
-                        </div>
-                    </div>
+    <div class="stat-content">
+        <h3 class="stat-title">Oportunidades</h3>
+        <!-- Opcional: você pode mudar o subtítulo para "Total" ou remover -->
+        <div class="stat-subtitle">Total Cadastrado</div> 
+        <!-- Adicione o ID aqui e coloque um valor inicial de carregamento -->
+        <div class="stat-value" id="total-oportunidades">...</div> 
+    </div>
+    <div class="stat-icon">
+        <div class="icon-opportunities"></div>
+    </div>
+</div>
 
                     <div class="stat-card">
                         <div class="stat-content">
@@ -128,24 +136,24 @@
                 </div>
                 <div class="chart-container">
                     <div class="chart">
-                        <div class="chart-bar" style="height: 25%;">
-                            <div class="bar-value">10</div>
+                        <div class="chart-bar" style="height: 0%;">
+                            <div class="bar-value">0</div>
                             <div class="bar-label">seg</div>
                         </div>
-                        <div class="chart-bar" style="height: 75%;">
-                            <div class="bar-value">30</div>
+                        <div class="chart-bar" style="height: 0%;">
+                            <div class="bar-value">0</div>
                             <div class="bar-label">ter</div>
                         </div>
-                        <div class="chart-bar" style="height: 100%;">
-                            <div class="bar-value">40</div>
+                        <div class="chart-bar" style="height: 0%;">
+                            <div class="bar-value">0</div>
                             <div class="bar-label">qua</div>
                         </div>
-                        <div class="chart-bar" style="height: 50%;">
-                            <div class="bar-value">20</div>
+                        <div class="chart-bar" style="height: 0%;">
+                            <div class="bar-value">0</div>
                             <div class="bar-label">qui</div>
                         </div>
-                        <div class="chart-bar" style="height: 75%;">
-                            <div class="bar-value">30</div>
+                        <div class="chart-bar" style="height: 0%;">
+                            <div class="bar-value">0</div>
                             <div class="bar-label">sex</div>
                         </div>
                     </div>
@@ -164,80 +172,8 @@
                         <div class="header-cell">Clube atual</div>
                         <div class="header-cell">Ações</div>
                     </div>
-                    <div class="table-row">
-                        <div class="cell profile-cell">
-                            <div class="profile-avatar"></div>
-                            <div class="profile-info">
-                                <div class="profile-name">Leonardo Matarazo</div>
-                                <div class="profile-handle">@leofazo</div>
-                            </div>
-                        </div>
-                        <div class="cell">
-                            <span class="activity-badge interested">Interessado</span>
-                        </div>
-                        <div class="cell">
-                            <span class="opportunity-badge">Zagueiro</span>
-                        </div>
-                        <div class="cell">
-                            <span class="date-badge">13/09/2025</span>
-                        </div>
-                        <div class="cell">
-                            <span class="club-badge">Sem clube</span>
-                        </div>
-                        <div class="cell actions-cell">
-                            <button class="action-btn edit-btn" title="Editar">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                                    <path d="m18.5 2.5 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                                </svg>
-                            </button>
-                            <button class="action-btn delete-btn" title="Excluir">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <polyline points="3,6 5,6 21,6"></polyline>
-                                    <path d="m19,6v14a2,2 0 0,1 -2,2H7a2,2 0 0,1 -2,-2V6m3,0V4a2,2 0 0,1 2,-2h4a2,2 0 0,1 2,2v2"></path>
-                                    <line x1="10" y1="11" x2="10" y2="17"></line>
-                                    <line x1="14" y1="11" x2="14" y2="17"></line>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="table-row">
-                        <div class="cell profile-cell">
-                            <div class="profile-avatar"></div>
-                            <div class="profile-info">
-                                <div class="profile-name">Leonardo Matarazo</div>
-                                <div class="profile-handle">@leofazo</div>
-                            </div>
-                        </div>
-                        <div class="cell">
-                            <span class="activity-badge interested">Interessado</span>
-                        </div>
-                        <div class="cell">
-                            <span class="opportunity-badge">Zagueiro</span>
-                        </div>
-                        <div class="cell">
-                            <span class="date-badge">13/09/2025</span>
-                        </div>
-                        <div class="cell">
-                            <span class="club-badge">Sem clube</span>
-                        </div>
-                        <div class="cell actions-cell">
-                            <button class="action-btn edit-btn" title="Editar">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                                    <path d="m18.5 2.5 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                                </svg>
-                            </button>
-                            <button class="action-btn delete-btn" title="Excluir">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <polyline points="3,6 5,6 21,6"></polyline>
-                                    <path d="m19,6v14a2,2 0 0,1 -2,2H7a2,2 0 0,1 -2,-2V6m3,0V4a2,2 0 0,1 2,-2h4a2,2 0 0,1 2,2v2"></path>
-                                    <line x1="10" y1="11" x2="10" y2="17"></line>
-                                    <line x1="14" y1="11" x2="14" y2="17"></line>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
+                    
+
                 </div>
             </section>
 
@@ -252,50 +188,10 @@
                             <option value="atacante">Atacante</option>
                         </select>
                     </div>
-                    <div class="suggestions-list">
-                        <div class="suggestion-item">
-                            <div class="suggestion-avatar"></div>
-                            <div class="suggestion-info">
-                                <div class="suggestion-name">Leonardo Matarazo</div>
-                                <div class="suggestion-handle">@leofazo</div>
-                            </div>
-                            <button class="suggestion-action">→</button>
-                        </div>
-                        <div class="suggestion-item">
-                            <div class="suggestion-avatar"></div>
-                            <div class="suggestion-info">
-                                <div class="suggestion-name">Leonardo Matarazo</div>
-                                <div class="suggestion-handle">@leofazo</div>
-                            </div>
-                            <button class="suggestion-action">→</button>
-                        </div>
-                        <div class="suggestion-item">
-                            <div class="suggestion-avatar"></div>
-                            <div class="suggestion-info">
-                                <div class="suggestion-name">Leonardo Matarazo</div>
-                                <div class="suggestion-handle">@leofazo</div>
-                            </div>
-                            <button class="suggestion-action">→</button>
-                        </div>
-                        <div class="suggestion-item">
-                            <div class="suggestion-avatar"></div>
-                            <div class="suggestion-info">
-                                <div class="suggestion-name">Leonardo Matarazo</div>
-                                <div class="suggestion-handle">@leofazo</div>
-                            </div>
-                            <button class="suggestion-action">→</button>
-                        </div>
-                        <div class="suggestion-item">
-                            <div class="suggestion-avatar"></div>
-                            <div class="suggestion-info">
-                                <div class="suggestion-name">Leonardo Matarazo</div>
-                                <div class="suggestion-handle">@leofazo</div>
-                            </div>
-                            <button class="suggestion-action">→</button>
-                        </div>
-                    </div>
-                    <button class="see-more-btn">Ver mais ↓</button>
-                </section>
+                    <div class="suggestions-list" id="suggestions-list-container">
+
+    <p>Carregando sugestões...</p> 
+</div>
 
                 <!-- Mini Chart -->
                 <section class="mini-chart-section">
@@ -354,6 +250,111 @@
             localStorage.setItem('theme', newTheme);
         });
     </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Função para buscar as estatísticas do clube
+            async function carregarEstatisticas() {
+                try {
+                    // Faz a requisição para a API que criamos
+                    const response = await fetch('/api/oportunidades/estatisticas', {
+                        headers: {
+                            'Accept': 'application/json',
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    });
+
+                    if (!response.ok) {
+                        // Se a resposta não for OK (ex: erro 401, 500), exibe um erro
+                        console.error('Erro ao buscar estatísticas:', response.statusText);
+                        document.getElementById('total-oportunidades').textContent = 'Erro';
+                        return;
+                    }
+
+                    // Converte a resposta para JSON
+                    const stats = await response.json();
+
+                    // Atualiza o elemento HTML com o total de oportunidades
+                    const totalOportunidadesEl = document.getElementById('total-oportunidades');
+                    if (totalOportunidadesEl) {
+                        totalOportunidadesEl.textContent = stats.total_oportunidades;
+                    }
+
+                } catch (error) {
+                    console.error('Falha na requisição de estatísticas:', error);
+                    document.getElementById('total-oportunidades').textContent = 'N/A';
+                }
+            }
+
+            // Chama a função assim que a página terminar de carregar
+            carregarEstatisticas();
+        });
+    </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        // Função para carregar as estatísticas (já existente)
+        async function carregarEstatisticas() {
+            // ... seu código existente ...
+        }
+
+        // --- NOVA FUNÇÃO PARA CARREGAR SUGESTÕES ---
+        async function carregarSugestoes() {
+            const container = document.getElementById('suggestions-list-container');
+            
+            try {
+                // Chama a nova rota da API
+                const response = await fetch('/api/usuarios/sugestoes', {
+                    headers: {
+                        'Accept': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                });
+
+                if (!response.ok) {
+                    container.innerHTML = '<p>Erro ao carregar sugestões.</p>';
+                    return;
+                }
+
+                const sugestoes = await response.json();
+
+                // Limpa a mensagem "Carregando..."
+                container.innerHTML = '';
+
+                if (sugestoes.length === 0) {
+                    container.innerHTML = '<p>Nenhuma sugestão encontrada.</p>';
+                    return;
+                }
+
+                // Cria um item na lista para cada sugestão recebida
+                sugestoes.forEach(usuario => {
+                    const itemHtml = `
+                        <div class="suggestion-item">
+                            <div class="suggestion-avatar"></div>
+                            <div class="suggestion-info">
+                                <div class="suggestion-name">${usuario.nomeCompletoUsuario}</div>
+                                <div class="suggestion-handle">${usuario.username}</div>
+                            </div>
+                            <button class="suggestion-action">→</button>
+                        </div>
+                    `;
+                    // Adiciona o novo elemento HTML ao container
+                    container.insertAdjacentHTML('beforeend', itemHtml);
+                });
+
+            } catch (error) {
+                console.error('Falha ao carregar sugestões:', error);
+                container.innerHTML = '<p>Não foi possível buscar as sugestões.</p>';
+            }
+        }
+
+        // Chama as duas funções ao carregar a página
+        carregarEstatisticas();
+        carregarSugestoes(); 
+    });
+</script>
+
+    
 
 </body>
 </html>

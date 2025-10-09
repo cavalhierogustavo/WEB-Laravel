@@ -5,10 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil</title>
     <link rel="stylesheet" href="./css/dashClub/perfilClub.css">
+<style>
+    #Logo{
+        width: 150px;
+        border-radius: 20px;
+    }
+</style>
 </head>
 <body>
- @if (session('success'))
+    {{-- Mensagens de feedback --}}
+    @if (session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
+    @if (session('error'))
+        <div class="alert alert-danger">{{ session('error') }}</div>
     @endif
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -19,65 +29,66 @@
             </ul>
         </div>
     @endif
+
     <div class="container">
         <!-- Sidebar -->
         <aside class="sidebar">
             <div class="logo-section">
-                <div class="logo-placeholder">Logo aqui</div>
+                <img id="Logo" src="{{ asset('img/logoPerfil.jpeg') }}" alt="Logo do Perfil">
             </div>
             
             <nav class="nav-menu">
                 <ul>
                     <li class="nav-item">
-                        <a href="dashClub" class="nav-link">
+                        <a href="{{ route('DashClub') }}" class="nav-link">
                             <img class="nav-icon" src="./img/dashboard.png" alt="">
                             <span class="nav-text">Dashboard</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="oportunidades" class="nav-link">
+                        <a href="{{ route('Oportunidades') }}" class="nav-link">
                             <img class="nav-icon" src="./img/oportunidades.png" alt="Perfil">
                             <span class="nav-text">Oportunidades</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="lista" class="nav-link">
+                        <a href="{{ route('lista') }}" class="nav-link">
                             <img class="nav-icon" src="./img/vector.png" alt="Lista">
                             <span class="nav-text">Listas</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="mensagens" class="nav-link">
+                        <a href="{{ route('Mensagens') }}" class="nav-link">
                             <img class="nav-icon" src="./img/mensagem.png" alt="Dashboard">
                             <span class="nav-text">Mensagens</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="notificaçao" class="nav-link">
+                        <a href="{{ route('notificações') }}" class="nav-link">
                             <img class="nav-icon" src="./img/notificaçao.png" alt="Perfil">
                             <span class="nav-text">Notificações</span>
                         </a>
                     </li>
                     <li class="nav-item active">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('Perfil') }}" class="nav-link">
                             <img class="nav-icon" src="./img/perfil.png" alt="">
                             <span class="nav-text">Perfil</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="pesquisa" class="nav-link">
+                        <a href="{{ route('Pesquisa') }}" class="nav-link">
                             <img class="nav-icon" src="./img/pesquisa.png" alt="">
                             <span class="nav-text">Pesquisa</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                       <a href="configuracao" class="nav-link">
+                       <a href="{{ route('Configurações') }}" class="nav-link">
                             <img class="nav-icon" src="./img/configuracoes.png" alt="Configurações">
                             <span class="nav-text">Configurações</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('logout') }}" class="nav-link">
                             <img class="nav-icon" src="./img/sair.png" alt="Sair">
                             <span class="nav-text">Sair</span>
                         </a>
@@ -96,11 +107,20 @@
                         <span class="notification-icon">🔔</span>
                         <div class="user-profile">
                             <span class="user-avatar">👤</span>
-                            <span class="user-name">{{ Auth::user()->nomeClube ?? 'Nome do Clube' }}</span>
+                            {{-- Uso direto do Auth::user() com verificação --}}
+                            <span class="user-name">
+                                @auth
+                                    {{ Auth::user()->nomeClube ?? 'Nome do Clube' }}
+                                @else
+                                    Nome do Clube
+                                @endauth
+                            </span>
                         </div>
                     </div>
                 </div>
             </header>
+
+            
 
             <!-- Profile Banner -->
             <section class="profile-banner">
@@ -114,8 +134,45 @@
                             <span class="followers-count">125k seguidores</span>
                             <button id="edit-profile-btn" class="follow-btn">Editar Perfil</button>
                         </div>
-                        <h2 class="profile-name">Norven FC</h2>
-                        <p class="profile-description">A Norven Fc é um time fictício criado em 15 de Setembro de 2025.</p>
+                        {{-- Dados do clube usando Auth::user() diretamente --}}
+                        <h2 class="profile-name">
+                            @auth
+                                {{ Auth::user()->nomeClube ?? 'Nome do Clube' }}
+                            @else
+                                Nome do Clube
+                            @endauth
+                        </h2>
+                        <p class="profile-description">
+                            @auth
+                                {{ Auth::user()->bioClube ?? 'Descrição do clube não disponível.' }}
+                            @else
+                                Descrição do clube não disponível.
+                            @endauth
+                        </p>
+                        <p class="profile-sport">
+                            <strong>Esporte:</strong> 
+                            @auth
+                                {{ Auth::user()->esporteClube ?? Auth::user()->esporte ?? 'Não informado' }}
+                            @else
+                                Não informado
+                            @endauth
+                        </p>
+                        <p class="profile-location">
+                            <strong>Localização:</strong> 
+                            @auth
+                                @if(Auth::user()->cidadeClube && Auth::user()->estadoClube)
+                                    {{ Auth::user()->cidadeClube }} - {{ Auth::user()->estadoClube }}
+                                @elseif(Auth::user()->cidadeClube)
+                                    {{ Auth::user()->cidadeClube }}
+                                @elseif(Auth::user()->estadoClube)
+                                    {{ Auth::user()->estadoClube }}
+                                @else
+                                    Não informado
+                                @endif
+                            @else
+                                Não informado
+                            @endauth
+                        </p>
                     </div>
                 </div>
             </section>
@@ -199,17 +256,83 @@
 
                 <div class="content-area hidden" id="sobre">
                     <div class="about-content">
-                        <h3>Sobre o Norven FC</h3>
-                        <p>O Norven FC foi fundado em 15 de setembro de 2025 com o objetivo de promover o futebol na região e desenvolver talentos locais. Nossa equipe é composta por profissionais dedicados e atletas comprometidos com a excelência esportiva.</p>
+                        <h3>Sobre o 
+                            @auth
+                                {{ Auth::user()->nomeClube ?? 'Clube' }}
+                            @else
+                                Clube
+                            @endauth
+                        </h3>
+                        <p>
+                            @auth
+                                {{ Auth::user()->bioClube ?? 'Informações sobre o clube não disponíveis.' }}
+                            @else
+                                Informações sobre o clube não disponíveis.
+                            @endauth
+                        </p>
                         
-                        <h4>Nossa Missão</h4>
-                        <p>Desenvolver o potencial de cada atleta, promovendo valores como disciplina, trabalho em equipe e fair play.</p>
+                        <h4>Informações Gerais</h4>
+                        <div class="club-info">
+                            <p><strong>Nome:</strong> 
+                                @auth
+                                    {{ Auth::user()->nomeClube ?? 'Não informado' }}
+                                @else
+                                    Não informado
+                                @endauth
+                            </p>
+                            <p><strong>Esporte:</strong> 
+                                @auth
+                                    {{ Auth::user()->esporteClube ?? Auth::user()->esporte ?? 'Não informado' }}
+                                @else
+                                    Não informado
+                                @endauth
+                            </p>
+                            <p><strong>Cidade:</strong> 
+                                @auth
+                                    {{ Auth::user()->cidadeClube ?? 'Não informado' }}
+                                @else
+                                    Não informado
+                                @endauth
+                            </p>
+                            <p><strong>Estado:</strong> 
+                                @auth
+                                    {{ Auth::user()->estadoClube ?? 'Não informado' }}
+                                @else
+                                    Não informado
+                                @endauth
+                            </p>
+                            @auth
+    @if(Auth::user()->anoCriacaoClube)
+        <p><strong>Fundado em:</strong> 
+            @if(is_object(Auth::user()->anoCriacaoClube) && method_exists(Auth::user()->anoCriacaoClube, 'format'))
+                {{ Auth::user()->anoCriacaoClube->format('d/m/Y') }}
+            @else
+                {{ Auth::user()->anoCriacaoClube }}
+            @endif
+        </p>
+    @endif
+@endauth
+                        </div>
                         
                         <h4>Contato</h4>
                         <div class="contact-info">
-                            <p><strong>Email:</strong> contato@norvenfc.com</p>
-                            <p><strong>Telefone:</strong> (11) 99999-9999</p>
-                            <p><strong>Endereço:</strong> Rua do Futebol, 123 - São Paulo, SP</p>
+                            <p><strong>Email:</strong> 
+                                @auth
+                                    {{ Auth::user()->emailClube ?? 'Não informado' }}
+                                @else
+                                    Não informado
+                                @endauth
+                            </p>
+                            @auth
+                                @if(Auth::user()->enderecoClube)
+                                    <p><strong>Endereço:</strong> 
+                                        {{ Auth::user()->enderecoClube }}
+                                        @if(Auth::user()->cidadeClube && Auth::user()->estadoClube)
+                                            , {{ Auth::user()->cidadeClube }} - {{ Auth::user()->estadoClube }}
+                                        @endif
+                                    </p>
+                                @endif
+                            @endauth
                         </div>
                     </div>
                 </div>
@@ -217,34 +340,31 @@
         </main>
     </div>
 
-   <div id="edit-modal" class="modal-overlay hidden">
+    {{-- Modal de Edição --}}
+    <div id="edit-modal" class="modal-overlay hidden">
         <div class="modal-container">
             <div class="modal-header">
                 <h3 class="modal-title">Editar Perfil do Clube</h3>
                 <button id="close-modal-btn" class="modal-close-btn">&times;</button>
             </div>
             <div class="modal-body">
-                {{-- Formulário aponta para a rota de atualização --}}
                 <form id="edit-club-form" action="{{ route('clube.updateInfo') }}" method="POST">
-                    @csrf  {{-- Token de segurança do Laravel --}}
-                    @method('PUT') {{-- Especifica o método HTTP para a rota --}}
+                    @csrf
+                    @method('PUT')
 
                     <div class="form-group">
                         <label for="nomeClube">Nome do Clube</label>
                         <div class="input-icon-wrapper">
-                            <svg class="input-icon" ...></svg>
-                            {{-- O valor do input é preenchido com os dados do clube --}}
-                            <input type="text" id="nomeClube" name="nomeClube" class="form-control" value="{{ old('nomeClube', Auth::user()->nomeClube) }}" required>
+                            <input type="text" id="nomeClube" name="nomeClube" class="form-control" 
+                                   value="{{ old('nomeClube', Auth::check() ? (Auth::user()->nomeClube ?? '') : '') }}" required>
                         </div>
                     </div>
 
-                    {{-- NOVO CAMPO: ESPORTE --}}
                     <div class="form-group">
-                        <label for="esporte">Esporte Principal</label>
+                        <label for="esporteClube">Esporte Principal</label>
                         <div class="input-icon-wrapper">
-                             <svg class="input-icon" ...></svg>
-                            {{-- O controller espera o campo 'esporte' --}}
-                            <input type="text" id="esporte" name="esporte" class="form-control" value="{{ old('esporte', Auth::user()->esporte) }}" required>
+                            <input type="text" id="esporteClube" name="esporteClube" class="form-control" 
+                                   value="{{ old('esporteClube', Auth::check() ? (Auth::user()->esporteClube ?? Auth::user()->esporte ?? '') : '') }}" required>
                         </div>
                     </div>
 
@@ -252,24 +372,22 @@
                         <div class="form-group">
                             <label for="estadoClube">Estado</label>
                             <div class="input-icon-wrapper">
-                                <svg class="input-icon" ...></svg>
-                                <input type="text" id="estadoClube" name="estadoClube" class="form-control" value="{{ old('estadoClube', Auth::user()->estadoClube) }}" required>
+                                <input type="text" id="estadoClube" name="estadoClube" class="form-control" 
+                                       value="{{ old('estadoClube', Auth::check() ? (Auth::user()->estadoClube ?? '') : '') }}" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="cidadeClube">Cidade</label>
                             <div class="input-icon-wrapper">
-                                <svg class="input-icon" ...></svg>
-                                <input type="text" id="cidadeClube" name="cidadeClube" class="form-control" value="{{ old('cidadeClube', Auth::user()->cidadeClube) }}" required>
+                                <input type="text" id="cidadeClube" name="cidadeClube" class="form-control" 
+                                       value="{{ old('cidadeClube', Auth::check() ? (Auth::user()->cidadeClube ?? '') : '') }}" required>
                             </div>
                         </div>
                     </div>
 
-                    {{-- O controller não atualiza a bio, mas podemos manter o campo --}}
-                    {{-- Se quiser atualizar, adicione 'bioClube' à validação no controller --}}
                     <div class="form-group">
                         <label for="bioClube">Descrição (Bio)</label>
-                        <textarea id="bioClube" name="bioClube" class="form-control" rows="4">{{ old('bioClube', Auth::user()->bioClube) }}</textarea>
+                        <textarea id="bioClube" name="bioClube" class="form-control" rows="4">{{ old('bioClube', Auth::check() ? (Auth::user()->bioClube ?? '') : '') }}</textarea>
                     </div>
                 </form>
             </div>
@@ -280,88 +398,47 @@
         </div>
     </div>
 
-<script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const editProfileBtn = document.getElementById('edit-profile-btn');
-            const editModal = document.getElementById('edit-modal');
-            const closeModalBtn = document.getElementById('close-modal-btn');
-            const cancelBtn = document.getElementById('cancel-btn');
-
-            if(editProfileBtn) {
-                const openModal = () => editModal.classList.remove('hidden');
-                const closeModal = () => editModal.classList.add('hidden');
-
-                editProfileBtn.addEventListener('click', openModal);
-                closeModalBtn.addEventListener('click', closeModal);
-                cancelBtn.addEventListener('click', closeModal);
-
-                editModal.addEventListener('click', function(e) {
-                    if (e.target === this) {
-                        closeModal();
-                    }
-                });
-            }
-        });
-    </script>
-    
-    {{-- Estilos para as mensagens de alerta (opcional, mas recomendado) --}}
+    {{-- Estilos --}}
     <style>
-        .alert { padding: 15px; margin-bottom: 20px; border: 1px solid transparent; border-radius: 4px; position: fixed; top: 20px; right: 20px; z-index: 1050; }
-        .alert-success { color: #155724; background-color: #d4edda; border-color: #c3e6cb; }
-        .alert-danger { color: #721c24; background-color: #f8d7da; border-color: #f5c6cb; }
+        .alert { 
+            padding: 15px; 
+            margin-bottom: 20px; 
+            border: 1px solid transparent; 
+            border-radius: 4px; 
+            position: fixed; 
+            top: 20px; 
+            right: 20px; 
+            z-index: 1050; 
+            max-width: 400px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .alert-success { 
+            color: #155724; 
+            background-color: #d4edda; 
+            border-color: #c3e6cb; 
+        }
+        .alert-danger { 
+            color: #721c24; 
+            background-color: #f8d7da; 
+            border-color: #f5c6cb; 
+        }
+        .alert ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        .profile-sport, .profile-location {
+            margin-top: 10px;
+            color: #666;
+        }
+        .club-info p {
+            margin-bottom: 8px;
+        }
+        .debug-panel {
+            border-left: 4px solid #007bff;
+        }
     </style>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Navegação do perfil
-            const profileNavLinks = document.querySelectorAll('.profile-nav-link');
-            const contentAreas = document.querySelectorAll('.content-area');
-
-            profileNavLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    // Remove active de todos os links
-                    profileNavLinks.forEach(l => l.parentElement.classList.remove('active'));
-                    
-                    // Adiciona active ao link clicado
-                    this.parentElement.classList.add('active');
-                    
-                    // Esconde todas as áreas de conteúdo
-                    contentAreas.forEach(area => area.classList.add('hidden'));
-                    
-                    // Mostra a área correspondente
-                    const targetId = this.getAttribute('href').substring(1);
-                    const targetArea = document.getElementById(targetId);
-                    if (targetArea) {
-                        targetArea.classList.remove('hidden');
-                    }
-                });
-            });
-
-            // Botão de seguir
-            const followBtn = document.querySelector('.follow-btn');
-            followBtn.addEventListener('click', function() {
-                if (this.textContent === 'Seguir') {
-                    this.textContent = 'Seguindo';
-                    this.classList.add('following');
-                } else {
-                    this.textContent = 'Seguir';
-                    this.classList.remove('following');
-                }
-            });
-
-            // Botão de criar oportunidade
-            const createOpportunityBtn = document.querySelector('.create-opportunity-btn');
-            if (createOpportunityBtn) {
-                createOpportunityBtn.addEventListener('click', function() {
-                    console.log('Criar nova oportunidade');
-                    // Aqui você pode adicionar a lógica para criar uma nova oportunidade
-                });
-            }
-        });
-    </script>
-<script>
         // Seleciona os elementos do DOM
         const themeToggle = document.getElementById('theme-toggle');
         const themeName = document.getElementById('theme-name');
@@ -405,5 +482,61 @@
         });
     </script>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Modal de edição
+            const editProfileBtn = document.getElementById('edit-profile-btn');
+            const editModal = document.getElementById('edit-modal');
+            const closeModalBtn = document.getElementById('close-modal-btn');
+            const cancelBtn = document.getElementById('cancel-btn');
+
+            if(editProfileBtn) {
+                const openModal = () => editModal.classList.remove('hidden');
+                const closeModal = () => editModal.classList.add('hidden');
+
+                editProfileBtn.addEventListener('click', openModal);
+                closeModalBtn.addEventListener('click', closeModal);
+                cancelBtn.addEventListener('click', closeModal);
+
+                editModal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        closeModal();
+                    }
+                });
+            }
+
+            // Navegação do perfil
+            const profileNavLinks = document.querySelectorAll('.profile-nav-link');
+            const contentAreas = document.querySelectorAll('.content-area');
+
+            profileNavLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    profileNavLinks.forEach(l => l.parentElement.classList.remove('active'));
+                    this.parentElement.classList.add('active');
+                    
+                    contentAreas.forEach(area => area.classList.add('hidden'));
+                    
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetArea = document.getElementById(targetId);
+                    if (targetArea) {
+                        targetArea.classList.remove('hidden');
+                    }
+                });
+            });
+
+            // Auto-hide alerts
+            const alerts = document.querySelectorAll('.alert');
+            alerts.forEach(alert => {
+                setTimeout(() => {
+                    alert.style.opacity = '0';
+                    setTimeout(() => {
+                        alert.remove();
+                    }, 300);
+                }, 5000);
+            });
+        });
+    </script>
 </body>
 </html>

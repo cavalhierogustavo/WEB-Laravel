@@ -4,45 +4,101 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
-use App\Models\Esporte;
-use App\Models\Usuario;
-
+use Illuminate\Support\Facades\Hash; // Importante: Precisamos do Hash aqui
 
 class Clube extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory, Notifiable;
 
-    protected $table = 'clubes';
-
-     protected $fillable = [
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
         'nomeClube',
-        'email',
+        'emailClube',
+        'senhaClube',
         'cidadeClube',
         'estadoClube',
         'anoCriacaoClube',
-        'esporte',
-        'categoria',
-        'interesse', // Adicionei interesse que estava no form
         'cnpjClube',
         'enderecoClube',
         'bioClube',
+        'esporteClube',
+        'interesseClube',
+        'categoriaClube',
+    ];
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
         'senhaClube',
     ];
 
-public function getAuthPassword()
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        // A propriedade 'hashed' foi removida daqui para garantir compatibilidade
+        // com versões mais antigas do Laravel.
+        return [
+            'anoCriacaoClube' => 'date',
+        ];
+    }
+
+    /**
+     * ✅ ESTE MÉTODO AGORA É O ÚNICO RESPONSÁVEL PELO HASHING ✅
+     *
+     * Este "mutator" intercepta o valor da senha antes de ser salvo no banco
+     * e aplica a criptografia Hash, garantindo que a senha nunca seja
+     * salva em texto puro. Funciona em todas as versões do Laravel.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setSenhaClubeAttribute($value)
+    {
+        // A verificação 'if (!empty($value))' é uma boa prática para
+        // evitar erros se o valor da senha for nulo em alguma operação.
+        if (!empty($value)) {
+            $this->attributes['senhaClube'] = Hash::make($value);
+        }
+    }
+
+    /**
+     * Get the password for the user.
+     * (Este método é importante para o sistema de autenticação do Laravel)
+     *
+     * @return string
+     */
+    public function getAuthPassword()
     {
         return $this->senhaClube;
     }
 
+    // --- MÉTODOS PARA DESABILITAR O "REMEMBER ME" TOKEN ---
+    // (Seu código para isso já estava correto, mantido aqui)
 
-    function esportes()
+    public function getRememberToken()
     {
-        return $this->belongsToMany(Esporte::class);
+        return null;
     }
-    public function usuarios()
+
+    public function setRememberToken($value)
     {
-        return $this->belongsToMany(Usuario::class);
+        // Não faz nada
+    }
+
+    public function getRememberTokenName()
+    {
+        return null;
     }
 }

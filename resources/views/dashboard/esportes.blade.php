@@ -4,10 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Esportes</title>
-    <link rel="stylesheet" href="./css/dashboard/esporte.css">
+    <link rel="stylesheet" href="{{ asset('css/dashboard/esporte.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- SCRIPT DOS ÍCONES (IONICONS ) - ESSENCIAL -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 </head>
 
 <style>
@@ -376,6 +379,183 @@ td:first-child {
 .action-btn.edit:hover { background-color: var(--action-edit); }
 .action-btn.delete:hover { background-color: var(--action-delete); }
 
+.modal-overlay {
+    /* Faz o fundo cobrir a tela inteira e ficar por cima de tudo */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1000; /* Garante que fique na frente */
+
+    /* A MÁGICA DA CENTRALIZAÇÃO ACONTECE AQUI */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* Efeito de transição suave */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+}
+
+/* Classe para mostrar o modal */
+.modal-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-container {
+    background: var(--bg-white);
+    border-radius: 12px;
+    padding: 24px;
+    width: 100%;
+    max-width: 500px; /* Largura máxima do modal */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    
+    /* Animação de surgimento */
+    transform: scale(0.95);
+    transition: transform 0.3s;
+}
+
+.modal-overlay.show .modal-container {
+    transform: scale(1);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 16px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.modal-header h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.modal-close-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--text-light);
+}
+
+.modal-body {
+    margin-bottom: 24px;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    font-size: 14px;
+}
+.form-control:focus {
+    outline: none;
+    border-color: var(--primary-blue);
+}
+
+textarea.form-control {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+.btn-secondary {
+    background-color: var(--bg-white);
+    border-color: var(--border-color);
+    color: var(--text-dark);
+}
+.btn-secondary:hover {
+    background-color: var(--bg-light);
+}
+.btn-primary {
+    background-color: var(--primary-blue);
+    color: var(--bg-white);
+}
+.btn-primary:hover {
+    background-color: #2563EB; /* Um azul um pouco mais escuro */
+}
+
+.error-message {
+    color: var(--logout-red);
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+
+    #Logo{
+        width: 150px;
+        border-radius: 20px;
+    }
+     .icon, .icon-button, .action-btn, .avatar, .modal-close-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .icon, .icon-button ion-icon, .action-btn ion-icon, .avatar ion-icon {
+        font-size: 20px; /* Tamanho padrão para ícones */
+    }
+
+    .sidebar-nav li a .icon, .sidebar-footer li a .icon {
+        font-size: 20px;
+        width: 20px; /* Mantém o alinhamento */
+        height: 20px;
+        margin-right: 12px;
+    }
+
+    .action-btn ion-icon {
+        font-size: 18px; /* Ícones de ação um pouco menores */
+    }
+
+    .modal-close-btn {
+        font-size: 28px; /* Ícone de fechar maior */
+    }
+    
+    #Logo{
+        width: 150px;
+        border-radius: 20px;
+    }
+
+    .item-icon.small { width: 20px; height: 20px; }
+    .sidebar-nav li a ion-icon, .sidebar-footer li a ion-icon {
+    font-size: 20px;
+    margin-right: 12px;
+}
+
+</style>
+
 </style>
 <body>
     <div class="dashboard-container">
@@ -384,21 +564,21 @@ td:first-child {
         <!-- ======================= -->
         <aside class="sidebar">
             <div class="sidebar-header">
-                <h1 class="logo">Logo aqui</h1>
+                 <img id="Logo" src="{{ asset('img/logoPerfil.jpeg') }}" alt="Logo do Perfil">
             </div>
             <nav class="sidebar-nav">
                 <span class="menu-title">Menu</span>
                 <ul>
-                    <li><a href="#"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M3 3a1 1 0 00-1 1v3a1 1 0 102 0V4h3a1 1 0 100-2H3zM3 10a1 1 0 00-1 1v3a1 1 0 102 0v-3a1 1 0 00-1-1zM10 3a1 1 0 00-1 1v3a1 1 0 102 0V4a1 1 0 00-1-1zM10 10a1 1 0 00-1 1v3a1 1 0 102 0v-3a1 1 0 00-1-1zM17 3a1 1 0 00-1 1v3a1 1 0 102 0V4h-1zM17 10a1 1 0 00-1 1v3a1 1 0 102 0v-3a1 1 0 00-1-1z"/></svg> Dashboard</a></li>
-                    <li><a href="#"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M10 8a3 3 0 100-6 3 3 0 000 6zM3.465 14.493a1.23 1.23 0 00.41 1.412A9.957 9.957 0 0010 18c2.31 0 4.438-.784 6.131-2.1.43-.333.626-.83.41-1.412A9.995 9.995 0 0010 12c-2.31 0-4.438.784-6.131 2.1-.43.333-.626.83-.41 1.412z" /></svg> Usuários <svg class="chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg></a></li>
-                    <li><a href="#"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z" clip-rule="evenodd" /></svg> Esportes</a></li>
-                    <li class="active"><a href="#"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M3.75 4.5A.75.75 0 003 5.25v9a.75.75 0 00.75.75h13.5a.75.75 0 00.75-.75v-9a.75.75 0 00-.75-.75H3.75zM10 6a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 0110 6zM5.25 7.5a.75.75 0 00-1.5 0v1.5a.75.75 0 001.5 0v-1.5zM15.75 7.5a.75.75 0 00-1.5 0v1.5a.75.75 0 001.5 0v-1.5z" /></svg> Oportunidades</a></li>
-                    <li><a href="#"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10zm0 5.25a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75a.75.75 0 01-.75-.75z" clip-rule="evenodd" /></svg> Listas</a></li>
-                    <li><a href="#"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-5a.75.75 0 01.75.75v4.5a.75.75 0 01-1.5 0v-4.5A.75.75 0 0110 5zm0 10a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" /></svg> Denúncias <svg class="chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg></a></li>
-                    <li><a href="#"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.75 2a.75.75 0 01.75.75V4h7V2.75a.75.75 0 011.5 0V4h.25A2.75 2.75 0 0118 6.75v8.5A2.75 2.75 0 0115.25 18H4.75A2.75 2.75 0 012 15.25v-8.5A2.75 2.75 0 014.75 4H5V2.75A.75.75 0 015.75 2zm-1 5.5c0-.414.336-.75.75-.75h10.5a.75.75 0 010 1.5H5.5a.75.75 0 01-.75-.75z" clip-rule="evenodd" /></svg> Conteúdo <svg class="chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg></a></li>
-                    <li><a href="#"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M12 9a1 1 0 011-1h1a1 1 0 110 2h-1a1 1 0 01-1-1zM3 9a1 1 0 011-1h1a1 1 0 110 2H4a1 1 0 01-1-1zM7.5 12a1 1 0 00-1 1v1a1 1 0 102 0v-1a1 1 0 00-1-1zM12 13a1 1 0 011-1h1a1 1 0 110 2h-1a1 1 0 01-1-1zM3 13a1 1 0 011-1h1a1 1 0 110 2H4a1 1 0 01-1-1zM7.5 4a1 1 0 00-1 1v1a1 1 0 102 0V5a1 1 0 00-1-1zM12 5a1 1 0 011-1h1a1 1 0 110 2h-1a1 1 0 01-1-1zM3 5a1 1 0 011-1h1a1 1 0 110 2H4a1 1 0 01-1-1zM7.5 8a1 1 0 00-1 1v1a1 1 0 102 0V9a1 1 0 00-1-1z" /></svg> Estatísticas</a></li>
-                </ul>
-            </nav>
+                    <li><a href="/dashboard/index"><ion-icon name="grid-outline"></ion-icon> Dashboard</a></li>
+                    <li><a href="/dashboard/usuarios"><ion-icon name="people-outline"></ion-icon> Usuários <ion-icon class="chevron" name="chevron-down-outline"></ion-icon></a></li>
+                    <li class="active"><a href="#"><ion-icon name="football-outline"></ion-icon> Esportes</a></li>
+                    <li><a href="/dashboard/oportunidades"><ion-icon name="rocket-outline"></ion-icon> Oportunidades</a></li>
+                    <li><a href=""><ion-icon name="list-outline"></ion-icon> Listas</a></li>
+                    <li><a href="#"><ion-icon name="alert-circle-outline"></ion-icon> Denúncias <ion-icon class="chevron" name="chevron-down-outline"></ion-icon></a></li>
+                    <li><a href="#"><ion-icon name="document-text-outline"></ion-icon> Conteúdo <ion-icon class="chevron" name="chevron-down-outline"></ion-icon></a></li>
+                    <li><a href="#"><ion-icon name="stats-chart-outline"></ion-icon> Estatísticas</a></li>
+</ul>
+</nav>
             <div class="sidebar-footer">
                 <ul>
                     <li><a href="#"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M11.078 2.25c-.217-.065-.434-.1-.652-.1-.218 0-.435.035-.652.1-.668.2-1.216.55-1.618 1.078A7.483 7.483 0 005.44 6.474c-.636.247-1.18.67-1.577 1.226A7.483 7.483 0 002.25 11.078c.065.217.1.434.1.652 0 .218-.035.435-.1.652-.2.668-.55 1.216-1.078 1.618A7.483 7.483 0 006.474 14.56c.247.636.67 1.18 1.226 1.577A7.483 7.483 0 0011.078 17.75c.217.065.434.1.652.1.218 0 .435-.035.652-.1.668-.2 1.216-.55 1.618-1.078A7.483 7.483 0 0014.56 13.526c.636-.247 1.18-.67 1.577-1.226A7.483 7.483 0 0017.75 8.922c-.065-.217-.1-.434-.1-.652 0-.218.035-.435.1-.652.2-.668.55-1.216 1.078-1.618A7.483 7.483 0 0013.526 5.44c-.247-.636-.67-1.18-1.226-1.577A7.483 7.483 0 008.922 2.25zM10 12.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z" clip-rule="evenodd" /></svg> Configurações</a></li>
@@ -427,48 +607,242 @@ td:first-child {
             <div class="content-body">
                 <div class="toolbar">
                     <div class="search-bar">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd" /></svg>
-                        <input type="text" placeholder="Pesquisar">
+                        
+                        <input type="text" id="searchInput" placeholder="Pesquisar">
                     </div>
-                    <button class="filter-button">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10zm0 5.25a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75a.75.75 0 01-.75-.75z" clip-rule="evenodd" /></svg>
-                        Ordenar por
-                        <svg class="chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
-                    </button>
-                    <button class="add-button">Adicionar</button>
+                    <button class="add-button" id="addSportBtn">Adicionar</button>
                 </div>
 
                 <div class="table-container">
                     <table>
                         <thead>
                             <tr>
-                                <th>Nome</th>
-                                <th>Descrição</th>
-                                <th>Status</th>
-                                <th>Data de cadastro</th>
-                                <th>Ações rápidas</th>
-                            </tr>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Status</th>
+                <th>Data de cadastro</th>
+                <th>Ações rápidas</th>
+            </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>Futebol</td>
-                                <td>Descrição genérica qualquer</td>
-                                <td><span class="status-badge active">Ativo</span></td>
-                                <td>23 de Outubro de 2024</td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="action-btn view"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M10 12.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" /><path fill-rule="evenodd" d="M.664 10.59a1.651 1.651 0 010-1.18l3.75-3.75a1.651 1.651 0 012.332 0l3.75 3.75a1.651 1.651 0 010 1.18l-3.75 3.75a1.651 1.651 0 01-2.332 0l-3.75-3.75zm10.404 0a1.651 1.651 0 010-1.18l3.75-3.75a1.651 1.651 0 012.332 0l3.75 3.75a1.651 1.651 0 010 1.18l-3.75 3.75a1.651 1.651 0 01-2.332 0l-3.75-3.75z" clip-rule="evenodd" /></svg></button>
-                                        <button class="action-btn edit"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M5.433 13.917l1.262-3.155A4 4 0 017.58 9.42l6.92-6.918a2.121 2.121 0 013 3l-6.92 6.918c-.383.383-.84.685-1.343.886l-3.154 1.262a.5.5 0 01-.65-.65z" /><path d="M3.5 5.75c0-.69.56-1.25 1.25-1.25H10A.75.75 0 0010 3H4.75A2.75 2.75 0 002 5.75v9.5A2.75 2.75 0 004.75 18h9.5A2.75 2.75 0 0017 15.25V10a.75.75 0 00-1.5 0v5.25c0 .69-.56 1.25-1.25 1.25h-9.5c-.69 0-1.25-.56-1.25-1.25v-9.5z" /></svg></button>
-                                        <button class="action-btn delete"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8.75 1A2.75 2.75 0 006 3.75v.443c-.795.077-1.58.22-2.365.468a.75.75 0 10.23 1.482l.149-.022.841 10.518A2.75 2.75 0 007.596 19h4.807a2.75 2.75 0 002.742-2.53l.841-10.52.149.023a.75.75 0 00.23-1.482A41.03 41.03 0 0014 4.193v-.443A2.75 2.75 0 0011.25 1H8.75zM10 4.5a.75.75 0 01.75.75v10.5a.75.75 0 01-1.5 0V5.25A.75.75 0 0110 4.5z" clip-rule="evenodd" /></svg></button>
-                                    </div>
-                                </td>
-                            </tr>
-                            
+                        <tbody id="sportsTableBody">
                         </tbody>
                     </table>
                 </div>
             </div>
         </main>
+        <div id="sportModal" class="modal-overlay" >
+    <div class="modal-container">
+        <div class="modal-header">
+            <h3 id="modalTitle">Adicionar Novo Esporte</h3>
+            <button id="closeModalBtn" class="modal-close-btn">&times;</button>
+        </div>
+        <form id="sportForm">
+            <!-- Campo oculto para armazenar o ID do esporte ao editar -->
+            <input type="hidden" id="sportId" name="id">
+            
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="nomeEsporte">Nome do Esporte</label>
+                    <input type="text" id="nomeEsporte" name="nomeEsporte" class="form-control" required>
+                    <small id="error-nomeEsporte" class="error-message"></small>
+                </div>
+                <div class="form-group">
+                    <label for="descricaoEsporte">Descrição</label>
+                    <textarea id="descricaoEsporte" name="descricaoEsporte" class="form-control" rows="4"></textarea>
+                    <small id="error-descricaoEsporte" class="error-message"></small>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="cancelBtn" class="btn btn-secondary">Cancelar</button>
+                <button type="submit" id="submitBtn" class="btn btn-primary">Salvar</button>
+            </div>
+        </form>
     </div>
+</div>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // Elementos da Tabela e Busca
+    const tableBody = document.getElementById('sportsTableBody');
+    const searchInput = document.getElementById('searchInput');
+
+    // Elementos do Modal
+    const modal = document.getElementById('sportModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const sportForm = document.getElementById('sportForm');
+    const sportIdInput = document.getElementById('sportId');
+    const nomeEsporteInput = document.getElementById('nomeEsporte');
+    const descricaoEsporteInput = document.getElementById('descricaoEsporte');
+    const addSportBtn = document.getElementById('addSportBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const cancelBtn = document.getElementById('cancelBtn');
+
+    let editMode = false;
+
+    // --- FUNÇÕES DE RENDERIZAÇÃO E API ---
+
+    function formatDate(dateString) {
+        if (!dateString) return 'N/A';
+        return new Date(dateString).toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+    }
+
+    async function fetchAndRenderSports(searchTerm = '') {
+        const url = `/api/esportes?q=${encodeURIComponent(searchTerm)}`;
+        tableBody.innerHTML = `<tr><td colspan="5">Carregando...</td></tr>`;
+
+        try {
+            const response = await fetch(url);
+            const result = await response.json();
+            const sports = result.data;
+
+            tableBody.innerHTML = '';
+            if (sports.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="5">Nenhum esporte encontrado.</td></tr>`;
+                return;
+            }
+
+            sports.forEach(sport => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${sport.nomeEsporte}</td>
+                    <td>${sport.descricaoEsporte || 'Nenhuma descrição'}</td>
+                    <td><span class="status-badge active">Ativo</span></td>
+                    <td>${formatDate(sport.created_at)}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="action-btn edit" data-id="${sport.id}"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M5.433 13.917l1.262-3.155A4 4 0 017.58 9.42l6.92-6.918a2.121 2.121 0 013 3l-6.92 6.918c-.383.383-.84.685-1.343.886l-3.154 1.262a.5.5 0 01-.65-.65z" /><path d="M3.5 5.75c0-.69.56-1.25 1.25-1.25H10A.75.75 0 0010 3H4.75A2.75 2.75 0 002 5.75v9.5A2.75 2.75 0 004.75 18h9.5A2.75 2.75 0 0017 15.25V10a.75.75 0 00-1.5 0v5.25c0 .69-.56 1.25-1.25 1.25h-9.5c-.69 0-1.25-.56-1.25-1.25v-9.5z" /></svg></button>
+                            <button class="action-btn delete" data-id="${sport.id}"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8.75 1A2.75 2.75 0 006 3.75v.443c-.795.077-1.58.22-2.365.468a.75.75 0 10.23 1.482l.149-.022.841 10.518A2.75 2.75 0 007.596 19h4.807a2.75 2.75 0 002.742-2.53l.841-10.52.149.023a.75.75 0 00.23-1.482A41.03 41.03 0 0014 4.193v-.443A2.75 2.75 0 0011.25 1H8.75zM10 4.5a.75.75 0 01.75.75v10.5a.75.75 0 01-1.5 0V5.25A.75.75 0 0110 4.5z" clip-rule="evenodd" /></svg></button>
+                        </div>
+                    </td>
+                `;
+                tableBody.appendChild(row );
+            });
+        } catch (error) {
+            console.error('Erro ao buscar esportes:', error);
+            tableBody.innerHTML = `<tr><td colspan="5">Erro ao carregar dados.</td></tr>`;
+        }
+    }
+
+    // --- FUNÇÕES DO MODAL ---
+
+    function openModalForCreate() {
+        editMode = false;
+        sportForm.reset();
+        sportIdInput.value = '';
+        modalTitle.textContent = 'Adicionar Novo Esporte';
+        modal.classList.add('show');
+    }
+
+    async function openModalForEdit(id) {
+        editMode = true;
+        sportForm.reset();
+        modal.classList.add('show');
+        
+        try {
+            const response = await fetch(`/api/esportes/${id}`);
+            const sport = await response.json();
+            
+            sportIdInput.value = sport.id;
+            nomeEsporteInput.value = sport.nomeEsporte;
+            descricaoEsporteInput.value = sport.descricaoEsporte;
+            
+            modalTitle.textContent = 'Editar Esporte';
+            modal.style.display = 'flex';
+        } catch (error) {
+            console.error('Erro ao buscar dados do esporte:', error);
+            alert('Não foi possível carregar os dados para edição.');
+        }
+    }
+
+    function closeModal() {
+        modal.style.display = 'none';
+        modal.classList.remove('show');
+    }
+
+    // --- LÓGICA DE EVENTOS ---
+
+    // Abrir modal
+    addSportBtn.addEventListener('click', openModalForCreate);
+    closeModalBtn.addEventListener('click', closeModal);
+    cancelBtn.addEventListener('click', closeModal);
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+
+    // Submeter formulário (Criar ou Editar)
+    sportForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const id = sportIdInput.value;
+        const url = editMode ? `/api/esportes/${id}` : '/api/esportes';
+        const method = editMode ? 'PUT' : 'POST';
+
+        const formData = new FormData(sportForm);
+        const data = Object.fromEntries(formData.entries());
+
+        try {
+            const response = await fetch(url, {
+                method: method,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}' // Adicione se usar CSRF
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                // Lógica para exibir erros de validação (opcional)
+                console.error('Erro de validação:', errorData.errors);
+                alert('Erro ao salvar: ' + (errorData.message || 'Verifique os dados'));
+                return;
+            }
+
+            closeModal();
+            fetchAndRenderSports(searchInput.value); // Atualiza a tabela
+        } catch (error) {
+            console.error('Erro ao salvar esporte:', error);
+            alert('Ocorreu um erro de rede.');
+        }
+    });
+
+    // Ações na tabela (Editar e Deletar)
+    tableBody.addEventListener('click', async (e) => {
+        const editBtn = e.target.closest('.action-btn.edit');
+        const deleteBtn = e.target.closest('.action-btn.delete');
+
+        if (editBtn) {
+            openModalForEdit(editBtn.dataset.id);
+        }
+
+        if (deleteBtn) {
+            const id = deleteBtn.dataset.id;
+            if (confirm('Tem certeza que deseja excluir este esporte?')) {
+                try {
+                    await fetch(`/api/esportes/${id}`, { method: 'DELETE' });
+                    fetchAndRenderSports(searchInput.value); // Atualiza a tabela
+                } catch (error) {
+                    console.error('Erro ao deletar esporte:', error);
+                    alert('Não foi possível excluir o esporte.');
+                }
+            }
+        }
+    });
+
+    // Busca
+    let debounceTimer;
+    searchInput.addEventListener('keyup', () => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+            fetchAndRenderSports(searchInput.value);
+        }, 300);
+    });
+
+    // Carga inicial
+    fetchAndRenderSports();
+});
+</script>
+
 </body>
 </html>

@@ -5,13 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Notificações</title>
     <link rel="stylesheet" href="./css/dashClub/notificaçaoClub.css">
+    <style>
+        #Logo{
+        width: 150px;
+        border-radius: 20px;
+    }
+    </style>
 </head>
 <body>
     <div class="container">
         <!-- Sidebar (IDÊNTICA AOS SEUS EXEMPLOS) -->
         <aside class="sidebar">
             <div class="logo-section">
-                <div class="logo-placeholder">Logo aqui</div>
+                <img id="Logo" src="{{ asset('img/logoPerfil.jpeg') }}" alt="Logo do Perfil">
             </div>
             
             <nav class="nav-menu">
@@ -66,7 +72,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{route('logout')}}" class="nav-link">
                             <img class="nav-icon" src="./img/sair.png" alt="Sair">
                             <span class="nav-text">Sair</span>
                         </a>
@@ -77,16 +83,17 @@
 
         <!-- Conteúdo Principal -->
         <main class="main-content">
-            <header class="page-header">
-                <div class="title-wrapper">
-                    <h1 class="page-title">Notificações</h1>
-                    <button class="mark-all-read-btn">Marcar todas como lidas</button>
-                </div>
+           <header class="page-header">
+                <h1 class="page-title">Mensagens</h1>
                 <div class="header-actions">
                     <span class="notification-bell">🔔</span>
                     <div class="user-profile">
-                        <span class="user-avatar"></span>
-                        <span class="user-name">João Pedro</span>
+                        <span class="user-avatar">👤</span>
+                       @auth
+                                    {{ Auth::user()->nomeClube ?? 'Nome do Clube' }}
+                                @else
+                                    Nome do Clube
+                                @endauth
                     </div>
                 </div>
             </header>

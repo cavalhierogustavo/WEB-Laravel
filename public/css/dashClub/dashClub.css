@@ -545,6 +545,9 @@ body {
 
 .suggestion-info {
     flex: 1;
+    /* Adicione estas duas propriedades para evitar que o container de texto seja espremido */
+    min-width: 0; /* Permite que o elemento encolha abaixo do seu tamanho de conteúdo */
+    overflow: hidden; /* Garante que o conteúdo interno não transborde */
 }
 
 .suggestion-name {
@@ -552,11 +555,20 @@ body {
     font-weight: 600;
     color: #333;
     margin-bottom: 2px;
+
+    /* Adicione estas três propriedades para controlar o texto longo */
+    white-space: nowrap;      /* Impede que o texto quebre a linha */
+    overflow: hidden;         /* Esconde o texto que transborda */
+    text-overflow: ellipsis;  /* Adiciona "..." no final do texto cortado */
 }
 
 .suggestion-handle {
     font-size: 12px;
     color: #666;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .suggestion-action {

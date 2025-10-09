@@ -159,20 +159,16 @@ body {
     cursor: pointer;
     padding: 6px 12px;
     border-radius: 20px;
-    border: 1px solid #e0e0e0;
+
     transition: background-color 0.2s ease;
 }
 
-.user-profile:hover {
-    background-color: #f0f0f0;
-}
+
 
 .user-avatar {
-    width: 28px;
-    height: 28px;
     border-radius: 50%;
-    background-color: #4CAF50;
     display: inline-block;
+    font-size: 24px;
 }
 
 .user-name {
@@ -482,7 +478,7 @@ body.dark-theme .page-title {
 }
 
 body.dark-theme .header-actions .user-profile {
-    border-color: var(--color-border);
+    border-color: var(--color-border); 
 }
 
 body.dark-theme .header-actions .user-profile:hover,

@@ -164,9 +164,41 @@ body {
 .add-button { background-color: var(--text-dark); color: var(--bg-white); border-color: var(--text-dark); }
 .add-button:hover { background-color: #374151; }
 
-.table-container { width: 100%; overflow-x: auto; }
-table { width: 100%; border-collapse: collapse; text-align: left; }
-th, td { padding: 12px 16px; vertical-align: middle; white-space: nowrap; }
+.table-container { 
+    width: 100%; 
+    overflow-x: auto; /* Isso já está correto! */
+}
+
+table { 
+    width: 100%; 
+    border-collapse: collapse; 
+    text-align: left; 
+    min-width: 900px; /* Mantenha esta linha! */
+    /* Remova a linha `max-width: 500px;` se ela ainda existir aqui. */
+}
+
+.description-cell {
+    /* 1. Permite que o texto quebre em várias linhas, se necessário. */
+    white-space: normal; 
+    
+    /* 2. Define uma largura máxima para esta coluna. */
+    max-width: 300px; /* Ajuste este valor conforme necessário */
+
+    /* 3. Esconde o texto que transborda da célula. */
+    overflow: hidden;
+
+    /* 4. Adiciona "..." ao final do texto cortado. */
+    text-overflow: ellipsis;
+
+    /* 5. Garante que o texto não quebre no meio de uma palavra (opcional, mas recomendado) */
+    word-wrap: break-word;
+}
+
+th, td { 
+    padding: 12px 16px; 
+    vertical-align: middle; 
+    white-space: nowrap; /* Impede que o texto quebre em várias linhas */
+}
 thead { border-bottom: 1px solid var(--border-color); }
 th { font-size: 12px; font-weight: 600; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.05em; }
 tbody tr { border-bottom: 1px solid var(--border-color); }
